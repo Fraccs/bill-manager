@@ -13,7 +13,6 @@
 #pragma once
 
 #include <ctime>
-#include <iostream>
 
 // Getting current year
 std::time_t date = std::time(nullptr);
@@ -21,14 +20,15 @@ std::tm *const pTInfo = std::localtime(&date);
 
 const int CURRENT_YEAR = 1900 + pTInfo->tm_year;
 
-// Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-const std::string currentDateTime() {
-    time_t now = time(0);
+// Current machine time in YYYY-MM-DD.HH:mm:ss format
+const std::string currentMachineTime() {
+    time_t machine_time = time(0);
     struct tm tstruct;
     char buf[80];
-    tstruct = *localtime(&now);
+
+    tstruct = *localtime(&machine_time);
     
-    // for more information about date/time format
+    // Formatting to a time string
     strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
 
     return buf;
