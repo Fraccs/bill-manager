@@ -12,11 +12,27 @@
 
 #pragma once
 
+#include <ctime>
+#include <iostream>
+
 // Getting current year
 std::time_t date = std::time(nullptr);
 std::tm *const pTInfo = std::localtime(&date);
 
 const int CURRENT_YEAR = 1900 + pTInfo->tm_year;
+
+// Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+const std::string currentDateTime() {
+    time_t now = time(0);
+    struct tm tstruct;
+    char buf[80];
+    tstruct = *localtime(&now);
+    
+    // for more information about date/time format
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
+}
 
 // Base class for Date
 class Date {

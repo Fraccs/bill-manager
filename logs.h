@@ -11,6 +11,7 @@
  *============================================================================*/
 
 #include <fstream>
+#include "date.h"
 
 // Logs the passed string to a txt
 void logToTxt(const std::string file_name, const std::string str) {
@@ -18,7 +19,7 @@ void logToTxt(const std::string file_name, const std::string str) {
 
     // Appending to the last istance of the file 
     log_file.open(file_name, std::fstream::app); 
-    log_file << str << std::endl;
+    log_file << currentDateTime() << str << std::endl;
 
     log_file.close();
 }
