@@ -15,9 +15,13 @@
 #include <ctime>
 
 // Getting current year
-std::time_t year = time(0);
-std::tm *ts = localtime(&year);
-const int CURRENT_YEAR = 1900 + ts->tm_year;
+const int currentMachineYear() {
+    std::time_t year = time(0);
+    std::tm *ts = localtime(&year);
+    const int current_year = 1900 + ts->tm_year;
+
+    return current_year;
+}
 
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
 const std::string currentMachineTime() {
@@ -80,7 +84,7 @@ class Date {
 
     // Set Date::year, throwing (const std::string)
     void setYear(int year) {
-        if(year < 1900 || year > CURRENT_YEAR) throw INVALID_YEAR;
+        if(year < 1900 || year > currentMachineYear()) throw INVALID_YEAR;
 
         this->year = year;
     }
