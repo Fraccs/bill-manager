@@ -10,8 +10,8 @@
  * Description : Main 
  *============================================================================*/
 
-#include "res/client.h"
-#include "res/logs.h"
+#include "Res/client.h"
+#include "Res/logs.h"
 
 int main() {
 
