@@ -14,6 +14,6 @@
 #include "res/logs.h"
 
 int main() {
-    
+
     return 0;
 }
