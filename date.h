@@ -20,18 +20,16 @@ std::tm *const pTInfo = std::localtime(&date);
 
 const int CURRENT_YEAR = 1900 + pTInfo->tm_year;
 
-// Current machine time in YYYY-MM-DD.HH:mm:ss format
+// Current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
 const std::string currentMachineTime() {
-    time_t machine_time = time(0);
-    struct tm tstruct;
-    char buf[80];
+    std::time_t machine_time = time(0);
+    std::tm tstruct = *localtime(&machine_time);;
+    char formatted_time[80];
 
-    tstruct = *localtime(&machine_time);
-    
     // Formatting to a time string
-    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+    strftime(formatted_time, sizeof(formatted_time), "%Y-%m-%d.%X", &tstruct);
 
-    return buf;
+    return formatted_time;
 }
 
 // Base class for Date
