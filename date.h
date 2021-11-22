@@ -15,15 +15,14 @@
 #include <ctime>
 
 // Getting current year
-std::time_t date = std::time(nullptr);
-std::tm *const pTInfo = std::localtime(&date);
+std::time_t year = time(0);
+std::tm *ts = localtime(&year);
+const int CURRENT_YEAR = 1900 + ts->tm_year;
 
-const int CURRENT_YEAR = 1900 + pTInfo->tm_year;
-
-// Current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
+// Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
 const std::string currentMachineTime() {
     std::time_t machine_time = time(0);
-    std::tm tstruct = *localtime(&machine_time);;
+    std::tm tstruct = *localtime(&machine_time);
     char formatted_time[80];
 
     // Formatting to a time string
@@ -74,14 +73,14 @@ class Date {
 
     // Set Date::month, throwing (const std::string)
     void setMonth(int month) {
-        if(month < 1 || month > 31) throw INVALID_MONTH;
+        if(month < 1 || month > 12) throw INVALID_MONTH;
 
         this->month = month;
     }
 
     // Set Date::year, throwing (const std::string)
     void setYear(int year) {
-        if(year < 1 || year > 31) throw INVALID_YEAR;
+        if(year < 1900 || year > CURRENT_YEAR) throw INVALID_YEAR;
 
         this->year = year;
     }
