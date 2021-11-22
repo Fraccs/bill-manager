@@ -14,8 +14,8 @@
 
 #include <iostream>
 #include <vector>
-#include <ctime>
 #include "date.h"
+#include "logs.h"
 
 // Base class for any type of Bill
 // It also contains the exception strings
@@ -39,9 +39,17 @@ class Bill {
         this->cost = cost;
     }
 
-    void setDueDate(Date due_date) {
-        // Code for due_date
-    }
+    // Needs fix
+    void setDueDate(int day, int month, int year) {
+        try {
+            due_date.setDay(day);
+            due_date.setMonth(month);
+            due_date.setYear(year);
+        }
+        catch(const std::string err) {
+            logToTxt("logs.txt", err);
+        }
+    }   
 
     // Get Bill::cost (const float reference)
     inline const float& getCost() const {return this->cost;}
