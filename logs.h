@@ -13,7 +13,7 @@
 #include <fstream>
 #include "date.h"
 
-// Logs the passed string to a txt
+// Logs the passed string to a txt, keeping track of the current machine time
 void logToTxt(const std::string file_name, const std::string str) {
     std::ofstream log_file;
 
