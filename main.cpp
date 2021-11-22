@@ -14,7 +14,14 @@
 #include "logs.h"
 
 int main() {
-    
+    Bill a;
+
+    try {
+        a.setCost(-1);
+    }
+    catch(const std::string str) {
+        logToTxt("logs.txt", str);
+    }
     
     return 0;
 }

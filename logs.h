@@ -19,7 +19,7 @@ void logToTxt(const std::string file_name, const std::string str) {
 
     // Appending to the last istance of the file 
     log_file.open(file_name, std::fstream::app); 
-    log_file << currentDateTime() << str << std::endl;
+    log_file << currentDateTime() << " | " << str << std::endl;
 
     log_file.close();
 }
