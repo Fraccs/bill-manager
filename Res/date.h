@@ -17,29 +17,26 @@
 
 // Returns the current machine year
 const int currentMachineYear() {
-    std::time_t year = time(0);
+    std::time_t year = time(nullptr);
     std::tm *ts = localtime(&year);
-    const int current_year = 1900 + ts->tm_year;
 
-    return current_year;
+    return 1900 + ts->tm_year;
 }
 
 // Returns the current machine month
 const int currentMachineMonth() {
-    std::time_t month = time(0);
+    std::time_t month = time(nullptr);
     std::tm *ts = localtime(&month);
-    const int current_month = 1 + ts->tm_mon;
-
-    return current_month;
+    
+    return 1 + ts->tm_mon;
 }
 
 // Returns the current machine day
 const int currentMachineDay() {
-    std::time_t day = time(0);
+    std::time_t day = time(nullptr);
     std::tm *ts = localtime(&day);
-    const int current_day = ts->tm_mday;
 
-    return current_day;
+    return ts->tm_mday;
 }
 
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
