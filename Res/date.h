@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 21/11/2021
+ * Last change : 22/11/2021
  * Description : Header containing date related classes and functions 
  *============================================================================*/
 
@@ -15,7 +15,7 @@
 #include <ctime>
 #include <string>
 
-// Getting current year
+// Returns the current machine year
 const int currentMachineYear() {
     std::time_t year = time(0);
     std::tm *ts = localtime(&year);
