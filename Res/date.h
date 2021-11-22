@@ -13,6 +13,7 @@
 #pragma once
 
 #include <ctime>
+#include <string>
 
 // Getting current year
 const int currentMachineYear() {
@@ -95,4 +96,9 @@ class Date {
     inline const int& getMonth() const {return this->month;}
     // Get Date::year (const int reference)
     inline const int& getYear() const {return this->year;}
+
+    // Returns the date in YYYY-MM-DD format (std::string)
+    const std::string getDate() {
+        return std::to_string(this->year)  + "-" + std::to_string(this->month) + "-" + std::to_string(this->day);
+    }
 };
