@@ -24,6 +24,24 @@ const int currentMachineYear() {
     return current_year;
 }
 
+// Returns the current machine month
+const int currentMachineMonth() {
+    std::time_t month = time(0);
+    std::tm *ts = localtime(&month);
+    const int current_month = 1 + ts->tm_mon;
+
+    return current_month;
+}
+
+// Returns the current machine day
+const int currentMachineDay() {
+    std::time_t day = time(0);
+    std::tm *ts = localtime(&day);
+    const int current_day = ts->tm_mday;
+
+    return current_day;
+}
+
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
 const std::string currentMachineTime() {
     std::time_t machine_time = time(0);
@@ -50,12 +68,16 @@ class Date {
 
     public:
     Date() {
-        this->day = 0;
-        this->month = 0;
-        this->year = 0;
+        this->day = currentMachineDay();
+        this->month = currentMachineMonth();
+        this->year = currentMachineYear();
     }
 
     Date(int day, int month, int year) {
+        if(day < 1 || day > 31) throw INVALID_DAY;
+        if(month < 1 || month > 12) throw INVALID_MONTH;
+        if(year < 1900 || year > currentMachineYear()) throw INVALID_YEAR;
+
         this->day = day;
         this->month = month;
         this->year = year;

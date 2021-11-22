@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 21/11/2021
+ * Last change : 22/11/2021
  * Description : Header containing "Bill" classes and sub classes 
  *============================================================================*/
 
@@ -39,7 +39,7 @@ class Bill {
         this->cost = cost;
     }
 
-    // Needs fix
+    // Set Bill::due_date       
     void setDueDate(int day, int month, int year) {
         try {
             due_date.setDay(day);
@@ -56,6 +56,7 @@ class Bill {
 };
 
 
+// Electrical bill
 class ElectricalBill : public Bill {
     private:
     float electrical_usage;
@@ -64,7 +65,6 @@ class ElectricalBill : public Bill {
     ElectricalBill() {
         this->cost = 1;
         this->electrical_usage = 0;
-        // Code for due_date
     }
 
     ElectricalBill(float cost, float electrical_usage, int day, int month, int year) {
