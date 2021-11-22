@@ -10,6 +10,8 @@
  * Description : Header containing logs related functions 
  *============================================================================*/
 
+#pragma once
+
 #include <fstream>
 #include "date.h"
 
