@@ -36,10 +36,10 @@ class Bill {
     ~Bill();
 
     // Set Bill::cost, throwing (const std::string)
-    void setCost(float cost);
+    void setCost(float);
 
     // Set Bill::due_date       
-    void setDueDate(int day, int month, int year);   
+    void setDueDate(int, int, int);   
 
     // Get Bill::cost (const float reference)
     inline const float& getCost() const;
@@ -53,7 +53,7 @@ class ElectricalBill : public Bill {
     public:
     ElectricalBill();
 
-    ElectricalBill(bool paid, float cost, float electrical_usage, int day, int month, int year);
+    ElectricalBill(bool, float, float, int, int, int);
 };
 
 // Gas bill
@@ -64,7 +64,7 @@ class GasBill : public Bill {
     public:
     GasBill();
 
-    GasBill(bool paid, float cost, float gas_usage, int day, int month, int year);
+    GasBill(bool, float, float, int, int, int);
 };
 
 // Water bill
@@ -75,7 +75,7 @@ class WaterBill : public Bill {
     public:
     WaterBill();
 
-    WaterBill(bool paid, float cost, float water_usage, int day, int month, int year);
+    WaterBill(bool, float, float, int, int, int);
 };
 
 // Phone bill
@@ -83,7 +83,7 @@ class PhoneBill : public Bill {
     public:
     PhoneBill();
 
-    PhoneBill(bool paid, float cost, int day, int month, int year);
+    PhoneBill(bool, float, int, int, int);
 };
 
 #endif
