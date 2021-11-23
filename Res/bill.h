@@ -23,7 +23,7 @@
 class Bill {
     protected:
     float cost;
-    bool paid; // If it was paid or not
+    bool paid;
     
     // Due date for the payment of the bill 
     Date due_date;
@@ -33,6 +33,8 @@ class Bill {
     const std::string NEGATIVE_USAGE = "Exception handled: Negative usage.";
 
     public:
+    ~Bill();
+
     // Set Bill::cost, throwing (const std::string)
     void setCost(float cost);
 
@@ -51,7 +53,7 @@ class ElectricalBill : public Bill {
     public:
     ElectricalBill();
 
-    ElectricalBill(float cost, float electrical_usage, int day, int month, int year);
+    ElectricalBill(bool paid, float cost, float electrical_usage, int day, int month, int year);
 };
 
 // Gas bill
@@ -62,7 +64,18 @@ class GasBill : public Bill {
     public:
     GasBill();
 
-    GasBill(float cost, float gas_usage, int day, int month, int year);
+    GasBill(bool paid, float cost, float gas_usage, int day, int month, int year);
+};
+
+// Water bill
+class WaterBill : public Bill {
+    private:
+    float water_usage;
+
+    public:
+    WaterBill();
+
+    WaterBill(bool paid, float cost, float water_usage, int day, int month, int year);
 };
 
 // Phone bill
@@ -70,7 +83,7 @@ class PhoneBill : public Bill {
     public:
     PhoneBill();
 
-    PhoneBill(float cost, float electrical_usage, int day, int month, int year);
+    PhoneBill(bool paid, float cost, int day, int month, int year);
 };
 
 #endif

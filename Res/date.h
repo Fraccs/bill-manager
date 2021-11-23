@@ -29,7 +29,7 @@ const int currentMachineDay();
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
 const std::string currentMachineTime();
 
-//Base class for date
+// Base class for date
 class Date {
     private:
     int day;

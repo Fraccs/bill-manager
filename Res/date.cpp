@@ -48,7 +48,6 @@ const std::string currentMachineTime() {
     return formatted_time;
 }
 
-
 Date::Date() {
     this->day = currentMachineDay();
     this->month = currentMachineMonth();
