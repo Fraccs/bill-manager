@@ -10,18 +10,13 @@
  * Description : Header containing logs related functions 
  *============================================================================*/
 
-#pragma once
+#ifndef _LOGS_H
+#define _LOGS_H
 
 #include <fstream>
 #include "date.h"
 
 // Logs the passed string to a txt, keeping track of the current machine time
-void logToTxt(const std::string file_name, const std::string str) {
-    std::ofstream log_file;
+void logToTxt(const std::string file_name, const std::string str);
 
-    // Appending to the last istance of the file 
-    log_file.open(file_name, std::fstream::app); 
-    log_file << currentMachineTime() << " | " << str << std::endl;
-
-    log_file.close();
-}
+#endif
