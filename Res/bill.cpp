@@ -120,7 +120,7 @@ WaterBill::WaterBill(bool paid, float cost, float water_usage, int day, int mont
 }
 
 
-// ----- class PhoneBill START ----- //
+// ----- class PhoneBill ----- //
 
 PhoneBill::PhoneBill() {
     this->paid = false;
