@@ -64,9 +64,6 @@ class Bill {
 
     // Get Bill::due_date (std::string)
     inline const Date& getDueDate() const;    
-
-    // Returns if the bill was paid in time
-    bool paidInTime();
 };
 
 #endif

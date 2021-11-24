@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 22/11/2021
+ * Last change : 24/11/2021
  * Description : Header containing logs related functions 
  *============================================================================*/
 
