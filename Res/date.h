@@ -62,7 +62,7 @@ class Date {
     inline const int& getYear() const;
 
     // Returns the date in YYYY-MM-DD format (std::string)
-    const std::string getDate();
+    const std::string getDateInString();
 };
 
 #endif

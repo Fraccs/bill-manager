@@ -103,6 +103,6 @@ inline const int& Date::getMonth() const {return this->month;}
 inline const int& Date::getYear() const {return this->year;}
 
 // Returns the date in YYYY-MM-DD format (std::string)
-const std::string Date::getDate() {
+const std::string Date::getDateInString() {
     return std::to_string(this->year)  + "-" + std::to_string(this->month) + "-" + std::to_string(this->day);
 }
