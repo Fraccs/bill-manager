@@ -28,7 +28,10 @@ class Bill {
     
     // Due date for the payment of the bill 
     Date due_date;
-    
+
+    // The date the bill was paid at
+    Date paid_date;
+
     // Exception strings
     const std::string NEGATIVE_COST = "Exception handled: Negative cost."; 
     const std::string NEGATIVE_USAGE = "Exception handled: Negative usage.";
@@ -50,11 +53,20 @@ class Bill {
     // Set Bill::due_date
     void setDueDate(Date due_date);
 
+    // Set Bill::paid_date
+    void setPaidDate(int day, int month, int year);
+
+    // Set Bill::paid_date
+    void setPaidDate(Date due_date);
+
     // Get Bill::cost (const float reference)
     inline const float& getCost() const;
 
     // Get Bill::due_date (std::string)
     inline const Date& getDueDate() const;    
+
+    // Returns if the bill was paid in time
+    bool paidInTime();
 };
 
 #endif

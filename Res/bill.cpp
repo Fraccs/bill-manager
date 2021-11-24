@@ -53,8 +53,6 @@ Bill::Bill(const Bill &bill) {
     this->paid = bill.paid;
 }
 
-Bill::~Bill() {}
-
 // Set Bill::cost, throwing (const std::string)
 void Bill::setCost(float cost) {
     if(cost <= 0) throw NEGATIVE_COST;
@@ -65,9 +63,9 @@ void Bill::setCost(float cost) {
 // Set Bill::due_date
 void Bill::setDueDate(int day, int month, int year) {
     try {
-        due_date.setDay(day);
-        due_date.setMonth(month);
-        due_date.setYear(year);
+        this->due_date.setDay(day);
+        this->due_date.setMonth(month);
+        this->due_date.setYear(year);
     }
     catch(const std::string err) {
         logToTxt("logs.txt", err);
@@ -77,6 +75,23 @@ void Bill::setDueDate(int day, int month, int year) {
 // Set Bill::due_date
 void Bill::setDueDate(Date due_date) {
     this->due_date = due_date;
+}
+
+// Set Bill::paid_date
+void Bill::setPaidDate(int day, int month, int year) {
+    try {
+        this->paid_date.setDay(day);
+        this->paid_date.setMonth(month);
+        this->paid_date.setYear(year);
+    }
+    catch(const std::string err) {
+        logToTxt("logs.txt", err);
+    }
+} 
+
+// Set Bill::paid_date
+void Bill::setPaidDate(Date paid_date) {
+    this->paid_date = paid_date;
 }
 
 // Get Bill::cost (const float reference)
