@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/11/2021
+ * Last change : 24/11/2021
  * Description : Header containing date related classes and functions prototypes 
  *============================================================================*/
 
@@ -43,16 +43,16 @@ class Date {
 
     public:
     Date();
-    Date(int, int, int);  
-    Date(const Date &);
+    Date(int day, int month, int year);  
+    Date(const Date &date);
     ~Date();
 
     // Set Date::day, throwing (const std::string)
-    void setDay(int);
+    void setDay(int day);
     // Set Date::month, throwing (const std::string)
-    void setMonth(int);
+    void setMonth(int month);
     // Set Date::year, throwing (const std::string)
-    void setYear(int);
+    void setYear(int year);
 
     // Get Date::day (const int reference)
     inline const int& getDay() const;

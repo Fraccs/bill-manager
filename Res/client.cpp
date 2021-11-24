@@ -12,6 +12,7 @@
 
 #include "client.h"
 
+// ----- class Client ----- //
 Client::Client() {
     this->username = "";
 }

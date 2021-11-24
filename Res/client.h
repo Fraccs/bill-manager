@@ -23,7 +23,7 @@ class Client {
     public:
     Client();
 
-    Client(std::string);
+    Client(std::string username);
 };
 
 #endif

@@ -17,6 +17,6 @@
 #include "date.h"
 
 // Logs the passed string to a txt, keeping track of the current machine time
-void logToTxt(const std::string, const std::string);
+void logToTxt(const std::string file_name, const std::string str);
 
 #endif

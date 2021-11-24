@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/11/2021
+ * Last change : 24/11/2021
  * Description : Source file containing date.h classes and functions bodies
  *============================================================================*/
 
