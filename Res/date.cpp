@@ -36,8 +36,20 @@ const int currentMachineDay() {
     return ts->tm_mday;
 }
 
+// Returns the current machine time in YYYY-MM-DD format (std::string)
+const std::string machineTimeDayAccurate() {
+    std::time_t machine_time = time(0);
+    std::tm tstruct = *localtime(&machine_time);
+    char formatted_time[80];
+
+    // Formatting to a time string
+    strftime(formatted_time, sizeof(formatted_time), "%Y-%m-%d", &tstruct);
+
+    return formatted_time;
+}
+
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
-const std::string currentMachineTime() {
+const std::string machineTimeSecAccurate() {
     std::time_t machine_time = time(0);
     std::tm tstruct = *localtime(&machine_time);
     char formatted_time[80];

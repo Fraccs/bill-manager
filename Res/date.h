@@ -26,8 +26,11 @@ const int currentMachineMonth();
 //Returns the current machine day
 const int currentMachineDay();
 
+// Returns the current machine time in YYYY-MM-DD format (std::string)
+const std::string machineTimeDayAccurate();
+
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
-const std::string currentMachineTime();
+const std::string machineTimeSecAccurate();
 
 // Base class for date
 class Date {
