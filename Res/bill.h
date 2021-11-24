@@ -21,9 +21,10 @@
 // Base class for any type of Bill
 // It also contains the exception strings
 class Bill {
-    protected:
-    float cost;
+    private:
     bool paid;
+    float cost;
+    float usage;
     
     // Due date for the payment of the bill 
     Date due_date;
@@ -33,16 +34,27 @@ class Bill {
     const std::string NEGATIVE_USAGE = "Exception handled: Negative usage.";
 
     public:
+    Bill();
+    Bill(bool paid, float cost, float usage, int day, int month, int year);
+    Bill(bool paid, float cost, float usage);
+    Bill& operator = (const Bill& bill);
+    Bill(const Bill &bill);
     ~Bill();
 
     // Set Bill::cost, throwing (const std::string)
     void setCost(float cost);
 
     // Set Bill::due_date       
-    void setDueDate(int day, int month, int year);   
+    void setDueDate(int day, int month, int year);  
+
+    // Set Bill::due_date
+    void setDueDate(Date due_date);
 
     // Get Bill::cost (const float reference)
     inline const float& getCost() const;
+
+    // Get Bill::due_date (std::string)
+    inline const Date& getDueDate() const;    
 };
 
 #endif

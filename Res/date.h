@@ -44,6 +44,7 @@ class Date {
     public:
     Date();
     Date(int day, int month, int year);  
+    Date operator = (const Date& date);
     Date(const Date &date);
     ~Date();
 

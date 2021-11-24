@@ -14,6 +14,45 @@
 
 // ----- class Bill ----- //
 
+Bill::Bill() {
+    this->paid = false;
+    this->cost = 0;
+    this->usage = 0;
+}
+
+Bill::Bill(bool paid, float cost, float usage, int day, int month, int year) {
+    if(cost <= 0) throw NEGATIVE_COST;
+    if(usage <= 0) throw NEGATIVE_USAGE;
+
+    try {
+        due_date.setDay(day);
+        due_date.setMonth(month);
+        due_date.setYear(year);
+    }
+    catch(const std::string err) {
+        logToTxt("logs.txt", err);
+    }
+    
+    this->paid = paid;
+    this->cost = cost;
+    this->usage = usage;
+}
+
+Bill::Bill(bool paid, float cost, float usage) {
+    if(cost <= 0) throw NEGATIVE_COST;
+    if(usage <= 0) throw NEGATIVE_USAGE;
+
+    this->paid = paid;
+    this->cost = cost;
+    this->usage = usage;
+}
+
+Bill::Bill(const Bill &bill) {
+    this->cost = bill.cost;
+    this->usage = bill.usage;
+    this->paid = bill.paid;
+}
+
 Bill::~Bill() {}
 
 // Set Bill::cost, throwing (const std::string)
@@ -35,5 +74,13 @@ void Bill::setDueDate(int day, int month, int year) {
     }
 } 
 
+// Set Bill::due_date
+void Bill::setDueDate(Date due_date) {
+    this->due_date = due_date;
+}
+
 // Get Bill::cost (const float reference)
 inline const float& Bill::getCost() const {return this->cost;}
+
+// Get Bill::due_date (std::string)
+inline const Date& Bill::getDueDate() const {return this->due_date;}    
