@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 24/11/2021
+ * Last change : 25/11/2021
  * Description : Source file containing bill.h classes and functions bodies
  *============================================================================*/
 
@@ -52,6 +52,8 @@ Bill::Bill(const Bill &bill) {
     this->usage = bill.usage;
     this->paid = bill.paid;
 }
+
+Bill::~Bill() {}
 
 // Set Bill::cost, throwing (const std::string)
 void Bill::setCost(float cost) {
