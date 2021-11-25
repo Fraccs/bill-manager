@@ -30,7 +30,7 @@ Bill::Bill(bool paid, float cost, float usage, int day, int month, int year) {
         due_date.setYear(year);
     }
     catch(const std::string err) {
-        logToTxt("logs.txt", err);
+        throw err;
     }
     
     this->paid = paid;
@@ -68,7 +68,7 @@ void Bill::setDueDate(int day, int month, int year) {
         this->due_date.setYear(year);
     }
     catch(const std::string err) {
-        logToTxt("logs.txt", err);
+        throw err;
     }
 } 
 
@@ -85,7 +85,7 @@ void Bill::setPaidDate(int day, int month, int year) {
         this->paid_date.setYear(year);
     }
     catch(const std::string err) {
-        logToTxt("logs.txt", err);
+        throw err;
     }
 } 
 
