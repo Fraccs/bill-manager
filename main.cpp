@@ -10,6 +10,8 @@
  * Description : Main 
  *============================================================================*/
 
+#include <iostream>
+
 #include "Res/client.h"
 #include "Res/logs.h"
 
@@ -18,7 +20,8 @@ int print_menu();
 
 int main() {
     Client client;
-    std::string temp_string;
+    std::string username;
+    std::string password;
     bool done = false;
     int choice;
 
@@ -33,24 +36,44 @@ int main() {
             break;
 
             case 1: {
-                std::cout << "REGISTER"              << std::endl; 
-                std::cout << "---------------------" << std::endl;
-                std::cout << "Username: "            << std::endl;
-                std::cin >> temp_string;
-                client.setUsername(temp_string);
-                std::cout << "Password: "            << std::endl;
-                std::cin >> temp_string;
-                client.setPassword(temp_string);
+                /*
+                while(true) {
+                    std::cout << "REGISTER"              << std::endl; 
+                    std::cout << "---------------------" << std::endl;
+                    std::cout << "Username: "            << std::endl;
+                    std::cin >> username;
+                    std::cout << "Password: "            << std::endl;
+                    std::cin >> password;
+ 
+                    try {
+                        client.setUsername(username);
+                        client.setPassword(password);
+                        break;
+                    }
+                    catch(const std::string err) {
+                        logToTxt("logs.txt", err);
+                        // Print error to the user
+                        continue;
+                    }
+                }
+                */
             }
             break;
 
             case 2: {
-                
+                /*
+                std::cout << "LOGIN"                 << std::endl; 
+                std::cout << "---------------------" << std::endl;
+                std::cout << "Username: "            << std::endl;
+                // Check for matching usernames
+                std::cout << "Password: "            << std::endl;
+                // Check for matching passwords
+                */
             }
             break;
 
             case 3: {
-                
+                // Code for logout
             }
             break;
 
@@ -71,10 +94,14 @@ int print_menu() {
 
     std::cout << "MENU'"                 << std::endl;
     std::cout << "---------------------" << std::endl;
-    std::cout << "0. Quit"               << std::endl;
-    std::cout << "1. Register"           << std::endl;
-    std::cout << "2. Login"              << std::endl;
-    std::cout << "3. Logout"             << std::endl;
+    std::cout << "0.  Quit"              << std::endl;
+    std::cout << "1.  Register"          << std::endl;
+    std::cout << "2.  Login"             << std::endl;
+    std::cout << "3.  Logout"            << std::endl;
+    std::cout << "4.  Insert bill"       << std::endl;
+    std::cout << "5.  Remove bill"       << std::endl;
+    std::cout << "6.  Get all bills"     << std::endl;
+    std::cout << "7.  Get bill by date"  << std::endl;
     std::cout << "---------------------" << std::endl;
     std::cout << "Choice: "              << std::endl;
     std::cin >> choice;
