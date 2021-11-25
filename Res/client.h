@@ -13,6 +13,9 @@
 #ifndef _CLIENT_H
 #define _CLIENT_H
 
+#include <iostream>
+#include <vector>
+
 #include "bill.h"
 
 class Client {
@@ -22,7 +25,8 @@ class Client {
     std::vector<Bill> bill_list;
 
     // Exception strings
-    const std::string INVALID_USERNAME = "Exception handled: username too short.";
+    const std::string INVALID_USERNAME = "Exception handled: invalid username.";
+    const std::string INVALID_PASSWORD = "Exception handled: invalid password.";
 
     public:
     Client();
@@ -34,6 +38,12 @@ class Client {
 
     // Set Client::password
     void setPassword(std::string password);
+
+    // Get Client::username
+    inline const std::string& getUsername() const;
+
+    // Get Client::username
+    inline const std::string& getPassword() const;
 };
 
 #endif
