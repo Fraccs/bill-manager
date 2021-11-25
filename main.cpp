@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 24/11/2021
+ * Last change : 25/11/2021
  * Description : Main 
  *============================================================================*/
 
@@ -17,6 +17,8 @@
 int print_menu();
 
 int main() {
+    Client client;
+    std::string temp_string;
     bool done = false;
     int choice;
 
@@ -31,7 +33,14 @@ int main() {
             break;
 
             case 1: {
-                
+                std::cout << "REGISTER"              << std::endl; 
+                std::cout << "---------------------" << std::endl;
+                std::cout << "Username: "            << std::endl;
+                std::cin >> temp_string;
+                client.setUsername(temp_string);
+                std::cout << "Password: "            << std::endl;
+                std::cin >> temp_string;
+                client.setPassword(temp_string);
             }
             break;
 
@@ -44,6 +53,11 @@ int main() {
                 
             }
             break;
+
+            default: {
+
+            }
+            break;
         }
     }
 
@@ -51,7 +65,7 @@ int main() {
 }
 
 
-// Prints the main menu
+// Prints the main menu and returns the choice
 int print_menu() {
     int choice;
 

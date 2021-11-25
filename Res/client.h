@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/11/2021
+ * Last change : 25/11/2021
  * Description : Header containing "Client" classes and sub classes prototypes
  *============================================================================*/
 
@@ -18,12 +18,22 @@
 class Client {
     private:
     std::string username;
+    std::string password;
     std::vector<Bill> bill_list;
+
+    // Exception strings
+    const std::string INVALID_USERNAME = "Exception handled: username too short.";
 
     public:
     Client();
 
     Client(std::string username);
+
+    // Set Client::username
+    void setUsername(std::string username);
+
+    // Set Client::password
+    void setPassword(std::string password);
 };
 
 #endif

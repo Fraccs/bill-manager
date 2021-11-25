@@ -20,3 +20,15 @@ Client::Client() {
 Client::Client(std::string username) {
     this->username = username;
 }
+
+// Set Client::username
+void Client::setUsername(std::string username) {
+    if(username.size() < 3) throw INVALID_USERNAME;
+
+    this->username = username;
+}
+
+// Set Client::password
+void Client::setPassword(std::string password) {
+    
+}
