@@ -23,42 +23,41 @@ bool starts_with_bill(std::string command) {
     return true;
 }
 
-// Returns the arguments of the passed command
-std::vector<char> find_flags(std::string command) {
-    std::vector<char> arguments;
+// Returns a vector containing all the flags of the passed command
+std::vector<std::string> find_flags(std::string command) {
+    std::vector<std::string> arguments;
+    std::string temp = "";
 
     for(int i = 0; i < command.size() - 3; i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+3] == ' ') {
-            arguments.push_back(command[i+2]);
+            temp.push_back(command[i+1]);
+            temp.push_back(command[i+2]);
+            
+            arguments.push_back(temp);
+            temp = "";
         }
-    }
 
-    return arguments;
-}
-
-// Returns the arguments of the passed command
-std::vector<std::string> find_flags(std::string command, int mode) {
-    std::vector<std::string> arguments;
-    std::string temp;
-
-    for(int i = 0; i < command.size() - 3; i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-' && (command[i+3] >= 'a' && command[i+3] <= 'z')) {
-            for(int j = i + 3; command[j] != ' ' || command[j] != '\0'; j++) {
+            for(int j = i + 1; command[j] != ' ' || command[j] != '\0'; j++) {
                 temp.push_back(command[j]);
             }
-        }
 
-        arguments.push_back(temp);
+            arguments.push_back(temp);
+            temp = "";
+        }   
     }
 
     return arguments;
 }
 
-// Returns an std::vector containing the arguments of the passed command
-std::vector<std::string> parse_command(std::string command) {
-    std::vector<std::string> temp;
+// Returns a string containing the argument relative to the passed flag
+std::string get_argument(std::string command, std::string flag) {
+    int pos = command.find(flag);
+    std::string arg;
 
-    if(!starts_with_bill(command)) throw "Exception handled: command doesn't begin with 'bill'";
+    for(int i = pos + flag.size() + 1; command[i] != ' ' || command[i] == '\0'; i++) {
+        arg.push_back(command[i]);
+    }
 
-    return temp;
+    return arg;
 }
