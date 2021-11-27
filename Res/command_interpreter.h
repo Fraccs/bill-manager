@@ -19,7 +19,13 @@
 // Returns if the command starts with "bill"
 bool starts_with_bill(std::string command);
 
+// Returns the flags of the passed command (char '-e')
+std::vector<char> find_flags(std::string command);
+
+// Returns the flags of the passed command (std::string '--example')
+std::vector<std::string> find_flags(std::string command, int mode);
+
 // Returns an std::vector containing the arguments of the passed command
-std::vector<std::string> parse_command(std::string command);
+std::vector<std::string> find_arguments(std::string command);
 
 #endif
