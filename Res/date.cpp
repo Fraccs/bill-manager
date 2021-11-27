@@ -60,12 +60,6 @@ const std::string machineTimeSecAccurate() {
     return formatted_time;
 }
 
-// Returns if the passed day is in YYYY-MM-DD format
-bool correctDateFormat(std::string date) {
-    if(date.size() != 10) return false; 
-
-}
-
 Date::Date() {
     this->day = currentMachineDay();
     this->month = currentMachineMonth();

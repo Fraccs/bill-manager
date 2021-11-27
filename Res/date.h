@@ -32,9 +32,6 @@ const std::string machineTimeDayAccurate();
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
 const std::string machineTimeSecAccurate();
 
-// Returns if the passed day is in YYYY-MM-DD format
-bool correctDateFormat(std::string date);
-
 // Base class for date
 class Date {
     private:
