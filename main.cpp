@@ -24,7 +24,9 @@ int main() {
     int choice;
 
     while(!done) {
-         
+        std::cout << ">: ";
+
+        
 
         
     }

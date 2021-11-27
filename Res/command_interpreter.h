@@ -13,6 +13,13 @@
 #ifndef _COMMAND_INTERPRETER_H
 #define _COMMAND_INTERPRETER_H
 
+#include <iostream>
+#include <vector>
 
+// Returns if the command starts with "bill"
+bool starts_with_bill(std::string command);
+
+// Returns an std::vector containing the arguments of the passed command
+std::vector<std::string> parse_command(std::string command);
 
 #endif
