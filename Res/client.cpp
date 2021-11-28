@@ -36,7 +36,7 @@ void Client::setPassword(std::string password) {
 }
 
 // Get Client::username
-inline const std::string& Client::getUsername() const {return this->username;}
+const std::string& Client::getUsername() const {return this->username;}
 
 // Get Client::username
-inline const std::string& Client::getPassword() const {return this->password;}
+const std::string& Client::getPassword() const {return this->password;}

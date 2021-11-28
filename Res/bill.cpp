@@ -97,7 +97,7 @@ void Bill::setPaidDate(Date paid_date) {
 }
 
 // Get Bill::cost (const float reference)
-inline const float& Bill::getCost() const {return this->cost;}
+const float& Bill::getCost() const {return this->cost;}
 
 // Get Bill::due_date (std::string)
-inline const Date& Bill::getDueDate() const {return this->due_date;}    
+const Date& Bill::getDueDate() const {return this->due_date;}    

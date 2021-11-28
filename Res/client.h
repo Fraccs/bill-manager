@@ -40,10 +40,10 @@ class Client {
     void setPassword(std::string password);
 
     // Get Client::username
-    inline const std::string& getUsername() const;
+    const std::string& getUsername() const;
 
     // Get Client::username
-    inline const std::string& getPassword() const;
+    const std::string& getPassword() const;
 };
 
 #endif

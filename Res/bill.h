@@ -60,10 +60,10 @@ class Bill {
     void setPaidDate(Date due_date);
 
     // Get Bill::cost (const float reference)
-    inline const float& getCost() const;
+    const float& getCost() const;
 
     // Get Bill::due_date (std::string)
-    inline const Date& getDueDate() const;    
+    const Date& getDueDate() const;    
 };
 
 #endif

@@ -106,13 +106,13 @@ void Date::setYear(int year) {
 }
 
 // Get Date::day (const int reference)
-inline const int& Date::getDay() const {return this->day;}
+const int& Date::getDay() const {return this->day;}
 
 // Get Date::month (const int reference)
-inline const int& Date::getMonth() const {return this->month;}
+const int& Date::getMonth() const {return this->month;}
 
 // Get Date::year (const int reference)
-inline const int& Date::getYear() const {return this->year;}
+const int& Date::getYear() const {return this->year;}
 
 // Returns the date in YYYY-MM-DD format (std::string)
 const std::string Date::getDateInString() {

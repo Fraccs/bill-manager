@@ -59,11 +59,11 @@ class Date {
     void setYear(int year);
 
     // Get Date::day (const int reference)
-    inline const int& getDay() const;
+    const int& getDay() const;
     // Get Date::month (const int reference)
-    inline const int& getMonth() const;
+    const int& getMonth() const;
     // Get Date::year (const int reference)
-    inline const int& getYear() const;
+    const int& getYear() const;
 
     // Returns the date in YYYY-MM-DD format (std::string)
     const std::string getDateInString();
