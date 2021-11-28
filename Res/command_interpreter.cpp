@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/11/2021
+ * Last change : 28/11/2021
  * Description : Source file containing command_interpreter.h functions definitions
  *============================================================================*/
 
@@ -32,13 +32,13 @@ std::vector<std::string> find_flags(std::string command) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+3] == ' ') {
             temp.push_back(command[i+1]);
             temp.push_back(command[i+2]);
-            
+
             arguments.push_back(temp);
             temp = "";
         }
 
-        if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-' && (command[i+3] >= 'a' && command[i+3] <= 'z')) {
-            for(int j = i + 1; command[j] != ' ' || command[j] != '\0'; j++) {
+        if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
+            for(int j = i + 1; command[j] != ' ' && command[j] != '\0'; j++) {
                 temp.push_back(command[j]);
             }
 
@@ -52,10 +52,9 @@ std::vector<std::string> find_flags(std::string command) {
 
 // Returns a string containing the argument relative to the passed flag
 std::string get_argument(std::string command, std::string flag) {
-    int pos = command.find(flag);
     std::string arg;
 
-    for(int i = pos + flag.size() + 1; command[i] != ' ' || command[i] == '\0'; i++) {
+    for(int i = command.find(flag) + flag.size() + 1; command[i] != ' ' && command[i] != '\0'; i++) {
         arg.push_back(command[i]);
     }
 
