@@ -21,32 +21,45 @@ int main() {
     Client client;
     std::string command;
     std::string argument;
+    std::string temp;
     std::vector<std::string> flags;
 
     while(true) {
         std::cout << ">: ";
-        std::cin >> command;
+        std::getline(std::cin, command);
 
-        if(command == "bill -q" || command == "bill --quit") return 0;
+        if(!starts_with_bill(command)) {
+            std::cout << "Unknown command '" << command << "'." << std::endl;
+            std::cout << "Try 'bill --help' for more info." << std::endl;
+            continue;
+        }
 
         flags = find_flags(command);
 
-        // Iterating through the flags
         for(int i = 0; i < flags.size(); i++) {
-            if(flags[i] == "-a" || flags[i] == "--add") {
-                argument = get_argument(command, flags[i]);  
+            if(flags[i] == "--quit") {
+                return 0;
             }
 
             if(flags[i] == "-r" || flags[i] == "--register") {
                 argument = get_argument(command, flags[i]);
-            
-                // Get the password (no echo)
+
+                std::cout << "Password: ";
+                std::cin >> temp;
+
+                try {
+                    client.registerClient(argument, temp);
+                }
+                catch(const char *err) {
+                    std::cout << err << std::endl;
+                }
             }
 
             if(flags[i] == "--login") {
                 argument = get_argument(command, flags[i]);
-            
-                // Get the password (no echo)
+
+                std::cout << "Password for '" << argument << "': ";
+                std::cin >> temp;
             }
 
             if(flags[i] == "--logout") {
