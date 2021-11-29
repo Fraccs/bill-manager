@@ -46,3 +46,32 @@ const std::string& Client::getUsername() const {return this->username;}
 
 // Get Client::username
 const std::string& Client::getPassword() const {return this->password;}
+
+// 
+void Client::registerClient(std::string username, std::string password) {
+    std::ifstream read;
+    std::ofstream write;
+    std::string temp;
+    std::string temp_user;
+
+    // Checking for other istances of username
+    read.open("clients.txt", std::fstream::app);
+
+    while(std::getline(read, temp)) {
+        for(int i = 0; temp[i] != ' ' && temp[i] != '\0'; i++) {
+            temp_user.push_back(temp[i]);
+
+            if(temp_user == username) {
+                throw "Client '" + username + "' is already registered.";
+            }
+        }
+    }
+    
+    read.close();
+    
+    // Writing in the file
+    write.open("clients.txt", std::fstream::app);
+    write << username << " " << password << std::endl;
+
+    write.close();
+}

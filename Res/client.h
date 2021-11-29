@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include "bill.h"
 
@@ -46,6 +47,9 @@ class Client {
 
     // Get Client::username
     const std::string& getPassword() const;
+
+    //
+    void registerClient(std::string username, std::string password);
 };
 
 #endif
