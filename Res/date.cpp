@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 24/11/2021
+ * Last change : 29/11/2021
  * Description : Source file containing date.h classes and functions bodies
  *============================================================================*/
 
@@ -76,10 +76,8 @@ Date::Date(int day, int month, int year) {
     this->year = year;
 }
 
-Date::Date(const Date &date) {
-    this->day = date.day;
-    this->month = date.month;
-    this->year = date.year;
+Date& Date::operator=(const Date& date) {
+    return *this;
 }
 
 Date::~Date() {}
