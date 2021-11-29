@@ -31,8 +31,10 @@ class Client {
     public:
     Client();
 
-    Client(std::string username);
+    Client(std::string username, std::string password);
 
+    ~Client();
+    
     // Set Client::username
     void setUsername(std::string username);
 
