@@ -1,22 +1,26 @@
-# bill-manager
-### A simple application that helps you to manage your bills.
+# **bill-manager**
+>### *A simple commandline application that helps you to manage your bills.*
 
-## Commands
+## **Commands**
 ### bill --help:
-  Prints the base help page of the program.
+Prints the base help page of the program.
 
 ### bill --login username:
 Log in an existing client.
-  Argument: username.
+
+**Argument:** username.
 
 ### bill --logout:
 Log out from the current client.
-  Argument: none.
+
+**Argument:** none.
 
 ### bill --quit:
 Stops the execution of the program.
-  Argument: none.
+
+**Argument:** none.
 
 ### bill --register username:
 Creates a new client (if it doesn't already exist).
-  Argmuent: username.
+
+**Argument:** username.
