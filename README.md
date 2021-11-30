@@ -1,2 +1,5 @@
 # bill-manager
-A simple application that helps you to manage your bills.
+### A simple application that helps you to manage your bills.
+
+## Commands
+### 
