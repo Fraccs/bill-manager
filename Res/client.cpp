@@ -2,7 +2,7 @@
  * Name        : client.h
  * Version     : Alpha
  * Since       : 2021
- * Author      : Aliprandi Fran   cesco <aliprandifrancescopp@gmail.com>
+ * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D

@@ -26,17 +26,52 @@ int main() {
 
     while(true) {
         std::cout << ">: ";
+        fflush(stdin);
         std::getline(std::cin, command);
+
+        if(command == "") continue;
 
         if(!starts_with_bill(command)) {
             std::cout << "Unknown command '" << command << "'." << std::endl;
-            std::cout << "Try 'bill --help' for more info." << std::endl;
-            continue;
+            std::cout << "Try 'bill --help' for more info." << std::endl;   
         }
 
         flags = find_flags(command);
 
         for(int i = 0; i < flags.size(); i++) {
+            if(flags[i] == "--cu") {
+                std::cout << client.getUsername() << std::endl;                
+            }
+
+            if(flags[i] == "--help") {
+                std::cout << "h";
+            }
+
+            if(flags[i] == "--login") {
+                argument = get_argument(command, flags[i]);
+
+                std::cout << "Password for '" << argument << "': ";
+                std::cin >> temp;
+
+                try {
+                    client.loginClient(argument, temp);
+                }
+                catch(const std::string err) {
+                    std::cout << err << std::endl;
+                }
+            }
+
+            if(flags[i] == "--logout") {
+                std::cout << "Logged out from user '" << client.getUsername() << "' successfully." << std::endl;
+                
+                try {
+                    client.logoutClient();
+                }
+                catch(const std::string err) {
+                    std::cout << err << std::endl;
+                }
+            }
+
             if(flags[i] == "--quit") {
                 return 0;
             }
@@ -53,28 +88,6 @@ int main() {
                 catch(const std::string err) {
                     std::cout << err << std::endl;
                 }
-            }
-
-            if(flags[i] == "--login") {
-                argument = get_argument(command, flags[i]);
-
-                std::cout << "Password for '" << argument << "': ";
-                std::cin >> temp;
-
-                try {
-                    client = client.loginClient(argument, temp);
-                }
-                catch(const std::string err) {
-                    std::cout << err << std::endl;
-                }
-            }
-
-            if(flags[i] == "--pwu") {
-                std::cout << client.getUsername() << std::endl;                
-            }
-
-            if(flags[i] == "--logout") {
-                std::cout << "Logged out from user '" << client.getUsername() << "' successfully." << std::endl;
             }
         }
     }
