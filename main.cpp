@@ -65,8 +65,6 @@ int main() {
             }
 
             if(flags[i] == "--logout") {
-                std::cout << "Logged out from user '" << client.getUsername() << "' successfully." << std::endl;
-                
                 try {
                     client.logoutClient();
                 }

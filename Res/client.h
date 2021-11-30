@@ -27,8 +27,7 @@ class Client {
     bool logged_in;
 
     // Exception strings
-    const std::string INVALID_USERNAME = "Exception handled: invalid username.";
-    const std::string INVALID_PASSWORD = "Exception handled: invalid password.";
+    const std::string INCORRECT_PASSWORD = "Incorrect password.";
 
     public:
     Client();
@@ -44,13 +43,15 @@ class Client {
     // Returns if there is a client logged in
     bool isLoggedIn();
 
-    // Checks if another istance of username exists, if it doesn't it saves the username and password in 'clients.txt'
+    /* Checks if another istance of username exists, 
+    if it doesn't it saves the username and password in 'clients.txt'*/
     void registerClient(std::string username, std::string password);
 
-    //
+    /* Looks for username matches in 'clients.txt', 
+    if it finds one and the password is correct it logs-in the given client*/
     void loginClient(std::string username, std::string password);
 
-    //
+    // Logout from the current client
     void logoutClient();
 };
 
