@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 29/11/2021
+ * Last change : 30/11/2021
  * Description : Main 
  *============================================================================*/
 
@@ -50,7 +50,7 @@ int main() {
                 try {
                     client.registerClient(argument, temp);
                 }
-                catch(const char *err) {
+                catch(const std::string err) {
                     std::cout << err << std::endl;
                 }
             }
@@ -60,6 +60,17 @@ int main() {
 
                 std::cout << "Password for '" << argument << "': ";
                 std::cin >> temp;
+
+                try {
+                    client = client.loginClient(argument, temp);
+                }
+                catch(const std::string err) {
+                    std::cout << err << std::endl;
+                }
+            }
+
+            if(flags[i] == "--pwu") {
+                std::cout << client.getUsername() << std::endl;                
             }
 
             if(flags[i] == "--logout") {
