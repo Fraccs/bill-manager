@@ -6,12 +6,17 @@
 Prints the base help page of the program.
 
 ### bill --login username:
-
+Log in an existing client.
+Argument: username.
 
 ### bill --logout:
+Log out from the current client.
+Argument: none.
 
-
-## bill --quit:
-
+### bill --quit:
+Stops the execution of the program.
+Argument: none.
 
 ### bill --register username:
+Creates a new client (if it doesn't already exist).
+Argmuent: username.
