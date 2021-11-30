@@ -2,25 +2,24 @@
 >### *A simple commandline application that helps you to manage your bills.*
 
 ## **Commands**
-### bill --help:
+### ***bill --cu***
+Prints the active client.
+
+### ***bill --help***
 Prints the base help page of the program.
 
-### bill --login username:
+### ***bill --login username***
 Log in an existing client.
 
-**Argument:** username.
+Argument: username.
 
-### bill --logout:
+### ***bill --logout***
 Log out from the current client.
 
-**Argument:** none.
-
-### bill --quit:
+### ***bill --quit***
 Stops the execution of the program.
 
-**Argument:** none.
-
-### bill --register username:
+### ***bill --register username***
 Creates a new client (if it doesn't already exist).
 
-**Argument:** username.
+Argument: username.
