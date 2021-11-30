@@ -16,6 +16,7 @@
 #include "Res/client.h"
 #include "Res/logs.h"
 #include "Res/command_interpreter.h"
+#include "Res/help.h"
 
 int main() {
     Client client;
@@ -39,12 +40,14 @@ int main() {
         flags = find_flags(command);
 
         for(int i = 0; i < flags.size(); i++) {
-            if(flags[i] == "--cu") {
+            if(flags[i] == "--client") {
                 std::cout << client.getUsername() << std::endl;                
             }
 
             if(flags[i] == "--help") {
-                std::cout << "h";
+                argument = get_argument(command, flags[i]);
+
+                print_help(argument);
             }
 
             if(flags[i] == "--login") {
