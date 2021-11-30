@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 25/11/2021
+ * Last change : 30/11/2021
  * Description : Header containing "Client" classes and sub classes prototypes
  *============================================================================*/
 
@@ -31,9 +31,8 @@ class Client {
 
     public:
     Client();
-
     Client(std::string username, std::string password);
-
+    Client& operator=(const Client& client);
     ~Client();
     
     // Set Client::username
@@ -48,8 +47,14 @@ class Client {
     // Get Client::username
     const std::string& getPassword() const;
 
-    //
+    // Checks if another istance of username exists, if it doesn't it saves the username and password in 'clients.txt'
     void registerClient(std::string username, std::string password);
+
+    //
+    Client loginClient(std::string username, std::string password);
+
+    //
+    void logoutClient();
 };
 
 #endif
