@@ -31,15 +31,8 @@ class Client {
 
     public:
     Client();
-    Client(std::string username, std::string password);
     Client& operator=(const Client& client);
     ~Client();
-    
-    // Set Client::username
-    void setUsername(std::string username);
-
-    // Set Client::password
-    void setPassword(std::string password);
 
     // Get Client::username
     const std::string& getUsername() const;
@@ -51,7 +44,7 @@ class Client {
     void registerClient(std::string username, std::string password);
 
     //
-    Client loginClient(std::string username, std::string password);
+    void loginClient(std::string username, std::string password);
 
     //
     void logoutClient();

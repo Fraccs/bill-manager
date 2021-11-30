@@ -18,35 +18,11 @@ Client::Client() {
     this->password = "Default";
 }
 
-Client::Client(std::string username, std::string password) {
-    if(username.size() < 3) throw INVALID_USERNAME;
-    if(password.size() < 8) throw INVALID_PASSWORD;
-    
-    this->username = username;
-    this->password = password;
-}
-
 Client& Client::operator=(const Client& client) {
     return *this;
 }
 
 Client::~Client() {}
-
-// Set Client::username
-void Client::setUsername(std::string username) {
-    if(username.size() < 3) throw INVALID_USERNAME;
-
-    this->username = username;
-}
-
-// Set Client::password
-void Client::setPassword(std::string password) {
-    if(password.size() < 8) throw INVALID_PASSWORD;
-
-    // Hash password
-
-    this->password = password;
-}
 
 // Get Client::username
 const std::string& Client::getUsername() const {return this->username;}
@@ -61,9 +37,9 @@ void Client::registerClient(std::string username, std::string password) {
     std::string temp;
     std::string temp_user;
 
-    // Checking for other istances of username
     read.open("clients.txt", std::fstream::app);
 
+    // Checking for other istances of username
     while(std::getline(read, temp)) {
         for(int i = 0; temp[i] != ' ' && temp[i] != '\0'; i++) {
             temp_user.push_back(temp[i]);
@@ -74,7 +50,11 @@ void Client::registerClient(std::string username, std::string password) {
         }
     }
     
-    read.close();
+    read.close(); 
+
+    // Autologin
+    this->username = username;
+    this->password = password;
     
     // Writing in the file
     write.open("clients.txt", std::fstream::app);
@@ -83,11 +63,10 @@ void Client::registerClient(std::string username, std::string password) {
 }
 
 //
-Client Client::loginClient(std::string username, std::string password) {
+void Client::loginClient(std::string username, std::string password) {
     std::ifstream read;
     std::string temp;
-    std::string temp_user;
-    Client c(username, password);
+    std::string temp_user, temp_pass;
 
     // Checking for other istances of username
     read.open("clients.txt", std::fstream::app);
@@ -95,10 +74,16 @@ Client Client::loginClient(std::string username, std::string password) {
     while(std::getline(read, temp)) {
         for(int i = 0; temp[i] != ' ' && temp[i] != '\0'; i++) {
             temp_user.push_back(temp[i]);
+        }
 
-            if(temp_user == username) {
-                return c;
-            }
+        for(int i = temp_user.size() + 1; temp[i] != ' ' && temp[i] != '\0'; i++) {
+            temp_pass.push_back(temp[i]);
+        }
+
+        if(temp_user == username && temp_pass == password) {
+            this->username = username;
+            this->password = password;
+            return;
         }
     }
     
