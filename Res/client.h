@@ -24,6 +24,7 @@ class Client {
     std::string username;
     std::string password;
     std::vector<Bill> bill_list;
+    bool logged_in;
 
     // Exception strings
     const std::string INVALID_USERNAME = "Exception handled: invalid username.";
@@ -39,6 +40,9 @@ class Client {
 
     // Get Client::username
     const std::string& getPassword() const;
+
+    // Returns if there is a client logged in
+    bool isLoggedIn();
 
     // Checks if another istance of username exists, if it doesn't it saves the username and password in 'clients.txt'
     void registerClient(std::string username, std::string password);
