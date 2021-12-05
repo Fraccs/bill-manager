@@ -6,24 +6,31 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 30/11/2021
+ * Last change : 05/12/2021
  * Description : Main 
  *============================================================================*/
 
 #include <iostream>
+#include <filesystem>
 #include <vector>
 
 #include "Res/client.h"
+#include "Res/bill.h"
 #include "Res/logs.h"
 #include "Res/command_interpreter.h"
 #include "Res/help.h"
 
 int main() {
     Client client;
+    Bill temp_bill;
     std::string command;
-    std::string argument;
+    std::string main_argument;
     std::string temp;
+    std::string main_flag;
     std::vector<std::string> flags;
+    std::vector<std::string> args;
+
+    std::filesystem::create_directory("Data");
 
     while(true) {
         std::cout << ">: ";
@@ -39,64 +46,104 @@ int main() {
             continue;
         }
 
-        // Getting all the flags in command
-        flags = find_flags(command);
+        // Getting the main flag ('--example')
+        main_flag = find_main_flag(command);
 
-        if(flags.size() == 0) {
-            std::cout << "No flags found in '" + command + "'." << std::endl;
+        if(main_flag.size() == 0) {
+            std::cout << "No main flag found in '" + command + "'." << std::endl;
             continue;
         }
 
-        for(int i = 0; i < flags.size(); i++) {
-            if(flags[i] == "--client") {
-                std::cout << client.getUsername() << std::endl;                
-            }
+        if(main_flag == "--add") {
+            flags = find_flags(command);
 
-            if(flags[i] == "--help") {
-                argument = get_argument(command, flags[i]);
+            try {
+                for(int i = 0; i < flags.size(); i++) {
+                    if(flags[i] == "-c") {
+                        temp_bill.setCost(stof(get_argument(command, flags[i])));
+                    }
 
-                print_help(argument);
-            }
+                    if(flags[i] == "-d") {
+                        temp_bill.setPaidDate(get_argument(command, flags[i]));
+                    }
 
-            if(flags[i] == "--login") {
-                argument = get_argument(command, flags[i]);
+                    if(flags[i] == "-e") {
+                        temp_bill.setDueDate(get_argument(command, flags[i]));
+                    }
 
-                std::cout << "Password for '" << argument << "': ";
-                std::cin >> temp;
+                    if(flags[i] == "-u") {     
+                        temp_bill.setUsage(stof(get_argument(command, flags[i])));             
+                    }
 
-                try {
-                    client.loginClient(argument, temp);
-                }
-                catch(const std::string err) {
-                    std::cout << err << std::endl;
-                }
-            }
+                    if(flags[i] == "-p") {
+                        temp_bill.setPaid();
+                    }   
 
-            if(flags[i] == "--logout") {
-                try {
-                    client.logoutClient();
-                }
-                catch(const std::string err) {
-                    std::cout << err << std::endl;
+                    if(flags[i] == "-t") {
+                        temp_bill.setType(get_argument(command, flags[i]));
+                    }    
                 }
             }
-
-            if(flags[i] == "--quit") {
-                return 0;
+            catch(const std::string err) {
+                std::cout << err << std::endl;
+                continue;
             }
+                   
+            client.add_bill(temp_bill);     
+        }
 
-            if(flags[i] == "-r" || flags[i] == "--register") {
-                argument = get_argument(command, flags[i]);
+        if(main_flag == "--client") {
+            std::cout << client.getUsername() << std::endl;                
+        }
 
-                std::cout << "Password: ";
-                std::cin >> temp;
+        if(main_flag == "--delete") {
+            std::cout << get_argument(command, "-d");
 
-                try {
-                    client.registerClient(argument, temp);
-                }
-                catch(const std::string err) {
-                    std::cout << err << std::endl;
-                }
+            client.delete_bill(get_argument(command, "-t"), get_argument(command, "-d"));   
+        }
+
+        if(main_flag == "--help") {
+            print_help();
+        }
+
+        if(main_flag == "--login") {
+            main_argument = get_argument(command, main_flag);
+
+            std::cout << "Password for '" << main_argument << "': ";
+            std::cin >> temp;
+
+            try {
+                client.loginClient(main_argument, temp);
+            }
+            catch(const std::string err) {
+                std::cout << err << std::endl;
+            }
+        }
+
+        if(main_flag == "--logout") {
+            try {
+                client.logoutClient();
+            }
+            catch(const std::string err) {
+                std::cout << err << std::endl;
+            }
+        }
+
+        if(main_flag == "--quit") {
+            return 0;
+        }
+
+        if(main_flag == "--register") {
+            main_argument = get_argument(command, main_flag);
+
+            std::cout << "Password: ";
+            std::cin >> temp;
+
+            try {
+                client.registerClient(main_argument, temp);
+            }
+            catch(const std::string err) {
+                std::cout << err << std::endl;
             }
         }
     }
