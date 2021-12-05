@@ -6,23 +6,16 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 30/11/2021
+ * Last change : 05/12/2021
  * Description : Source file containing help.h functions definitons 
  *============================================================================*/
 
 #include "help.h"
 
 // Prints the help page related to the passed string
-void print_help(std::string arg) {
-    if(arg.empty()) {
-        std::cout << "base" << std::endl;
-    }
-
-    if(arg == "client") {
-        std::cout << "client" << std::endl;
-    }
-
-    if(arg == "bill") {
-        std::cout << "bill" << std::endl;
-    }
+void print_help() {
+    std::cout << "Command type 1: bill --example" << std::endl;
+    std::cout << "Command type 2: bill --example argument" << std::endl;
+    std::cout << "Command type 3: bill --example -a argument -b argument -c argument" << std::endl;
+    std::cout << "For more information about commands check: https://github.com/Fraccs/bill-manager/blob/main/README.md" << std::endl;
 }
