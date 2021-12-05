@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 29/11/2021
+ * Last change : 05/12/2021
  * Description : Source file containing date.h classes and functions definitions
  *============================================================================*/
 
@@ -60,59 +60,18 @@ const std::string machineTimeSecAccurate() {
     return formatted_time;
 }
 
-Date::Date() {
-    this->day = currentMachineDay();
-    this->month = currentMachineMonth();
-    this->year = currentMachineYear();
-}
+// Returns if the passed date respects the YYYY-MM-DD format
+bool valid_format(std::string date) {
+    if(date.size() != 10) return false;
+    if(date[4] != '-' || date[7] != '-') return false;
 
-Date::Date(int day, int month, int year) {
-    if(day < 1 || day > 31) throw INVALID_DAY;
-    if(month < 1 || month > 12) throw INVALID_MONTH;
-    if(year < 1900 || year > currentMachineYear()) throw INVALID_YEAR;
+    for(int i = 0; i < date.size(); i++) {
+        if(date[i] < '0' || date[i] > '9') {
+            if(date[i] != '-') {
+                return false;
+            }
+        }
+    }
 
-    this->day = day;
-    this->month = month;
-    this->year = year;
-}
-
-Date& Date::operator=(const Date& date) {
-    return *this;
-}
-
-Date::~Date() {}
-
-// Set Date::day, throwing (const std::string)
-void Date::setDay(int day) {
-    if(day < 1 || day > 31) throw INVALID_DAY;
-
-    this->day = day;
-}
-
-// Set Date::month, throwing (const std::string)
-void Date::setMonth(int month) {
-    if(month < 1 || month > 12) throw INVALID_MONTH;
-
-    this->month = month;
-}
-
-// Set Date::year, throwing (const std::string)
-void Date::setYear(int year) {
-    if(year < 1900 || year > currentMachineYear()) throw INVALID_YEAR;
-
-    this->year = year;
-}
-
-// Get Date::day (const int reference)
-const int& Date::getDay() const {return this->day;}
-
-// Get Date::month (const int reference)
-const int& Date::getMonth() const {return this->month;}
-
-// Get Date::year (const int reference)
-const int& Date::getYear() const {return this->year;}
-
-// Returns the date in YYYY-MM-DD format (std::string)
-const std::string Date::getDateInString() {
-    return std::to_string(this->year)  + "-" + std::to_string(this->month) + "-" + std::to_string(this->day);
+    return true;
 }
