@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 25/11/2021
+ * Last change : 05/12/2021
  * Description : Header containing "Bill" classes and functions declarations
  *============================================================================*/
 
@@ -22,15 +22,12 @@
 // It also contains the exception strings
 class Bill {
     private:
+    std::string type; // Water, Electricity, Phone...
+    std::string due_date;
+    std::string paid_date;
     bool paid;
     float cost;
     float usage;
-    
-    // Due date for the payment of the bill 
-    Date due_date;
-
-    // The date the bill was paid at
-    Date paid_date;
 
     // Exception strings
     const std::string NEGATIVE_COST = "Exception handled: Negative cost."; 
@@ -38,32 +35,45 @@ class Bill {
 
     public:
     Bill();
-    Bill(bool paid, float cost, float usage, int day, int month, int year);
-    Bill(bool paid, float cost, float usage);
     Bill& operator = (const Bill& bill);
     Bill(const Bill &bill);
     ~Bill();
 
+    // Set Bill::type
+    void setType(std::string type);
+
     // Set Bill::cost, throwing (const std::string)
     void setCost(float cost);
 
-    // Set Bill::due_date       
-    void setDueDate(int day, int month, int year);  
+    // Set Bill::usage, throwing (const std::string)
+    void setUsage(float usage);
 
-    // Set Bill::due_date
-    void setDueDate(Date due_date);
+    // Set Bill::paid to true
+    void setPaid();
 
-    // Set Bill::paid_date
-    void setPaidDate(int day, int month, int year);
+    // Set Bill::due_date, throwing (const std::string)     
+    void setDueDate(std::string date);
 
-    // Set Bill::paid_date
-    void setPaidDate(Date due_date);
+    // Set Bill::paid_date, throwing (const std::string)
+    void setPaidDate(std::string date);
+
+    // Get Bill::type (const std::string)
+    const std::string getType() const;
 
     // Get Bill::cost (const float reference)
     const float& getCost() const;
 
-    // Get Bill::due_date (std::string)
-    const Date& getDueDate() const;    
+    // Get Bill::usage (const float reference)
+    const float& getUsage() const;
+
+    // Get Bill::paid (const bool reference)
+    const bool& getPaid() const;
+
+    // Get Bill::paid_date (const std::string reference)
+    const std::string& getPaidDate() const;
+    
+    // Get Bill::due_date (const std::string reference)
+    const std::string& getDueDate() const;
 };
 
 #endif
