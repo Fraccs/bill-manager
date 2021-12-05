@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/11/2021
+ * Last change : 05/12/2021
  * Description : Header containing commandline interface functions declarations
  *============================================================================*/
 
@@ -19,7 +19,10 @@
 // Returns if the command starts with "bill"
 bool starts_with_bill(std::string command);
 
-// Returns the flags of the passed command ('--example' or '-e')
+// Returns the flags of the passed command ('--example')
+std::string find_main_flag(std::string command);
+
+// Returns a vector containing all the flags of the passed command
 std::vector<std::string> find_flags(std::string command);
 
 // Returns a string containing the argument relative to the passed flag

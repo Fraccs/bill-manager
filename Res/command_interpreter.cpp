@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 30/11/2021
+ * Last change : 05/12/2021
  * Description : Source file containing command_interpreter.h functions definitions
  *============================================================================*/
 
@@ -23,6 +23,21 @@ bool starts_with_bill(std::string command) {
     return true;
 }
 
+// Returns the flags of the passed command ('--example')
+std::string find_main_flag(std::string command) {
+    std::string temp = "";
+
+    for(int i = 0; i < command.size(); i++) {
+        if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
+            for(int j = i + 1; command[j] != ' ' && command[j] != '\0'; j++) {
+                temp.push_back(command[j]);
+            }    
+        }
+    }
+
+    return temp;
+}
+
 // Returns a vector containing all the flags of the passed command
 std::vector<std::string> find_flags(std::string command) {
     std::vector<std::string> flags;
@@ -36,15 +51,6 @@ std::vector<std::string> find_flags(std::string command) {
             flags.push_back(temp);
             temp = "";
         }
-
-        if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
-            for(int j = i + 1; command[j] != ' ' && command[j] != '\0'; j++) {
-                temp.push_back(command[j]);
-            }
-
-            flags.push_back(temp);
-            temp = "";
-        }   
     }
 
     return flags;
