@@ -17,17 +17,17 @@
     * -p -> Paid: (If it was paid or not)
         * Argument: No argument, if this flag is included, the bill is set as paid.
     * -d -> Date: 
-        * Argument: DDMMYYYY date format.
+        * Argument: YYYY-MM-DD date format.
     * *If some flags aren't included in the command, the values will be set as default values.*
-* Example 1: bill --add -t Water -c 50 -d 22122021
-    * Result: Type=Water; Cost=50; Date=22/12/2021; Paid=false
+* Example 1: bill --add -t Water -c 50 -d 2021-12-22
+    * Result: Type=Water; Cost=50; Date=2021-12-22; Paid=false
 * Example 2: bill --add -t Gas -c 100 -u 1000 -p
     * Result: Type=Gas; Cost=100; Date=Today; Paid=true
 
 ### ***bill --client***
 * Prints the active client.
 
-### ***bill --delete -t -d***
+### ***bill --delete -t type -d YYYY-MM-DD***
 * Deletes a bill.
 
 ### ***bill --help***
