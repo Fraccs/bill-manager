@@ -1,7 +1,7 @@
 # **bill-manager**
 >### *A simple application that helps you to manage your bills.*
 
-## **Compilation**
+## **Compiler**
 > Compile using c++17 standard.
 
 ## **Commands**
