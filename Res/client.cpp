@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 30/11/2021
+ * Last change : 05/12/2021
  * Description : Source file containing client.h classes definitions
  *============================================================================*/
 
@@ -45,7 +45,7 @@ void Client::registerClient(std::string username, std::string password) {
     if(username.size() < 3) throw "Username '" + username + "' is too short, minimum length is 3.";
     if(logged_in) throw "You are logged in as '" + this->username + "', log out first.";
 
-    read.open("clients.txt", std::fstream::app);
+    read.open("Data/clients.txt", std::fstream::app);
 
     // Checking for other istances of username
     while(std::getline(read, temp)) {
@@ -66,9 +66,12 @@ void Client::registerClient(std::string username, std::string password) {
     this->logged_in = true;
     
     // Writing in the file
-    write.open("clients.txt", std::fstream::app);
+    write.open("Data/clients.txt", std::fstream::app);
     write << username << " " << password << std::endl;
     write.close();
+
+    // Creating a directory for 'username'
+    std::filesystem::create_directory("Data/" + username);
 }
 
 /* Looks for username matches in 'clients.txt', 
@@ -82,7 +85,7 @@ void Client::loginClient(std::string username, std::string password) {
     if(logged_in) throw "You are logged in as '" + username + "', log out first.";
 
     // Checking for other istances of username
-    read.open("clients.txt", std::fstream::app);
+    read.open("Data/clients.txt", std::fstream::app);
 
     while(std::getline(read, temp)) {
         temp_user = "";
@@ -122,4 +125,74 @@ void Client::logoutClient() {
     this->username = "Default";
     this->password = "Default";
     this->logged_in = false;
+}
+
+// Adds the passed bill to the client's bill list
+void Client::add_bill(Bill bill) {
+    std::ofstream write;
+    int num = 0;
+
+    auto dirIter = std::filesystem::directory_iterator("Data/" + username + "/");
+
+    // Getting the number of files in the client's directory
+    for(auto& entry: dirIter) {
+        if(entry.is_regular_file()){
+            num++;
+        }
+    }
+
+    write.open("Data/" + username + "/bill" + std::to_string(num + 1) + ".txt", std::fstream::app);
+    
+    write << bill.getType() << std::endl;
+    write << bill.getCost() << std::endl;
+    write << bill.getUsage() << std::endl;
+    write << bill.getPaid() << std::endl;
+    write << bill.getPaidDate() << std::endl;
+    write << bill.getDueDate() << std::endl;
+   
+    write.close();
+}
+
+// Deletes the passed bill from the client's bill list
+void Client::delete_bill(std::string type, std::string due_date) {
+    std::ifstream read;
+    std::string temp;
+    std::string filename;
+    bool found_type = false;
+    bool found_due_date = false;
+
+    auto dirIter = std::filesystem::directory_iterator("Data/" + username + "/");
+
+    std::cout << due_date << std::endl;
+
+    for(auto& entry: dirIter) {
+        if(entry.is_regular_file()){
+            std::filesystem::path path {entry};
+            std::string path_string {path.u8string()};
+
+            read.open(path_string);
+
+            while(std::getline(read, temp)) {
+                if(temp == type) {
+                    found_type = true;
+                }
+                else {
+                    found_type = false;
+                }
+
+                if(temp == due_date) {
+                    found_due_date = true;
+                }
+                else {
+                    found_due_date = false;
+                }
+
+                if(found_type && found_due_date) {
+                    std::remove(path_string.c_str());
+                }
+            }
+        }
+    }
+
+    read.close();
 }

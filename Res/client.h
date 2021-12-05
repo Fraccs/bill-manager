@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 30/11/2021
+ * Last change : 05/12/2021
  * Description : Header containing "Client" classes and sub classes declarations
  *============================================================================*/
 
@@ -14,6 +14,7 @@
 #define _CLIENT_H
 
 #include <iostream>
+#include <filesystem>
 #include <vector>
 #include <fstream>
 
@@ -23,7 +24,6 @@ class Client {
     private:
     std::string username;
     std::string password;
-    std::vector<Bill> bill_list;
     bool logged_in;
 
     // Exception strings
@@ -53,6 +53,12 @@ class Client {
 
     // Logout from the current client
     void logoutClient();
+
+    // Adds the passed bill to the client's bill list
+    void add_bill(Bill bill);
+
+    // Deletes the passed bill from the client's bill list
+    void delete_bill(std::string type, std::string due_date);
 };
 
 #endif
