@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 30/11/2021
- * Description : Header containing "Client" classes and sub classes
+ * Description : Source file containing client.h classes definitions
  *============================================================================*/
 
 #include "client.h"
@@ -79,7 +79,7 @@ void Client::loginClient(std::string username, std::string password) {
     std::string temp_user, temp_pass;
 
     if(username.size() < 3) throw "Username '" + username + "' is too short, minimum length is 3.";
-    if(logged_in) throw "You are logged in as '" + this->username + "', log out first.";
+    if(logged_in) throw "You are logged in as '" + username + "', log out first.";
 
     // Checking for other istances of username
     read.open("clients.txt", std::fstream::app);

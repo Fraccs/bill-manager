@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 29/11/2021
- * Description : Header containing date related classes and functions prototypes 
+ * Description : Header containing date related classes and functions declarations 
  *============================================================================*/
 
 #ifndef _DATE_H

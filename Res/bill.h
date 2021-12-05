@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 25/11/2021
- * Description : Header containing "Bill" classes and functions prototypes
+ * Description : Header containing "Bill" classes and functions declarations
  *============================================================================*/
 
 #ifndef _BILL_H

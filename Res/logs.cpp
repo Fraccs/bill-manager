@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 24/11/2021
- * Description : Source file containing logs.h functions bodies
+ * Description : Source file containing logs.h functions definition
  *============================================================================*/
 
 #include "logs.h"

@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 27/11/2021
- * Description : Header containing commandline interface functions
+ * Description : Header containing commandline interface functions declarations
  *============================================================================*/
 
 #ifndef _COMMAND_INTERPRETER_H

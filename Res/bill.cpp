@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 25/11/2021
- * Description : Source file containing bill.h classes and functions bodies
+ * Description : Source file containing bill.h classes and functions definitions
  *============================================================================*/
 
 #include "bill.h"

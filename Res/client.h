@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 30/11/2021
- * Description : Header containing "Client" classes and sub classes prototypes
+ * Description : Header containing "Client" classes and sub classes declarations
  *============================================================================*/
 
 #ifndef _CLIENT_H

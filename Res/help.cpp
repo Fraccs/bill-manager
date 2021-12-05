@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 30/11/2021
- * Description : Header containing help functions bodies 
+ * Description : Source file containing help.h functions definitons 
  *============================================================================*/
 
 #include "help.h"

@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 29/11/2021
- * Description : Source file containing date.h classes and functions bodies
+ * Description : Source file containing date.h classes and functions definitions
  *============================================================================*/
 
 #include "date.h"
