@@ -1,4 +1,4 @@
-CC=g++
+CC=g++ -std=c++17 
 OBJ=main.o bill.o client.o command_interpreter.o date.o help.o logs.o
 
 output: $(OBJ)
