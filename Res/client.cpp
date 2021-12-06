@@ -135,8 +135,8 @@ void Client::add_bill(Bill bill) {
     auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
 
     // Getting the number of files in the client's directory
-    for(auto& entry: file_iterator) {
-        if(entry.is_regular_file()){
+    for(auto& file: file_iterator) {
+        if(file.is_regular_file()){
             num++;
         }
     }
@@ -164,10 +164,10 @@ void Client::delete_bill(std::string type, std::string due_date) {
     auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
 
     // Iterating through all the lines of all the files
-    for(auto& entry: file_iterator) {
-        if(entry.is_regular_file()){
+    for(auto& file: file_iterator) {
+        if(file.is_regular_file()){
             // Getting file path (Data/User/bill.txt)
-            std::filesystem::path path {entry};
+            std::filesystem::path path {file};
             // Path to std::string
             std::string path_string {path.u8string()};
 
