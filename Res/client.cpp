@@ -157,7 +157,6 @@ void Client::add_bill(Bill bill) {
 void Client::delete_bill(std::string type, std::string due_date) {
     std::ifstream read;
     std::string temp;
-    std::string filename;
     bool found_type = false;
     bool found_due_date = false;
 
@@ -180,7 +179,7 @@ void Client::delete_bill(std::string type, std::string due_date) {
                 if(temp == due_date) found_due_date = true;
                 else found_due_date = false;
                 
-                if(found_type) {
+                if(found_type && found_due_date) {
                     read.close();
                     std::remove(path_string.c_str());
                 }
