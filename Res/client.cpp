@@ -132,10 +132,10 @@ void Client::add_bill(Bill bill) {
     std::ofstream write;
     int num = 0;
 
-    auto dirIter = std::filesystem::directory_iterator("Data/" + username + "/");
+    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
 
     // Getting the number of files in the client's directory
-    for(auto& entry: dirIter) {
+    for(auto& entry: file_iterator) {
         if(entry.is_regular_file()){
             num++;
         }
@@ -161,33 +161,27 @@ void Client::delete_bill(std::string type, std::string due_date) {
     bool found_type = false;
     bool found_due_date = false;
 
-    auto dirIter = std::filesystem::directory_iterator("Data/" + username + "/");
+    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
 
-    std::cout << due_date << std::endl;
-
-    for(auto& entry: dirIter) {
+    // Iterating through all the lines of all the files
+    for(auto& entry: file_iterator) {
         if(entry.is_regular_file()){
+            // Getting file path (Data/User/bill.txt)
             std::filesystem::path path {entry};
+            // Path to std::string
             std::string path_string {path.u8string()};
 
             read.open(path_string);
 
             while(std::getline(read, temp)) {
-                if(temp == type) {
-                    found_type = true;
-                }
-                else {
-                    found_type = false;
-                }
+                if(temp == type) found_type = true;
+                else found_type = false;
 
-                if(temp == due_date) {
-                    found_due_date = true;
-                }
-                else {
-                    found_due_date = false;
-                }
-
-                if(found_type && found_due_date) {
+                if(temp == due_date) found_due_date = true;
+                else found_due_date = false;
+                
+                if(found_type) {
+                    read.close();
                     std::remove(path_string.c_str());
                 }
             }
