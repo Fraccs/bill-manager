@@ -2,7 +2,9 @@
 >### *A simple application that helps you to manage your bills.*
 
 ## **Compiler**
-> Compile using c++17 standard.
+> Windows: g++ -std=c++17 -o bill_manager main.cpp .\Res\bill.cpp .\Res\client.cpp .\Res\command_interpreter.cpp .\Res\date.cpp .\Res\logs.cpp .\Res\help.cpp
+
+> Unix: Compile using 'make'. (Edit the included 'Makefile' with the correct compiler, default=g++).
 
 ## **Commands**
 ### ***bill --add***
@@ -27,7 +29,7 @@
 ### ***bill --client***
 * Prints the active client.
 
-### ***bill --delete -t type -d YYYY-MM-DD***
+### ***bill --delete -t type -e YYYY-MM-DD***
 * Deletes a bill.
 
 ### ***bill --help***
