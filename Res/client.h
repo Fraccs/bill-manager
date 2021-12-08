@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 05/12/2021
+ * Last change : 08/12/2021
  * Description : Header containing "Client" classes and sub classes declarations
  *============================================================================*/
 
@@ -59,6 +59,9 @@ class Client {
 
     // Deletes the passed bill from the client's bill list
     void delete_bill(std::string type, std::string due_date);
+
+    // Deletes all the bills of the logged client
+    void delete_all();
 };
 
 #endif
