@@ -43,6 +43,9 @@ std::vector<std::string> find_flags(std::string command) {
     std::vector<std::string> flags;
     std::string temp = "";
 
+    // Adding a space to the end, otherwise flags at the end wouldn't work
+    command.push_back(' ');
+
     for(int i = 0; i < command.size() - 3; i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+3] == ' ') {
             temp.push_back(command[i+1]);
