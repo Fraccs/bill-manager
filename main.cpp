@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 08/12/2021
+ * Last change : 09/12/2021
  * Description : Main 
  *============================================================================*/
 
@@ -114,7 +114,7 @@ int main() {
                 client.delete_all();
                 continue;
             }
-
+            
             client.delete_bill(get_argument(command, "-t"), get_argument(command, "-e"));   
         }
 
@@ -161,6 +161,17 @@ int main() {
             catch(const std::string err) {
                 std::cout << err << std::endl;
             }
+        }
+
+        if(main_flag == "--view") {
+            if(!client.isLoggedIn()) {
+                std::cout << "Log in a client first!" << std::endl;
+                continue;
+            }
+            
+            flags = find_flags(command);
+
+            client.view(flags); 
         }
     }
 }

@@ -1,10 +1,10 @@
 # **bill-manager**
->### *A simple application that helps you to manage your bills.*
+> ### *A simple application that helps you to manage your bills.*
 
 ## **Compiler**
 > Windows: g++ -std=c++17 -o bill_manager main.cpp .\Res\bill.cpp .\Res\client.cpp .\Res\command_interpreter.cpp .\Res\date.cpp .\Res\logs.cpp .\Res\help.cpp
 
-> Unix: Compile using 'make'. (Edit the included 'Makefile' with the correct compiler, default=g++).
+> Unix: Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=g++).
 
 ## **Commands**
 ### ***bill --add***
@@ -31,6 +31,8 @@
 
 ### ***bill --delete -t type -e YYYY-MM-DD***
 * Deletes a bill.
+* Example 1: bill --delete -t Generic -e 2021-12-08 
+* Example 2: bill --delete -t Water -e 2020-10-12
 
 ### ***bill --help***
 * Prints the base help page of the program.

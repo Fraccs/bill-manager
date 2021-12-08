@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 08/12/2021
+ * Last change : 09/12/2021
  * Description : Source file containing client.h classes definitions
  *============================================================================*/
 
@@ -143,12 +143,19 @@ void Client::add_bill(Bill bill) {
 
     write.open("Data/" + username + "/bill" + std::to_string(num + 1) + ".txt", std::fstream::app);
     
-    write << bill.getType() << std::endl;
-    write << bill.getCost() << std::endl;
-    write << bill.getUsage() << std::endl;
-    write << bill.getPaid() << std::endl;
-    write << bill.getPaidDate() << std::endl;
-    write << bill.getDueDate() << std::endl;
+    write << "Type: " << bill.getType() << std::endl;
+    write << "Cost: " << bill.getCost() << std::endl;
+    write << "Usage: " << bill.getUsage() << std::endl;
+
+    if(bill.getPaid()) {
+        write << "Paid: True" << std::endl;
+    }
+    else {
+        write << "Paid: False" << std::endl;
+    }
+
+    write << "Paid in: " << bill.getPaidDate() << std::endl;
+    write << "Due date: " << bill.getDueDate() << std::endl;
    
     write.close();
 }
@@ -175,9 +182,9 @@ void Client::delete_bill(std::string type, std::string due_date) {
             read.open(path_string);
 
             while(std::getline(read, temp)) {
-                if(temp == type) found_type = true;
+                if(temp == "Type: " + type) found_type = true;
 
-                if(temp == due_date) found_due_date = true;
+                if(temp == "Due date: " + due_date) found_due_date = true;
                 
                 if(found_type && found_due_date) {
                     read.close();
@@ -203,7 +210,7 @@ void Client::delete_all() {
     // Iterating through all the lines of all the files
     for(auto& file: file_iterator) {
         if(file.is_regular_file()){
-            // Getting file path (Data/User/bill.txt)
+            // Getting file path
             path = file;
             // Path to std::string
             path_string = path.u8string();
@@ -211,4 +218,32 @@ void Client::delete_all() {
             std::remove(path_string.c_str());            
        }
     }
+}
+
+// Prints the bills that match the flags
+void Client::view(std::vector<std::string> flags) {
+    std::ifstream read;
+    std::string temp;
+    std::string path_string;
+    std::filesystem::path path;
+
+    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+
+    // Iterating through the directory
+    for(auto& file: file_iterator) {
+        if(file.is_regular_file()){
+            // Getting file path
+            path = file;
+            // Path to std::string
+            path_string = path.u8string();
+
+            read.open(path_string);
+
+            while(std::getline(read, temp)) {
+                   
+            }
+
+            read.close();
+        }
+    }   
 }
