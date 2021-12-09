@@ -64,7 +64,7 @@ class Client {
     void deleteAll();
 
     // Prints the bills that match the flags
-    void viewAll(std::vector<std::string> flags);
+    void viewAll();
 
     // Prints the content of a bill
     void viewBill(std::string file_name);

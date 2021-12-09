@@ -203,9 +203,7 @@ void Client::deleteAll() {
 }
 
 // Prints the bills that match the flags
-void Client::viewAll(std::vector<std::string> flags) {
-    std::ifstream read;
-    std::string temp;
+void Client::viewAll() {
     std::string path_string;
     std::filesystem::path path;
 
@@ -219,13 +217,7 @@ void Client::viewAll(std::vector<std::string> flags) {
             // Path to std::string
             path_string = path.u8string();
 
-            read.open(path_string);
-
-            while(std::getline(read, temp)) {
-                   
-            }
-
-            read.close();
+            std::cout << file << std::endl; 
         }
     }   
 }
