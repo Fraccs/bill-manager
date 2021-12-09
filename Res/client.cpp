@@ -161,11 +161,8 @@ void Client::add_bill(Bill bill) {
 }
 
 // Deletes the passed bill from the client's bill list
-void Client::delete_bill(std::string type, std::string due_date) {
-    std::ifstream read;
+void Client::delete_bill(std::string file_name) {
     std::string temp;
-    bool found_type = false;
-    bool found_due_date = false;
     std::string path_string;
     std::filesystem::path path;
 
@@ -179,26 +176,11 @@ void Client::delete_bill(std::string type, std::string due_date) {
             // Path to std::string
             path_string = path.u8string();
 
-            read.open(path_string);
-
-            while(std::getline(read, temp)) {
-                if(temp == "Type: " + type) found_type = true;
-
-                if(temp == "Due date: " + due_date) found_due_date = true;
-                
-                if(found_type && found_due_date) {
-                    read.close();
-                    std::remove(path_string.c_str());
-                    return;
-                }
+            if(path_string == "Data/" + username + "/" + file_name + ".txt") {
+                std::remove(path_string.c_str());
             }
-
-            found_due_date = false;
-            found_type = true;
         }
     }
-
-    read.close();
 }
 
 // Deletes the passed bill from the client's bill list

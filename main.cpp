@@ -115,7 +115,9 @@ int main() {
                 continue;
             }
             
-            client.delete_bill(get_argument(command, "-t"), get_argument(command, "-e"));   
+            if(flags[0] == "-n") {
+                client.delete_bill(get_argument(command, flags[0]));
+            }
         }
 
         if(main_flag == "--help") {

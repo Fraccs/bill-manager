@@ -58,7 +58,7 @@ class Client {
     void add_bill(Bill bill);
 
     // Deletes the passed bill from the client's bill list
-    void delete_bill(std::string type, std::string due_date);
+    void delete_bill(std::string file_name);
 
     // Deletes all the bills of the logged client
     void delete_all();
