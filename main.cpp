@@ -94,7 +94,7 @@ int main() {
                 continue;
             }
                    
-            client.add_bill(temp_bill);     
+            client.addBill(temp_bill);     
         }
 
         if(main_flag == "--client") {
@@ -111,12 +111,12 @@ int main() {
 
             // bill --delete -a (deletes all bills)
             if(flags[0] == "-a") {
-                client.delete_all();
+                client.deleteAll();
                 continue;
             }
             
             if(flags[0] == "-n") {
-                client.delete_bill(get_argument(command, flags[0]));
+                client.deleteBill(get_argument(command, flags[0]));
             }
         }
 
@@ -173,7 +173,16 @@ int main() {
             
             flags = find_flags(command);
 
-            client.view(flags); 
+            if(flags[0] == "-n") {
+                try {
+                    client.viewBill(get_argument(command, flags[0]));
+                }
+                catch(const std::string err) {
+                    std::cout << err << std::endl;
+                }
+            }
+
+            client.viewAll(flags); 
         }
     }
 }

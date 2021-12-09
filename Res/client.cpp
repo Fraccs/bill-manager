@@ -260,4 +260,7 @@ void Client::viewBill(std::string file_name) {
             }
         }
     }   
+
+    // Bill not found
+    throw "Bill '" + file_name + "' not found."; 
 }
