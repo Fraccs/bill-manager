@@ -56,6 +56,11 @@ std::vector<std::string> find_flags(std::string command) {
         }
     }
 
+    // No flags found
+    if(flags.size() == 0) {
+        flags.push_back("NOFLAGS");
+    }
+
     return flags;
 }
 
