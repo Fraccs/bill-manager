@@ -229,3 +229,35 @@ void Client::viewAll(std::vector<std::string> flags) {
         }
     }   
 }
+
+// Prints the content of a bill
+void Client::viewBill(std::string file_name) {
+    std::ifstream read;
+    std::string temp;
+    std::string path_string;
+    std::filesystem::path path;
+
+    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+
+    // Iterating through the directory
+    for(auto& file: file_iterator) {
+        if(file.is_regular_file()){
+            // Getting file path
+            path = file;
+            // Path to std::string
+            path_string = path.u8string();
+
+            if(path_string == "Data/" + username + "/" + file_name + ".txt") {
+                read.open(path_string);
+
+                while(std::getline(read, temp)) {
+                    std::cout << temp << std::endl;
+                }
+
+                read.close();
+
+                return;
+            }
+        }
+    }   
+}
