@@ -170,19 +170,24 @@ int main() {
                 std::cout << "Log in a client first!" << std::endl;
                 continue;
             }
-            
+
             flags = find_flags(command);
 
-            if(flags[0] == "-n") {
-                try {
-                    client.viewBill(get_argument(command, flags[0]));
-                }
-                catch(const std::string err) {
-                    std::cout << err << std::endl;
+            if(flags[0] == "NOFLAGS") {
+                client.viewAll();
+            }
+            else {
+                for(int i = 0; i < flags.size(); i++) {
+                    if(flags[i] == "-n") {
+                        try {
+                            client.viewBill(get_argument(command, flags[i]));
+                        }
+                        catch(const std::string err) {
+                            std::cout << err << std::endl;
+                        }
+                    }
                 }
             }
-
-            client.viewAll(flags); 
         }
     }
 }
