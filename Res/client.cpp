@@ -128,7 +128,7 @@ void Client::logoutClient() {
 }
 
 // Adds the passed bill to the client's bill list
-void Client::add_bill(Bill bill) {
+void Client::addBill(Bill bill) {
     std::ofstream write;
     int num = 0;
 
@@ -161,7 +161,7 @@ void Client::add_bill(Bill bill) {
 }
 
 // Deletes the passed bill from the client's bill list
-void Client::delete_bill(std::string file_name) {
+void Client::deleteBill(std::string file_name) {
     std::string temp;
     std::string path_string;
     std::filesystem::path path;
@@ -184,7 +184,7 @@ void Client::delete_bill(std::string file_name) {
 }
 
 // Deletes the passed bill from the client's bill list
-void Client::delete_all() {
+void Client::deleteAll() {
     auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
     std::string path_string;
     std::filesystem::path path;
@@ -203,7 +203,7 @@ void Client::delete_all() {
 }
 
 // Prints the bills that match the flags
-void Client::view(std::vector<std::string> flags) {
+void Client::viewAll(std::vector<std::string> flags) {
     std::ifstream read;
     std::string temp;
     std::string path_string;

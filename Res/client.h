@@ -55,16 +55,19 @@ class Client {
     void logoutClient();
 
     // Adds the passed bill to the client's bill list
-    void add_bill(Bill bill);
+    void addBill(Bill bill);
 
     // Deletes the passed bill from the client's bill list
-    void delete_bill(std::string file_name);
+    void deleteBill(std::string file_name);
 
     // Deletes all the bills of the logged client
-    void delete_all();
+    void deleteAll();
 
     // Prints the bills that match the flags
-    void view(std::vector<std::string> flags);
+    void viewAll(std::vector<std::string> flags);
+
+    // Prints the content of a bill
+    void viewBill(std::string file_name);
 };
 
 #endif
