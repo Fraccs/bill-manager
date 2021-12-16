@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 09/12/2021
+ * Last change : 16/12/2021
  * Description : Main 
  *============================================================================*/
 
@@ -117,6 +117,10 @@ int main() {
             
             if(flags[0] == "-n") {
                 client.deleteBill(get_argument(command, flags[0]));
+            }
+
+            if(flags[0] == "-c") {
+                client.deleteClient();
             }
         }
 

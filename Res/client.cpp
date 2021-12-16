@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 09/12/2021
+ * Last change : 16/12/2021
  * Description : Source file containing client.h classes definitions
  *============================================================================*/
 
@@ -160,6 +160,25 @@ void Client::addBill(Bill bill) {
     write.close();
 }
 
+// Deletes all the bills of the logged client
+void Client::deleteAll() {
+    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+    std::string path_string;
+    std::filesystem::path path;
+
+    // Iterating through all the lines of all the files
+    for(auto& file: file_iterator) {
+        if(file.is_regular_file()){
+            // Getting file path
+            path = file;
+            // Path to std::string
+            path_string = path.u8string();
+
+            std::remove(path_string.c_str());            
+       }
+    }
+}
+
 // Deletes the passed bill from the client's bill list
 void Client::deleteBill(std::string file_name) {
     std::string temp;
@@ -183,23 +202,35 @@ void Client::deleteBill(std::string file_name) {
     }
 }
 
-// Deletes the passed bill from the client's bill list
-void Client::deleteAll() {
-    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
-    std::string path_string;
-    std::filesystem::path path;
+// Deletes the logged client
+void Client::deleteClient() {
+    std::ifstream read;
+    std::ofstream write;
+    std::string temp;
+    std::string temp_user;
 
-    // Iterating through all the lines of all the files
-    for(auto& file: file_iterator) {
-        if(file.is_regular_file()){
-            // Getting file path
-            path = file;
-            // Path to std::string
-            path_string = path.u8string();
+    read.open("Data/clients.txt");
+    write.open("Data/clients.txt");
 
-            std::remove(path_string.c_str());            
-       }
-    }
+    // Deleting client from clients.txt
+    // while(std::getline(read, temp)) {
+    //     for(int i = 0; temp[i] != ' '; i++) {
+    //         temp_user.push_back(temp[i]);
+    //     }
+
+    //     if(temp_user == username) {
+    //         write << "";
+    //     }
+    // }
+
+    read.close();
+    write.close();
+
+    // Deleting client's folder
+    deleteAll();
+    std::remove(("Data/" + username + "/").c_str());
+
+    logoutClient();
 }
 
 // Prints the bills that match the flags

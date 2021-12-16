@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 09/12/2021
+ * Last change : 16/12/2021
  * Description : Header containing "Client" classes and sub classes declarations
  *============================================================================*/
 
@@ -57,11 +57,14 @@ class Client {
     // Adds the passed bill to the client's bill list
     void addBill(Bill bill);
 
+    // Deletes all the bills of the logged client
+    void deleteAll();
+
     // Deletes the passed bill from the client's bill list
     void deleteBill(std::string file_name);
 
-    // Deletes all the bills of the logged client
-    void deleteAll();
+    // Deletes the logged client
+    void deleteClient();
 
     // Prints the bills that match the flags
     void viewAll();

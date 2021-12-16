@@ -36,6 +36,8 @@
         * Argument: NOARG.  
     * -n (file name)
         * Argument: file_name.
+    * -c (deletes sclient)
+        * Argument: NOARG.
 * Example 1: bill --delete -a 
     * Result:
         * Deleted all bills in the client's directory (no echo).
