@@ -1,6 +1,9 @@
 # **bill-manager**
 > ### *A simple application that helps you to manage your bills.*
 
+## **WARNING!**
+> ### *This is a school project and it is not maintained anymore!*
+
 ## **Compiler**
 > Windows: (compiler) -std=c++17 -o bill_manager main.cpp .\Res\bill.cpp .\Res\client.cpp .\Res\command_interpreter.cpp .\Res\date.cpp .\Res\logs.cpp .\Res\help.cpp
 
