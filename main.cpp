@@ -14,11 +14,11 @@
 #include <filesystem>
 #include <vector>
 
-#include "Res/client.h"
-#include "Res/bill.h"
-#include "Res/logs.h"
-#include "Res/command_interpreter.h"
-#include "Res/help.h"
+#include "src/client.h"
+#include "src/bill.h"
+#include "src/logs.h"
+#include "src/command_interpreter.h"
+#include "src/help.h"
 
 int main() {
     Client client;
