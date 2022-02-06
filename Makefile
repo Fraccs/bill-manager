@@ -7,23 +7,23 @@ output: $(OBJ)
 main.o: main.cpp
 	$(CC) -c main.cpp
 
-bill.o: Res/bill.h Res/bill.cpp
-	$(CC) -c Res/bill.cpp
+bill.o: src/bill.h src/bill.cpp
+	$(CC) -c src/bill.cpp
 
-client.o: Res/client.h Res/client.cpp
-	$(CC) -c Res/client.cpp
+client.o: src/client.h src/client.cpp
+	$(CC) -c src/client.cpp
 
-command_interpreter.o: Res/command_interpreter.h Res/command_interpreter.cpp
-	$(CC) -c Res/command_interpreter.cpp
+command_interpreter.o: src/command_interpreter.h src/command_interpreter.cpp
+	$(CC) -c src/command_interpreter.cpp
 
-date.o: Res/date.h Res/date.cpp
-	$(CC) -c Res/date.cpp
+date.o: src/date.h src/date.cpp
+	$(CC) -c src/date.cpp
 
-help.o: Res/help.h Res/help.cpp
-	$(CC) -c Res/help.cpp
+help.o: src/help.h src/help.cpp
+	$(CC) -c src/help.cpp
 
-logs.o: Res/logs.h Res/logs.cpp
-	$(CC) -c Res/logs.cpp
+logs.o: src/logs.h src/logs.cpp
+	$(CC) -c src/logs.cpp
 
 clean:
 	rm *.o bill_manager

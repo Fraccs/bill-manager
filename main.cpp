@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 16/12/2021
+ * Last change : 06/02/2022
  * Description : Main 
  *============================================================================*/
 
@@ -30,6 +30,7 @@ int main() {
     std::vector<std::string> flags;
     std::vector<std::string> args;
 
+    // Directory where all the data will be stored
     std::filesystem::create_directory("Data");
 
     while(true) {

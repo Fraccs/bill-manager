@@ -1,11 +1,11 @@
-# **bill-manager**
-> ### *A simple application that helps you to manage your bills.*
+# **Bill Manager**
+> ### *A simple command-line interface application that helps you to manage your bills.*
 
 ## **WARNING!**
 > ### *This is a school project and it is not maintained anymore!*
 
 ## **Compiler**
-> Windows: (compiler) -std=c++17 -o bill_manager main.cpp .\Res\bill.cpp .\Res\client.cpp .\Res\command_interpreter.cpp .\Res\date.cpp .\Res\logs.cpp .\Res\help.cpp
+> Windows: (compiler) -std=c++17 -o bill_manager main.cpp .\src\bill.cpp .\src\client.cpp .\src\command_interpreter.cpp .\src\date.cpp .\src\logs.cpp .\src\help.cpp
 
 > Unix: Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=g++).
 
