@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 16/12/2021
+ * Last change : 12/02/2022
  * Description : Header containing "Client" classes and sub classes declarations
  *============================================================================*/
 
@@ -18,7 +18,7 @@
 #include <vector>
 #include <fstream>
 
-#include "bill.h"
+#include "bill.hpp"
 
 class Client {
     private:

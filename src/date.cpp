@@ -6,11 +6,11 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 05/12/2021
+ * Last change : 12/02/2022
  * Description : Source file containing date.h classes and functions definitions
  *============================================================================*/
 
-#include "date.h"
+#include "date.hpp"
 
 // Returns the current machine year
 const int currentMachineYear() {

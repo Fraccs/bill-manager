@@ -1,21 +1,22 @@
 /*============================================================================
- * Name        : help.h
+ * Name        : logs.h
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 05/12/2021
- * Description : Header containing help functions declarations 
+ * Last change : 12/02/2022
+ * Description : Header containing logs related functions declarations
  *============================================================================*/
 
-#ifndef _HELP_H
-#define _HELP_H
+#ifndef _LOGS_H
+#define _LOGS_H
 
-#include <iostream>
+#include <fstream>
+#include "date.hpp"
 
-// Prints the help page related to the passed string
-void print_help();
+// Logs the passed string to a txt, keeping track of the current machine time
+void logToTxt(const std::string file_name, const std::string str);
 
 #endif

@@ -6,11 +6,11 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 05/12/2021
+ * Last change : 12/02/2022
  * Description : Source file containing bill.h classes and functions definitions
  *============================================================================*/
 
-#include "bill.h"
+#include "bill.hpp"
 
 // ----- class Bill ----- //
 

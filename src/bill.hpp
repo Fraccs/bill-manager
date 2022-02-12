@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 05/12/2021
+ * Last change : 12/02/2022
  * Description : Header containing "Bill" classes and functions declarations
  *============================================================================*/
 
@@ -15,8 +15,8 @@
 
 #include <iostream>
 
-#include "date.h"
-#include "logs.h"
+#include "date.hpp"
+#include "logs.hpp"
 
 // Base class for any type of Bill
 // It also contains the exception strings

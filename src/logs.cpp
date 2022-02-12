@@ -6,11 +6,11 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 24/11/2021
+ * Last change : 12/02/2022
  * Description : Source file containing logs.h functions definition
  *============================================================================*/
 
-#include "logs.h"
+#include "logs.hpp"
 
 void logToTxt(const std::string file_name, const std::string str) {
     std::ofstream log_file;

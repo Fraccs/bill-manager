@@ -6,11 +6,11 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 16/12/2021
+ * Last change : 12/02/2022
  * Description : Source file containing client.h classes definitions
  *============================================================================*/
 
-#include "client.h"
+#include "client.hpp"
 
 // ----- class Client ----- //
 Client::Client() {

@@ -6,11 +6,11 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 05/12/2021
+ * Last change : 12/02/2022
  * Description : Source file containing help.h functions definitons 
  *============================================================================*/
 
-#include "help.h"
+#include "help.hpp"
 
 // Prints the help page related to the passed string
 void print_help() {

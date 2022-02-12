@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 06/02/2022
+ * Last change : 12/02/2022
  * Description : Main 
  *============================================================================*/
 
@@ -14,11 +14,11 @@
 #include <filesystem>
 #include <vector>
 
-#include "src/client.h"
-#include "src/bill.h"
-#include "src/logs.h"
-#include "src/command_interpreter.h"
-#include "src/help.h"
+#include "src/client.hpp"
+#include "src/bill.hpp"
+#include "src/logs.hpp"
+#include "src/command_interpreter.hpp"
+#include "src/help.hpp"
 
 int main() {
     Client client;

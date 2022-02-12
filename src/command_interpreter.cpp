@@ -6,11 +6,11 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 08/12/2021
+ * Last change : 12/02/2022
  * Description : Source file containing command_interpreter.h functions definitions
  *============================================================================*/
 
-#include "command_interpreter.h"
+#include "command_interpreter.hpp"
 
 // Returns if the command starts with "bill"
 bool starts_with_bill(std::string command) {
