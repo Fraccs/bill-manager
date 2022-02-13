@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 12/02/2022
- * Description : Source file containing command_interpreter.h functions definitions
+ * Description : Source file containing command_interpreter.hpp functions definitions
  *============================================================================*/
 
 #include "command_interpreter.hpp"
