@@ -10,8 +10,8 @@
  * Description : Header containing date related classes and functions declarations 
  *============================================================================*/
 
-#ifndef _DATE_H
-#define _DATE_H
+#ifndef _DATE_HPP
+#define _DATE_HPP
 
 #include <iostream>
 #include <ctime>

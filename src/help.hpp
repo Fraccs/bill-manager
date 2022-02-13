@@ -10,8 +10,8 @@
  * Description : Header containing help functions declarations 
  *============================================================================*/
 
-#ifndef _HELP_H
-#define _HELP_H
+#ifndef _HELP_HPP
+#define _HELP_HPP
 
 #include <iostream>
 

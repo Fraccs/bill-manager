@@ -10,8 +10,8 @@
  * Description : Header containing logs related functions declarations
  *============================================================================*/
 
-#ifndef _LOGS_H
-#define _LOGS_H
+#ifndef _LOGS_HPP
+#define _LOGS_HPP
 
 #include <fstream>
 #include "date.hpp"
