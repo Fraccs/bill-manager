@@ -21,15 +21,16 @@ void setStdinEcho(bool enable_echo) {
     GetConsoleMode(hStdin, &mode);
 
     if(!enable_echo) {
-        mode &= ~enable_echo_ECHO_INPUT;
+        mode &= ~ENABLE_ECHO_INPUT;
     }
     else {
-        mode |= enable_echo_ECHO_INPUT;
+        mode |= ENABLE_ECHO_INPUT;
     }
 
-    SetConsoleMode(hStdin, mode );
+    SetConsoleMode(hStdin, mode);
 
     #else
+
     struct termios tty;
 
     tcgetattr(STDIN_FILENO, &tty);
