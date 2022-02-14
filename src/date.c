@@ -1,19 +1,19 @@
 /*============================================================================
- * Name        : date.cpp
+ * Name        : date.c
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 12/02/2022
- * Description : Source file containing date.hpp classes and functions definitions
+ * Last change : 14/02/2022
+ * Description : Source file containing date.h functions definitions
  *============================================================================*/
 
-#include "date.hpp"
+#include "date.h"
 
 // Returns the current machine year
-const int currentMachineYear() {
+int currentMachineYear() {
     std::time_t year = time(nullptr);
     std::tm *ts = localtime(&year);
 
@@ -21,7 +21,7 @@ const int currentMachineYear() {
 }
 
 // Returns the current machine month
-const int currentMachineMonth() {
+int currentMachineMonth() {
     std::time_t month = time(nullptr);
     std::tm *ts = localtime(&month);
     
@@ -29,15 +29,15 @@ const int currentMachineMonth() {
 }
 
 // Returns the current machine day
-const int currentMachineDay() {
+int currentMachineDay() {
     std::time_t day = time(nullptr);
     std::tm *ts = localtime(&day);
 
     return ts->tm_mday;
 }
 
-// Returns the current machine time in YYYY-MM-DD format (std::string)
-const std::string machineTimeDayAccurate() {
+// Returns the current machine time in YYYY-MM-DD format (char*)
+char* machineTimeDayAccurate() {
     std::time_t machine_time = time(0);
     std::tm tstruct = *localtime(&machine_time);
     char formatted_time[80];
@@ -48,8 +48,8 @@ const std::string machineTimeDayAccurate() {
     return formatted_time;
 }
 
-// Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
-const std::string machineTimeSecAccurate() {
+// Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (char*)
+char* machineTimeSecAccurate() {
     std::time_t machine_time = time(0);
     std::tm tstruct = *localtime(&machine_time);
     char formatted_time[80];
@@ -61,7 +61,7 @@ const std::string machineTimeSecAccurate() {
 }
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool valid_format(std::string date) {
+bool valid_format(char* date) {
     if(date.size() != 10) return false;
     if(date[4] != '-' || date[7] != '-') return false;
 

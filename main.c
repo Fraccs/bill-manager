@@ -1,49 +1,45 @@
 /*============================================================================
- * Name        : main.cpp
+ * Name        : main.c
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 12/02/2022
+ * Last change : 14/02/2022
  * Description : Main 
  *============================================================================*/
 
-#include <iostream>
-#include <filesystem>
-#include <vector>
+#include <stdio.h>
 
-#include "src/client.hpp"
-#include "src/bill.hpp"
-#include "src/logs.hpp"
-#include "src/command_interpreter.hpp"
-#include "src/help.hpp"
+#include "src/client.h"
+#include "src/bill.h"
+#include "src/logs.h"
+#include "src/command_interpreter.h"
+#include "src/help.h"
 
 int main() {
-    Client client;
-    Bill temp_bill;
-    std::string command;
-    std::string main_argument;
-    std::string temp;
-    std::string main_flag;
-    std::vector<std::string> flags;
-    std::vector<std::string> args;
+    char *command;
+    char *main_argument;
+    char *temp;
+    char *main_flag;
+    char **flags;
+    char **args;
 
     // Directory where all the data will be stored
-    std::filesystem::create_directory("Data");
+    // filesystem::create_directory("Data");
 
     while(true) {
-        std::cout << ">: ";
+        printf(">: ");
         fflush(stdin);
-        std::getline(std::cin, command);
+        getline(cin, command);
 
         // Blank input
         if(command == "") continue;
 
         if(!starts_with_bill(command)) {
-            std::cout << "Unknown command '" << command << "'." << std::endl;
-            std::cout << "Try 'bill --help' for more info." << std::endl;   
+            printf("Unknown command '%s'.\n", command);
+            printf("Try 'bill --help' for more info.\n");   
             continue;
         }
 
@@ -51,13 +47,13 @@ int main() {
         main_flag = find_main_flag(command);
 
         if(main_flag.size() == 0) {
-            std::cout << "No main flag found in '" + command + "'." << std::endl;
+            printf("No main flag found in '%s'.\n", command);
             continue;
         }
 
         if(main_flag == "--add") {
             if(!client.isLoggedIn()) {
-                std::cout << "Log in a client first!" << std::endl;
+                cout << "Log in a client first!" << endl;
                 continue;
             }
 
@@ -90,8 +86,8 @@ int main() {
                     }    
                 }
             }
-            catch(const std::string err) {
-                std::cout << err << std::endl;
+            catch(const string err) {
+                cout << err << endl;
                 continue;
             }
                    
@@ -99,12 +95,12 @@ int main() {
         }
 
         if(main_flag == "--client") {
-            std::cout << client.getUsername() << std::endl;                
+            cout << client.getUsername() << endl;                
         }
 
         if(main_flag == "--delete") {
             if(!client.isLoggedIn()) {
-                std::cout << "Log in a client first!" << std::endl;
+                cout << "Log in a client first!" << endl;
                 continue;
             }
 
@@ -132,14 +128,14 @@ int main() {
         if(main_flag == "--login") {
             main_argument = get_argument(command, main_flag);
 
-            std::cout << "Password for '" << main_argument << "': ";
-            std::cin >> temp;
+            cout << "Password for '" << main_argument << "': ";
+            cin >> temp;
 
             try {
                 client.loginClient(main_argument, temp);
             }
-            catch(const std::string err) {
-                std::cout << err << std::endl;
+            catch(const string err) {
+                cout << err << endl;
             }
         }
 
@@ -147,8 +143,8 @@ int main() {
             try {
                 client.logoutClient();
             }
-            catch(const std::string err) {
-                std::cout << err << std::endl;
+            catch(const string err) {
+                cout << err << endl;
             }
         }
 
@@ -159,20 +155,20 @@ int main() {
         if(main_flag == "--register") {
             main_argument = get_argument(command, main_flag);
 
-            std::cout << "Password: ";
-            std::cin >> temp;
+            cout << "Password: ";
+            cin >> temp;
 
             try {
                 client.registerClient(main_argument, temp);
             }
-            catch(const std::string err) {
-                std::cout << err << std::endl;
+            catch(const string err) {
+                cout << err << endl;
             }
         }
 
         if(main_flag == "--view") {
             if(!client.isLoggedIn()) {
-                std::cout << "Log in a client first!" << std::endl;
+                cout << "Log in a client first!" << endl;
                 continue;
             }
 
@@ -187,8 +183,8 @@ int main() {
                         try {
                             client.viewBill(get_argument(command, flags[i]));
                         }
-                        catch(const std::string err) {
-                            std::cout << err << std::endl;
+                        catch(const string err) {
+                            cout << err << endl;
                         }
                     }
                 }

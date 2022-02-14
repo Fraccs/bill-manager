@@ -1,19 +1,19 @@
 /*============================================================================
- * Name        : command_interpreter.cpp
+ * Name        : command_interpreter.c
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 12/02/2022
- * Description : Source file containing command_interpreter.hpp functions definitions
+ * Last change : 14/02/2022
+ * Description : Source file containing command_interpreter.h functions definitions
  *============================================================================*/
 
-#include "command_interpreter.hpp"
+#include "command_interpreter.h"
 
 // Returns if the command starts with "bill"
-bool starts_with_bill(std::string command) {
+bool starts_with_bill(char* command) {
     if(command[0] != 'b') return false;
     if(command[1] != 'i') return false;
     if(command[2] != 'l') return false;
@@ -24,8 +24,8 @@ bool starts_with_bill(std::string command) {
 }
 
 // Returns the flags of the passed command ('--example')
-std::string find_main_flag(std::string command) {
-    std::string temp = "";
+char* find_main_flag(char* command) {
+    char* temp = "";
 
     for(int i = 0; i < command.size(); i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
@@ -39,9 +39,9 @@ std::string find_main_flag(std::string command) {
 }
 
 // Returns a vector containing all the flags of the passed command
-std::vector<std::string> find_flags(std::string command) {
-    std::vector<std::string> flags;
-    std::string temp = "";
+char** find_flags(char* command) {
+    char** flags;
+    char* temp = "";
 
     // Adding a space to the end, otherwise flags at the end wouldn't work
     command.push_back(' ');
@@ -65,8 +65,8 @@ std::vector<std::string> find_flags(std::string command) {
 }
 
 // Returns a string containing the argument relative to the passed flag
-std::string get_argument(std::string command, std::string flag) {
-    std::string arg;
+char* get_argument(char* command, char* flag) {
+    char* arg;
 
     for(int i = command.find(flag) + flag.size() + 1; command[i] != ' ' && command[i] != '\0'; i++) {
         arg.push_back(command[i]);

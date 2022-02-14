@@ -6,11 +6,11 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 12/02/2022
- * Description : Source file containing client.hpp classes definitions
+ * Last change : 14/02/2022
+ * Description : Source file containing client.h classes definitions
  *============================================================================*/
 
-#include "client.hpp"
+#include "client.h"
 
 // ----- class Client ----- //
 Client::Client() {
@@ -26,21 +26,21 @@ Client& Client::operator=(const Client& client) {
 Client::~Client() {}
 
 // Get Client::username
-const std::string& Client::getUsername() const {return this->username;}
+const char* Client::getUsername() const {return this->username;}
 
 // Get Client::username
-const std::string& Client::getPassword() const {return this->password;}
+const char* Client::getPassword() const {return this->password;}
 
 // Returns if there is a client logged in
 bool Client::isLoggedIn() {return this->logged_in;}
 
 /* Checks if another istance of username exists, 
 if it doesn't it saves the username and password in 'clients.txt'*/
-void Client::registerClient(std::string username, std::string password) {
+void Client::registerClient(char* username, char* password) {
     std::ifstream read;
     std::ofstream write;
-    std::string temp;
-    std::string temp_user;
+    char* temp;
+    char* temp_user;
 
     if(username.size() < 3) throw "Username '" + username + "' is too short, minimum length is 3.";
     if(logged_in) throw "You are logged in as '" + this->username + "', log out first.";
@@ -76,10 +76,10 @@ void Client::registerClient(std::string username, std::string password) {
 
 /* Looks for username matches in 'clients.txt', 
 if it finds one and the password is correct it logs-in the given client*/
-void Client::loginClient(std::string username, std::string password) {
+void Client::loginClient(char* username, char* password) {
     std::ifstream read;
-    std::string temp;
-    std::string temp_user, temp_pass;
+    char* temp;
+    char* temp_user, temp_pass;
 
     if(username.size() < 3) throw "Username '" + username + "' is too short, minimum length is 3.";
     if(logged_in) throw "You are logged in as '" + username + "', log out first.";
@@ -163,7 +163,7 @@ void Client::addBill(Bill bill) {
 // Deletes all the bills of the logged client
 void Client::deleteAll() {
     auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
-    std::string path_string;
+    char* path_string;
     std::filesystem::path path;
 
     // Iterating through all the lines of all the files
@@ -171,8 +171,7 @@ void Client::deleteAll() {
         if(file.is_regular_file()){
             // Getting file path
             path = file;
-            // Path to std::string
-            path_string = path.u8string();
+            // Path to char*             path_string = path.u8string();
 
             std::remove(path_string.c_str());            
        }
@@ -180,9 +179,9 @@ void Client::deleteAll() {
 }
 
 // Deletes the passed bill from the client's bill list
-void Client::deleteBill(std::string file_name) {
-    std::string temp;
-    std::string path_string;
+void Client::deleteBill(char* file_name) {
+    char* temp;
+    char* path_string;
     std::filesystem::path path;
 
     auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
@@ -192,8 +191,7 @@ void Client::deleteBill(std::string file_name) {
         if(file.is_regular_file()){
             // Getting file path (Data/User/bill.txt)
             path = file;
-            // Path to std::string
-            path_string = path.u8string();
+            // Path to char*             path_string = path.u8string();
 
             if(path_string == "Data/" + username + "/" + file_name + ".txt") {
                 std::remove(path_string.c_str());
@@ -206,8 +204,8 @@ void Client::deleteBill(std::string file_name) {
 void Client::deleteClient() {
     std::ifstream read;
     std::ofstream write;
-    std::string temp;
-    std::string temp_user;
+    char* temp;
+    char* temp_user;
 
     read.open("Data/clients.txt");
     write.open("Data/clients.txt");
@@ -235,7 +233,7 @@ void Client::deleteClient() {
 
 // Prints the bills that match the flags
 void Client::viewAll() {
-    std::string path_string;
+    char* path_string;
     std::filesystem::path path;
 
     auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
@@ -245,8 +243,7 @@ void Client::viewAll() {
         if(file.is_regular_file()){
             // Getting file path
             path = file;
-            // Path to std::string
-            path_string = path.u8string();
+            // Path to char*             path_string = path.u8string();
 
             std::cout << file << std::endl; 
         }
@@ -254,10 +251,10 @@ void Client::viewAll() {
 }
 
 // Prints the content of a bill
-void Client::viewBill(std::string file_name) {
+void Client::viewBill(char* file_name) {
     std::ifstream read;
-    std::string temp;
-    std::string path_string;
+    char* temp;
+    char* path_string;
     std::filesystem::path path;
 
     auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
@@ -267,8 +264,7 @@ void Client::viewBill(std::string file_name) {
         if(file.is_regular_file()){
             // Getting file path
             path = file;
-            // Path to std::string
-            path_string = path.u8string();
+            // Path to char*             path_string = path.u8string();
 
             if(path_string == "Data/" + username + "/" + file_name + ".txt") {
                 read.open(path_string);

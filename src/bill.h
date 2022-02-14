@@ -7,16 +7,16 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 12/02/2022
- * Description : Header containing "Bill" classes and functions declarations
+ * Description : Header containing bill related functions declarations
  *============================================================================*/
 
-#ifndef _BILL_HPP
-#define _BILL_HPP
+#ifndef _BILL_H
+#define _BILL_H
 
-#include <iostream>
+#include <stdio.h>
 
-#include "date.hpp"
-#include "logs.hpp"
+#include "date.h"
+#include "logs.h"
 
 // Base class for any type of Bill
 // It also contains the exception strings

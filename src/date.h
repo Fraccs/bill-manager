@@ -6,33 +6,33 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 12/02/2022
- * Description : Header containing date related classes and functions declarations 
+ * Last change : 14/02/2022
+ * Description : Header containing date related functions declarations 
  *============================================================================*/
 
-#ifndef _DATE_HPP
-#define _DATE_HPP
+#ifndef _DATE_H
+#define _DATE_H
 
-#include <iostream>
+#include <stdbool.h>
+#include <stdio.h>
 #include <ctime>
-#include <string>
 
 // Returns the current machine year
-const int currentMachineYear();
+int currentMachineYear();
 
 //Returns the current machine month
-const int currentMachineMonth();
+int currentMachineMonth();
 
 //Returns the current machine day
-const int currentMachineDay();
+int currentMachineDay();
 
-// Returns the current machine time in YYYY-MM-DD format (std::string)
-const std::string machineTimeDayAccurate();
+// Returns the current machine time in YYYY-MM-DD format (char*)
+char* machineTimeDayAccurate();
 
-// Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (std::string)
-const std::string machineTimeSecAccurate();
+// Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (char*)
+char* machineTimeSecAccurate();
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool valid_format(std::string date);
+bool valid_format(char* date);
 
 #endif

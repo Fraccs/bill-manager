@@ -1,32 +1,32 @@
-CC=g++ -std=c++17 
+CC=gcc 
 OBJ=main.o bill.o client.o command_interpreter.o date.o echo.o help.o logs.o
 
 output: $(OBJ)
 	$(CC) -o bill_manager $(OBJ)
 
-main.o: main.cpp
-	$(CC) -c main.cpp
+main.o: main.c
+	$(CC) -c main.c
 
-bill.o: src/bill.hpp src/bill.cpp
-	$(CC) -c src/bill.cpp
+bill.o: src/bill.h src/bill.c
+	$(CC) -c src/bill.c
 
-client.o: src/client.hpp src/client.cpp
-	$(CC) -c src/client.cpp
+client.o: src/client.h src/client.c
+	$(CC) -c src/client.c
 
-command_interpreter.o: src/command_interpreter.hpp src/command_interpreter.cpp
-	$(CC) -c src/command_interpreter.cpp
+command_interpreter.o: src/command_interpreter.h src/command_interpreter.c
+	$(CC) -c src/command_interpreter.c
 
-date.o: src/date.hpp src/date.cpp
-	$(CC) -c src/date.cpp
+date.o: src/date.h src/date.c
+	$(CC) -c src/date.c
 
-echo.o: src/echo.hpp src/echo.cpp
-	$(CC) -c src/echo.cpp
+echo.o: src/echo.h src/echo.c
+	$(CC) -c src/echo.c
 
-help.o: src/help.hpp src/help.cpp
-	$(CC) -c src/help.cpp
+help.o: src/help.h src/help.c
+	$(CC) -c src/help.c
 
-logs.o: src/logs.hpp src/logs.cpp
-	$(CC) -c src/logs.cpp
+logs.o: src/logs.h src/logs.c
+	$(CC) -c src/logs.c
 
 clean:
 	rm *.o bill_manager
