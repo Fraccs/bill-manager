@@ -10,8 +10,8 @@
  * Description : Header containing "Bill" classes and functions declarations
  *============================================================================*/
 
-#ifndef _BILL_H
-#define _BILL_H
+#ifndef _BILL_HPP
+#define _BILL_HPP
 
 #include <iostream>
 

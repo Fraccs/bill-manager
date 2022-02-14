@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 12/02/2022
- * Description : Source file containing client.h classes definitions
+ * Description : Source file containing client.hpp classes definitions
  *============================================================================*/
 
 #include "client.hpp"

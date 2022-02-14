@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 12/02/2022
- * Description : Source file containing logs.h functions definition
+ * Description : Source file containing logs.hpp functions definition
  *============================================================================*/
 
 #include "logs.hpp"

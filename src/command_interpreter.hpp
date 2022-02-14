@@ -10,8 +10,8 @@
  * Description : Header containing commandline interface functions declarations
  *============================================================================*/
 
-#ifndef _COMMAND_INTERPRETER_H
-#define _COMMAND_INTERPRETER_H
+#ifndef _COMMAND_INTERPRETER_HPP
+#define _COMMAND_INTERPRETER_HPP
 
 #include <iostream>
 #include <vector>

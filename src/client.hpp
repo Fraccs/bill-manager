@@ -10,8 +10,8 @@
  * Description : Header containing "Client" classes and sub classes declarations
  *============================================================================*/
 
-#ifndef _CLIENT_H
-#define _CLIENT_H
+#ifndef _CLIENT_HPP
+#define _CLIENT_HPP
 
 #include <iostream>
 #include <filesystem>

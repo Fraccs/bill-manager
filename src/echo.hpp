@@ -1,22 +1,26 @@
 /*============================================================================
- * Name        : logs.h
+ * Name        : echo.hpp
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 12/02/2022
- * Description : Header containing logs related functions declarations
+ * Last change : 13/02/2022
+ * Description : Header file containing stdin-echo related function declarations
  *============================================================================*/
 
-#ifndef _LOGS_HPP
-#define _LOGS_HPP
+#ifndef _ECHO_HPP
+#define _ECHO_HPP
 
-#include <fstream>
-#include "date.hpp"
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <termios.h>
+#include <unistd.h>
+#endif
 
-// Logs the passed string to a txt, keeping track of the current machine time
-void logToTxt(const std::string file_name, const std::string str);
+// Enables or disables echo in stdin
+void setStdinEcho(bool);
 
 #endif
