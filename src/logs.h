@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 14/02/2022
- * Description : Header containing logs related functions declarations
+ * Description : Header file containing logs related functions declarations
  *============================================================================*/
 
 #ifndef _LOGS_H

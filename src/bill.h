@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 16/02/2022
- * Description : Header containing bill related functions declarations
+ * Description : Header file containing bill related structs and functions declarations
  *============================================================================*/
 
 #ifndef _BILL_H
@@ -16,10 +16,8 @@
 #include <stdio.h>
 
 #include "date.h"
-#include "logs.h"
 
-// Base class for any type of Bill
-// It also contains the exception strings
+// Struct bill
 typedef struct {
     char* type;
     char* due_date;
