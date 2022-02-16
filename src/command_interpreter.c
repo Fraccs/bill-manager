@@ -13,7 +13,7 @@
 #include "command_interpreter.h"
 
 // Returns if the command starts with "bill"
-bool starts_with_bill(char* command) {
+bool startsWithBill(char* command) {
     if(command[0] != 'b') return false;
     if(command[1] != 'i') return false;
     if(command[2] != 'l') return false;
@@ -24,7 +24,7 @@ bool starts_with_bill(char* command) {
 }
 
 // Returns the flags of the passed command ('--example')
-char* find_main_flag(char* command) {
+char* findMainFlag(char* command) {
     char* temp = "";
 
     for(int i = 0; i < strlen(command); i++) {
@@ -39,7 +39,7 @@ char* find_main_flag(char* command) {
 }
 
 // Returns a vector containing all the flags of the passed command
-char** find_flags(char* command) {
+char** findFlags(char* command) {
     char** flags;
     char* temp = "";
 
@@ -48,29 +48,48 @@ char** find_flags(char* command) {
 
     for(int i = 0; i < strlen(command) - 3; i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+3] == ' ') {
-            temp.push_back(command[i+1]);
-            temp.push_back(command[i+2]);
+            strcat(temp, command[i+1]);
+            strcat(temp, command[i+2]);
             
-            flags.push_back(temp);
+            // flags.push_back(temp);
             temp = "";
         }
     }
 
     // No flags found
-    if(flags.size() == 0) {
-        flags.push_back("NOFLAGS");
-    }
+    // if(flags.size() == 0) {
+    //     flags.push_back("NOFLAGS");
+    // }
 
     return flags;
 }
 
 // Returns a string containing the argument relative to the passed flag
-char* get_argument(char* command, char* flag) {
+char* getArgument(char* command, char* flag) {
     char* arg;
+    char* temp;
+    int count = 0;
+    int pos;
 
-    for(int i = command.find(flag) + strlen(flag) + 1; command[i] != ' ' && command[i] != '\0'; i++) {
-        strcat(arg, command[i]);
+    // Finds the position (of the first char) of the first occurrence of 'flag'
+    for(int i = 0; i < strlen(command) - strlen(flag); i++) {
+        for(int j = i, k = 0; j < strlen(flag); j++, k++) {
+            if(command[j] == flag[k]) {
+                count++;
+            }
+
+            if(count == strlen(flag)) pos = j - strlen(flag);
+        }
+
+        count = 0;
     }
+
+    for(int i = pos + strlen(flag) + 1; command[i] != ' ' && command[i] != '\0'; i++) {
+        temp = charToString(command[i]);
+        strcat(arg, temp);
+    }
+
+    free(temp);
 
     return arg;
 }

@@ -14,18 +14,22 @@
 #define _COMMAND_INTERPRETER_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+
+#include "utils.h"
 
 // Returns if the command starts with "bill"
-bool starts_with_bill(char* command);
+bool startsWithBill(char* command);
 
-// Returns the flags of the passed command ('--example')
-char* find_main_flag(char* command);
+// Returns the main flag of the passed command ("--example")
+char* findMainFlag(char* command);
 
-// Returns a vector containing all the flags of the passed command
-char** find_flags(char* command);
+// Returns a vector containing all the flags of the passed command ("-a", "-b", ...)
+char** findFlags(char* command);
 
 // Returns a string containing the argument relative to the passed flag
-char* get_argument(char* command, char* flag);
+char* getArgument(char* command, char* flag);
 
 #endif

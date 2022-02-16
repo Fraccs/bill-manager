@@ -113,73 +113,74 @@ int addBill(client* c, bill b) {
     FILE* write;
     int num = 0;
 
-    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
-    // Getting the number of files in the client's directory
-    for(auto& file: file_iterator) {
-        if(file.is_regular_file()){
-            num++;
-        }
-    }
+    // // Getting the number of files in the client's directory
+    // for(auto& file: file_iterator) {
+    //     if(file.is_regular_file()){
+    //         num++;
+    //     }
+    // }
 
-    write = fopen(strcat("Data/", c->username, "/bill", ".txt"), "w")
-    write.open("Data/" + username + "/bill" + to_string(num + 1) + ".txt", fstream::app);
+    // write.open("Data/" + username + "/bill" + to_string(num + 1) + ".txt", fstream::app);
     
-    if(write == NULL) return -1;
+    // if(write == NULL) return -1;
 
-    fprintf(write, "Type: %s\nCost: %f\nUsage: %f\n", bill.type, bill.cost, bill.usage);
+    // fprintf(write, "Type: %s\nCost: %f\nUsage: %f\n", bill.type, bill.cost, bill.usage);
 
-    if(bill.getPaid()) {
-        write << "Paid: True" << endl;
-    }
-    else {
-        write << "Paid: False" << endl;
-    }
+    // if(bill.getPaid()) {
+    //     write << "Paid: True" << endl;
+    // }
+    // else {
+    //     write << "Paid: False" << endl;
+    // }
 
-    write << "Paid in: " << bill.getPaidDate() << endl;
-    write << "Due date: " << bill.getDueDate() << endl;
+    // write << "Paid in: " << bill.getPaidDate() << endl;
+    // write << "Due date: " << bill.getDueDate() << endl;
    
-    fclose(write);
+    // fclose(write);
+
+    return 0;
 }
 
 // Deletes all the bills of the logged client
 void deleteAll(client* c) {
-    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
-    char* path_string;
-    filesystem::path path;
+    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // char* path_string;
+    // filesystem::path path;
 
-    // Iterating through all the lines of all the files
-    for(auto& file: file_iterator) {
-        if(file.is_regular_file()){
-            // Getting file path
-            path = file;
-            // Path to char*             path_string = path.u8string();
+    // // Iterating through all the lines of all the files
+    // for(auto& file: file_iterator) {
+    //     if(file.is_regular_file()){
+    //         // Getting file path
+    //         path = file;
+    //         // Path to char*             path_string = path.u8string();
 
-            remove(path_string.c_str());            
-       }
-    }
+    //         remove(path_string.c_str());            
+    //    }
+    // }
 }
 
 // Deletes the passed bill from the client's bill list
 void deleteBill(client* c, char* file_name) {
-    char* temp;
-    char* path_string;
-    filesystem::path path;
+    // char* temp;
+    // char* path_string;
+    // filesystem::path path;
 
-    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
-    // Iterating through all the lines of all the files
-    for(auto& file: file_iterator) {
-        if(file.is_regular_file()){
-            // Getting file path (Data/User/bill.txt)
-            path = file;
-            // Path to char*             path_string = path.u8string();
+    // // Iterating through all the lines of all the files
+    // for(auto& file: file_iterator) {
+    //     if(file.is_regular_file()){
+    //         // Getting file path (Data/User/bill.txt)
+    //         path = file;
+    //         // Path to char*             path_string = path.u8string();
 
-            if(path_string == "Data/" + username + "/" + file_name + ".txt") {
-                remove(path_string.c_str());
-            }
-        }
-    }
+    //         if(path_string == "Data/" + username + "/" + file_name + ".txt") {
+    //             remove(path_string.c_str());
+    //         }
+    //     }
+    // }
 }
 
 // Deletes the logged client
@@ -213,54 +214,54 @@ void deleteClient(client* c) {
 
 // Prints the bills that match the flags
 void viewAll(client* c) {
-    char* path_string;
-    filesystem::path path;
+    // char* path_string;
+    // filesystem::path path;
 
-    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
-    // Iterating through the directory
-    for(auto& file: file_iterator) {
-        if(file.is_regular_file()){
-            // Getting file path
-            path = file;
-            // Path to char*             
-            path_string = path.u8string();
+    // // Iterating through the directory
+    // for(auto& file: file_iterator) {
+    //     if(file.is_regular_file()){
+    //         // Getting file path
+    //         path = file;
+    //         // Path to char*             
+    //         path_string = path.u8string();
 
-            printf("%s", path_string)
-        }
-    }   
+    //         printf("%s", path_string)
+    //     }
+    // }   
 }
 
 // Prints the content of a bill
 int viewBill(client* c, char* file_name) {
-    FILE* read;
-    char* temp;
-    char* path_string;
-    filesystem::path path;
+    // FILE* read;
+    // char* temp;
+    // char* path_string;
+    // filesystem::path path;
 
-    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
-    // Iterating through the directory
-    for(auto& file: file_iterator) {
-        if(file.is_regular_file()){
-            // Getting file path
-            path = file;
-            // Path to char*             path_string = path.u8string();
+    // // Iterating through the directory
+    // for(auto& file: file_iterator) {
+    //     if(file.is_regular_file()){
+    //         // Getting file path
+    //         path = file;
+    //         // Path to char*             path_string = path.u8string();
 
-            if(path_string == "Data/" + username + "/" + file_name + ".txt") {
-                read.open(path_string);
+    //         if(path_string == "Data/" + username + "/" + file_name + ".txt") {
+    //             read.open(path_string);
 
-                while(getline(read, temp)) {
-                    cout << temp << endl;
-                }
+    //             while(getline(read, temp)) {
+    //                 cout << temp << endl;
+    //             }
 
-                read.close();
+    //             read.close();
 
-                return 0;
-            }
-        }
-    }   
+    //             return 0;
+    //         }
+    //     }
+    // }   
 
-    // Bill not found
-    return -1; 
+    // // Bill not found
+    // return -1; 
 }
