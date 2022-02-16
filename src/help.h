@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 14/02/2022
- * Description : Header containing help functions declarations 
+ * Description : Header file containing help related functions declarations 
  *============================================================================*/
 
 #ifndef _HELP_H

@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 14/02/2022
- * Description : Source file containing help.h functions definitons 
+ * Description : Source file containing help related functions definitons 
  *============================================================================*/
 
 #include "help.h"
