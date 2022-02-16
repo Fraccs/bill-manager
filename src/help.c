@@ -13,7 +13,7 @@
 #include "help.h"
 
 // Prints the help page related to the passed string
-void print_help() {
+void printHelp() {
     puts("Command type 1: bill --example");
     puts("Command type 2: bill --example argument");
     puts("Command type 3: bill --example -a argument -b argument -c argument");

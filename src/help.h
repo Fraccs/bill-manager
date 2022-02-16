@@ -16,6 +16,6 @@
 #include <stdio.h>
 
 // Prints the help page related to the passed string
-void print_help();
+void printHelp();
 
 #endif
