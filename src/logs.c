@@ -12,10 +12,10 @@
 
 #include "logs.h"
 
-int logToTxt(char* file_name, char* str) {
+int logEvent(char* logfile_name, char* str) {
     FILE* log_file;
 
-    log_file = fopen(file_name, "w");
+    log_file = fopen(logfile_name, "w");
 
     if(log_file == NULL) return -1; 
 
