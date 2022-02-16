@@ -6,68 +6,55 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
- * Description : Header containing "Client" classes and sub classes declarations
+ * Last change : 16/02/2022
+ * Description : Header containing "Client" declarations
  *============================================================================*/
 
 #ifndef _CLIENT_H
 #define _CLIENT_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "bill.h"
 
-class Client {
-    private:
-    std::string username;
-    std::string password;
+typedef struct {
+    char* username;
+    char* password;
     bool logged_in;
+} client;
 
-    // Exception strings
-    const std::string INCORRECT_PASSWORD = "Incorrect password.";
+/* Checks if another istance of username exists, 
+if it doesn't it saves the username and password in 'clients.txt'*/
+int registerClient(client* c, char* username, char* password);
 
-    public:
-    Client();
-    Client& operator=(const Client& client);
-    ~Client();
+/* Looks for username matches in 'clients.txt', 
+if it finds one and the password is correct it logs-in the given client*/
+int loginClient(client* c, char* username, char* password);
 
-    // Get Client::username
-    const std::string& getUsername() const;
+// Logout from the current client
+int logoutClient(client* c);
 
-    // Get Client::username
-    const std::string& getPassword() const;
+// Adds the passed bill to the client's bill list
+int addBill(client* c, bill b);
 
-    // Returns if there is a client logged in
-    bool isLoggedIn();
+// Deletes all the bills of the logged client
+void deleteAll(client* c);
 
-    /* Checks if another istance of username exists, 
-    if it doesn't it saves the username and password in 'clients.txt'*/
-    void registerClient(std::string username, std::string password);
+// Deletes the passed bill from the client's bill list
+void deleteBill(client* c, char* file_name);
 
-    /* Looks for username matches in 'clients.txt', 
-    if it finds one and the password is correct it logs-in the given client*/
-    void loginClient(std::string username, std::string password);
+// Deletes the logged client
+void deleteClient(client* c);
 
-    // Logout from the current client
-    void logoutClient();
+// Prints the bills that match the flags
+void viewAll(client* c);
 
-    // Adds the passed bill to the client's bill list
-    void addBill(Bill bill);
-
-    // Deletes all the bills of the logged client
-    void deleteAll();
-
-    // Deletes the passed bill from the client's bill list
-    void deleteBill(std::string file_name);
-
-    // Deletes the logged client
-    void deleteClient();
-
-    // Prints the bills that match the flags
-    void viewAll();
-
-    // Prints the content of a bill
-    void viewBill(std::string file_name);
-};
+// Prints the content of a bill
+int viewBill(client* c, char* file_name);
 
 #endif

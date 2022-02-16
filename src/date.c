@@ -14,32 +14,32 @@
 
 // Returns the current machine year
 int currentMachineYear() {
-    std::time_t year = time(nullptr);
-    std::tm *ts = localtime(&year);
+    time_t year = time(nullptr);
+    tm *ts = localtime(&year);
 
     return 1900 + ts->tm_year;
 }
 
 // Returns the current machine month
 int currentMachineMonth() {
-    std::time_t month = time(nullptr);
-    std::tm *ts = localtime(&month);
+    time_t month = time(nullptr);
+    tm *ts = localtime(&month);
     
     return 1 + ts->tm_mon;
 }
 
 // Returns the current machine day
 int currentMachineDay() {
-    std::time_t day = time(nullptr);
-    std::tm *ts = localtime(&day);
+    time_t day = time(nullptr);
+    tm *ts = localtime(&day);
 
     return ts->tm_mday;
 }
 
 // Returns the current machine time in YYYY-MM-DD format (char*)
 char* machineTimeDayAccurate() {
-    std::time_t machine_time = time(0);
-    std::tm tstruct = *localtime(&machine_time);
+    time_t machine_time = time(0);
+    tm tstruct = *localtime(&machine_time);
     char formatted_time[80];
 
     // Formatting to a time string
@@ -50,8 +50,8 @@ char* machineTimeDayAccurate() {
 
 // Returns the current machine time in YYYY-MM-DD.HH:mm:ss format (char*)
 char* machineTimeSecAccurate() {
-    std::time_t machine_time = time(0);
-    std::tm tstruct = *localtime(&machine_time);
+    time_t machine_time = time(0);
+    tm tstruct = *localtime(&machine_time);
     char formatted_time[80];
 
     // Formatting to a time string

@@ -13,9 +13,9 @@
 #ifndef _DATE_H
 #define _DATE_H
 
-#include <stdbool.h>
 #include <stdio.h>
-#include <ctime>
+#include <stdbool.h>
+#include <time.h>
 
 // Returns the current machine year
 int currentMachineYear();

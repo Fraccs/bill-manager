@@ -1,138 +1,119 @@
 /*============================================================================
- * Name        : client.h
+ * Name        : client.c
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
+ * Last change : 16/02/2022
  * Description : Source file containing client.h classes definitions
  *============================================================================*/
 
 #include "client.h"
 
-// ----- class Client ----- //
-Client::Client() {
-    this->logged_in = false;
-    this->username = "Default";
-    this->password = "Default";
-}
-
-Client& Client::operator=(const Client& client) {
-    return *this;
-}
-
-Client::~Client() {}
-
-// Get Client::username
-const char* Client::getUsername() const {return this->username;}
-
-// Get Client::username
-const char* Client::getPassword() const {return this->password;}
-
-// Returns if there is a client logged in
-bool Client::isLoggedIn() {return this->logged_in;}
-
 /* Checks if another istance of username exists, 
 if it doesn't it saves the username and password in 'clients.txt'*/
-void Client::registerClient(char* username, char* password) {
-    std::ifstream read;
-    std::ofstream write;
+int registerClient(client* c, char* username, char* password) {
+    FILE* client_file;
+    // ifstream read;
+    // ofstream write;
     char* temp;
     char* temp_user;
 
-    if(username.size() < 3) throw "Username '" + username + "' is too short, minimum length is 3.";
-    if(logged_in) throw "You are logged in as '" + this->username + "', log out first.";
+    if(strlen(username) < 3) return -1;
+    if(c->logged_in) return -2;
 
-    read.open("Data/clients.txt", std::fstream::app);
+    client_file = fopen("Data/clients.txt", "r");
+
+    if(client_file == NULL) return -3;
 
     // Checking for other istances of username
-    while(std::getline(read, temp)) {
+    while(fscanf(client_file, "%[^\n]", temp)) {
         for(int i = 0; temp[i] != ' ' && temp[i] != '\0'; i++) {
-            temp_user.push_back(temp[i]);
+            strcat(temp_user, temp[i]);
 
             if(temp_user == username) {
-                throw "Client '" + username + "' is already registered.\nType 'bill --login username' to login.";
+                return -4;
             }
         }
     }
     
-    read.close(); 
+    fclose(client_file);
 
     // Autologin
-    this->username = username;
-    this->password = password;
-    this->logged_in = true;
+    c->username = username;
+    c->password = password;
+    c->logged_in = true;
     
     // Writing in the file
-    write.open("Data/clients.txt", std::fstream::app);
-    write << username << " " << password << std::endl;
-    write.close();
+    client_file = fopen("Data/clients.txt", "w");
+    printf("%s %s\n", username, password);
+    fclose(client_file);
 
     // Creating a directory for 'username'
-    std::filesystem::create_directory("Data/" + username);
+    mkdir(strcat("Data/", username), 0777);
 }
 
 /* Looks for username matches in 'clients.txt', 
 if it finds one and the password is correct it logs-in the given client*/
-void Client::loginClient(char* username, char* password) {
-    std::ifstream read;
+int loginClient(client* c, char* username, char* password) {
+    FILE* client_file;
     char* temp;
     char* temp_user, temp_pass;
 
-    if(username.size() < 3) throw "Username '" + username + "' is too short, minimum length is 3.";
-    if(logged_in) throw "You are logged in as '" + username + "', log out first.";
+    if(strlen(username) < 3) return -1;;
+    if(c->logged_in) return -2;
 
     // Checking for other istances of username
-    read.open("Data/clients.txt", std::fstream::app);
+    client_file = fopen("Data/clients.txt", "r");
 
-    while(std::getline(read, temp)) {
+    while(fscanf(client_file, "%[^\n]", temp)) {
         temp_user = "";
         temp_pass = "";
 
         for(int i = 0; temp[i] != ' ' && temp[i] != '\0'; i++) {
-            temp_user.push_back(temp[i]);
+            strcat(temp_user, temp[i]);
         }
 
-        for(int i = temp_user.size() + 1; temp[i] != ' ' && temp[i] != '\0'; i++) {
-            temp_pass.push_back(temp[i]);
+        for(int i = srtlen(temp_user) + 1; temp[i] != ' ' && temp[i] != '\0'; i++) {
+            strcat(temp_pass, temp[i]);
         }
 
-        if(temp_user == username) {
-            if(temp_pass == password) {
-                this->username = username;
-                this->password = password;
-                this->logged_in = true;
-                return;
+        if(strcmp(temp_user, username)) {
+            if(strcmp(temp_pass, password)) {
+                c->username = username;
+                c->password = password;
+                c->logged_in = true;
+                return 0;
             }
             else {
-                throw INCORRECT_PASSWORD;
+                return -3;
             }
         }
     }
     
-    read.close();
+    fclose(client_file);
 
     // Client not found
-    throw "Client '" + username + "' not found.\nTry 'bill --register username' to register.";
+    return -4;
 }
 
 //  Logout from the current client
-void Client::logoutClient() {
-    if(username == "Default") throw "Can't logout from user '" + username + "'.";
+int logoutClient(client* c) {
+    if(c->username == "Default") return -1;
 
-    this->username = "Default";
-    this->password = "Default";
-    this->logged_in = false;
+    c->username = "Default";
+    c->password = "Default";
+    c->logged_in = false;
 }
 
 // Adds the passed bill to the client's bill list
-void Client::addBill(Bill bill) {
-    std::ofstream write;
+int addBill(client* c, bill b) {
+    FILE* write;
     int num = 0;
 
-    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
     // Getting the number of files in the client's directory
     for(auto& file: file_iterator) {
@@ -141,30 +122,31 @@ void Client::addBill(Bill bill) {
         }
     }
 
-    write.open("Data/" + username + "/bill" + std::to_string(num + 1) + ".txt", std::fstream::app);
+    write = fopen(strcat("Data/", c->username, "/bill", ".txt"), "w")
+    write.open("Data/" + username + "/bill" + to_string(num + 1) + ".txt", fstream::app);
     
-    write << "Type: " << bill.getType() << std::endl;
-    write << "Cost: " << bill.getCost() << std::endl;
-    write << "Usage: " << bill.getUsage() << std::endl;
+    if(write == NULL) return -1;
+
+    fprintf(write, "Type: %s\nCost: %f\nUsage: %f\n", bill.type, bill.cost, bill.usage);
 
     if(bill.getPaid()) {
-        write << "Paid: True" << std::endl;
+        write << "Paid: True" << endl;
     }
     else {
-        write << "Paid: False" << std::endl;
+        write << "Paid: False" << endl;
     }
 
-    write << "Paid in: " << bill.getPaidDate() << std::endl;
-    write << "Due date: " << bill.getDueDate() << std::endl;
+    write << "Paid in: " << bill.getPaidDate() << endl;
+    write << "Due date: " << bill.getDueDate() << endl;
    
-    write.close();
+    fclose(write);
 }
 
 // Deletes all the bills of the logged client
-void Client::deleteAll() {
-    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+void deleteAll(client* c) {
+    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
     char* path_string;
-    std::filesystem::path path;
+    filesystem::path path;
 
     // Iterating through all the lines of all the files
     for(auto& file: file_iterator) {
@@ -173,18 +155,18 @@ void Client::deleteAll() {
             path = file;
             // Path to char*             path_string = path.u8string();
 
-            std::remove(path_string.c_str());            
+            remove(path_string.c_str());            
        }
     }
 }
 
 // Deletes the passed bill from the client's bill list
-void Client::deleteBill(char* file_name) {
+void deleteBill(client* c, char* file_name) {
     char* temp;
     char* path_string;
-    std::filesystem::path path;
+    filesystem::path path;
 
-    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
     // Iterating through all the lines of all the files
     for(auto& file: file_iterator) {
@@ -194,24 +176,23 @@ void Client::deleteBill(char* file_name) {
             // Path to char*             path_string = path.u8string();
 
             if(path_string == "Data/" + username + "/" + file_name + ".txt") {
-                std::remove(path_string.c_str());
+                remove(path_string.c_str());
             }
         }
     }
 }
 
 // Deletes the logged client
-void Client::deleteClient() {
-    std::ifstream read;
-    std::ofstream write;
+void deleteClient(client* c) {
+    FILE* client_file;
     char* temp;
     char* temp_user;
 
-    read.open("Data/clients.txt");
-    write.open("Data/clients.txt");
+
+    client_file = fopen("Data/clients.txt", "r");
 
     // Deleting client from clients.txt
-    // while(std::getline(read, temp)) {
+    // while(getline(read, temp)) {
     //     for(int i = 0; temp[i] != ' '; i++) {
     //         temp_user.push_back(temp[i]);
     //     }
@@ -221,43 +202,43 @@ void Client::deleteClient() {
     //     }
     // }
 
-    read.close();
-    write.close();
+    fclose(client_file);
 
     // Deleting client's folder
-    deleteAll();
-    std::remove(("Data/" + username + "/").c_str());
+    deleteAll(c);
+    // remove(("Data/" + username + "/").c_str());
 
-    logoutClient();
+    logoutClient(c);
 }
 
 // Prints the bills that match the flags
-void Client::viewAll() {
+void viewAll(client* c) {
     char* path_string;
-    std::filesystem::path path;
+    filesystem::path path;
 
-    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
     // Iterating through the directory
     for(auto& file: file_iterator) {
         if(file.is_regular_file()){
             // Getting file path
             path = file;
-            // Path to char*             path_string = path.u8string();
+            // Path to char*             
+            path_string = path.u8string();
 
-            std::cout << file << std::endl; 
+            printf("%s", path_string)
         }
     }   
 }
 
 // Prints the content of a bill
-void Client::viewBill(char* file_name) {
-    std::ifstream read;
+int viewBill(client* c, char* file_name) {
+    FILE* read;
     char* temp;
     char* path_string;
-    std::filesystem::path path;
+    filesystem::path path;
 
-    auto file_iterator = std::filesystem::directory_iterator("Data/" + username + "/");
+    auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
 
     // Iterating through the directory
     for(auto& file: file_iterator) {
@@ -269,17 +250,17 @@ void Client::viewBill(char* file_name) {
             if(path_string == "Data/" + username + "/" + file_name + ".txt") {
                 read.open(path_string);
 
-                while(std::getline(read, temp)) {
-                    std::cout << temp << std::endl;
+                while(getline(read, temp)) {
+                    cout << temp << endl;
                 }
 
                 read.close();
 
-                return;
+                return 0;
             }
         }
     }   
 
     // Bill not found
-    throw "Bill '" + file_name + "' not found."; 
+    return -1; 
 }
