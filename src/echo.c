@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 14/02/2022
- * Description : Source file containing echo.h functions definitons 
+ * Description : Source file containing stdin-echo related functions definitions 
  *============================================================================*/
 
 #include "echo.h"

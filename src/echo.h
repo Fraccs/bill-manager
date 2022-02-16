@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 14/02/2022
- * Description : Header file containing stdin-echo related function declarations
+ * Description : Header file containing stdin-echo related functions declarations
  *============================================================================*/
 
 #ifndef _ECHO_H
