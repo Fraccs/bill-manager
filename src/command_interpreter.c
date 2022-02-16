@@ -6,8 +6,8 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
- * Description : Source file containing command_interpreter.h functions definitions
+ * Last change : 16/02/2022
+ * Description : Source file containing commandline-interface functions definitions
  *============================================================================*/
 
 #include "command_interpreter.h"
@@ -27,10 +27,10 @@ bool starts_with_bill(char* command) {
 char* find_main_flag(char* command) {
     char* temp = "";
 
-    for(int i = 0; i < command.size(); i++) {
+    for(int i = 0; i < strlen(command); i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
             for(int j = i + 1; command[j] != ' ' && command[j] != '\0'; j++) {
-                temp.push_back(command[j]);
+                strcat(temp, command[j]);
             }    
         }
     }
@@ -44,13 +44,13 @@ char** find_flags(char* command) {
     char* temp = "";
 
     // Adding a space to the end, otherwise flags at the end wouldn't work
-    command.push_back(' ');
+    strcat(command, " ");
 
-    for(int i = 0; i < command.size() - 3; i++) {
+    for(int i = 0; i < strlen(command) - 3; i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+3] == ' ') {
             temp.push_back(command[i+1]);
             temp.push_back(command[i+2]);
-
+            
             flags.push_back(temp);
             temp = "";
         }
@@ -68,8 +68,8 @@ char** find_flags(char* command) {
 char* get_argument(char* command, char* flag) {
     char* arg;
 
-    for(int i = command.find(flag) + flag.size() + 1; command[i] != ' ' && command[i] != '\0'; i++) {
-        arg.push_back(command[i]);
+    for(int i = command.find(flag) + strlen(flag) + 1; command[i] != ' ' && command[i] != '\0'; i++) {
+        strcat(arg, command[i]);
     }
 
     return arg;

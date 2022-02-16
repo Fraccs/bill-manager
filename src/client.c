@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 16/02/2022
- * Description : Source file containing client.h classes definitions
+ * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
 #include "client.h"

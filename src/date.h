@@ -6,8 +6,8 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
- * Description : Header containing date related functions declarations 
+ * Last change : 16/02/2022
+ * Description : Header file containing date related functions declarations 
  *============================================================================*/
 
 #ifndef _DATE_H

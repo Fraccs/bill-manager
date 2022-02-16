@@ -7,7 +7,7 @@
  * Copyright   : N/D
  * License     : N/D
  * Last change : 16/02/2022
- * Description : Header containing "Client" declarations
+ * Description : Header file containing client related structs and functions declarations
  *============================================================================*/
 
 #ifndef _CLIENT_H

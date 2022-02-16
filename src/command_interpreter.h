@@ -6,8 +6,8 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
- * Description : Header containing commandline interface functions declarations
+ * Last change : 16/02/2022
+ * Description : Header file containing commandline-interface functions declarations
  *============================================================================*/
 
 #ifndef _COMMAND_INTERPRETER_H

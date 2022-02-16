@@ -6,8 +6,8 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
- * Description : Source file containing date.h functions definitions
+ * Last change : 16/02/2022
+ * Description : Source file containing date related functions definitions
  *============================================================================*/
 
 #include "date.h"
