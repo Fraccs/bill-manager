@@ -13,13 +13,7 @@
 #include "utils.h"
 
 // Converts a char to a char*
-char* charToString(char c) {
-    char* s = malloc(sizeof(char) * 2);
-
-    if(s == NULL) return NULL;
-
-    s[0] = c;
-    s[1] = '\0';
-
-    return s;
+void charToString(char* dest, char c) {
+    dest[0] = c;
+    dest[1] = '\0';
 }
