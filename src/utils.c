@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 16/02/2022
+ * Last change : 17/02/2022
  * Description : Source file containing multi-puropose functions declarations
  *============================================================================*/
 
@@ -15,6 +15,8 @@
 // Converts a char to a char*
 char* charToString(char c) {
     char* s = malloc(sizeof(char) * 2);
+
+    if(s == NULL) return NULL;
 
     s[0] = c;
     s[1] = '\0';
