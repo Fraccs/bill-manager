@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 16/02/2022
+ * Last change : 17/02/2022
  * Description : Source file containing logs related functions definition
  *============================================================================*/
 
@@ -20,7 +20,7 @@ int logEvent(char* logfile_name, char* str) {
     if(log_file == NULL) return -1; 
 
     // Appending to the last istance of the file 
-    fprintf(log_file, "%s | %s", machineTimeSecAccurate(), str);
+    fprintf(log_file, "%s | %s\n", machineTimeSecAccurate(), str);
     
     fclose(log_file);
 
