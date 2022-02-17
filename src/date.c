@@ -36,30 +36,20 @@ int currentMachineDay() {
     return ts->tm_mday;
 }
 
-/* Returns the current machine time in YYYY-MM-DD format
-malloc'd on the heap, remember to free() */
-char* machineTimeDayAccurate() {
+// Formats dest with the current machine time in YYYY-MM-DD format
+void machineTimeDayAccurate(char* dest) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
-    char* formatted_time = malloc(sizeof(char) * 20);
 
-    // Formatting to a time string
-    strftime(formatted_time, 20, "%Y-%m-%d", &tstruct);
-
-    return formatted_time;
+    strftime(dest, 11, "%Y-%m-%d", &tstruct);
 }
 
-/* Returns the current machine time in YYYY-MM-DD.HH:mm:ss format
-malloc'd on the heap, remember to free() */
-char* machineTimeSecAccurate() {
+// Formats dest with the current machine time in YYYY-MM-DD.HH:mm:ss format
+void machineTimeSecAccurate(char* dest) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
-    char* formatted_time = malloc(sizeof(char) * 20);
 
-    // Formatting to a time string
-    strftime(formatted_time, 20, "%Y-%m-%d.%X", &tstruct);
-
-    return formatted_time;
+    strftime(dest, 20, "%Y-%m-%d.%X", &tstruct);
 }
 
 // Returns if the passed date respects the YYYY-MM-DD format
