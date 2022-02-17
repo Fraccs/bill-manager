@@ -14,13 +14,16 @@
 
 int logEvent(char* logfile_name, char* str) {
     FILE* log_file;
+    char time_string[20];
 
     log_file = fopen(logfile_name, "w");
 
     if(log_file == NULL) return -1; 
 
+    machineTimeSecAccurate(time_string);
+
     // Appending to the last istance of the file 
-    fprintf(log_file, "%s | %s\n", machineTimeSecAccurate(), str);
+    fprintf(log_file, "%s | %s\n", time_string, str);
     
     fclose(log_file);
 
