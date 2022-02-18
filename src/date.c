@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 17/02/2022
+ * Last change : 18/02/2022
  * Description : Source file containing date related functions definitions
  *============================================================================*/
 
@@ -37,23 +37,31 @@ int currentMachineDay() {
 }
 
 // Formats dest with the current machine time in YYYY-MM-DD format
-void machineTimeDayAccurate(char* dest) {
+int machineTimeDayAccurate(char* dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
 
-    strftime(dest, 11, "%Y-%m-%d", &tstruct);
+    if(dest_s != 11) return -1; // Date size + 1
+
+    strftime(dest, dest_s, "%Y-%m-%d", &tstruct);
+
+    return 0;
 }
 
 // Formats dest with the current machine time in YYYY-MM-DD.HH:mm:ss format
-void machineTimeSecAccurate(char* dest) {
+int machineTimeSecAccurate(char* dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
 
+    if(dest_s != 20) return -1; // Date size + 1
+
     strftime(dest, 20, "%Y-%m-%d.%X", &tstruct);
+
+    return 0;
 }
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool valid_format(char* date) {
+bool valid_format(const char* date) {
     if(strlen(date) != 10) return false;
     if(date[4] != '-' || date[7] != '-') return false;
 

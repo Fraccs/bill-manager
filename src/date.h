@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 17/02/2022
+ * Last change : 18/02/2022
  * Description : Header file containing date related functions declarations 
  *============================================================================*/
 
@@ -27,12 +27,12 @@ int currentMachineMonth();
 int currentMachineDay();
 
 // Formats dest with the current machine time in YYYY-MM-DD format
-void machineTimeDayAccurate(char*);
+int machineTimeDayAccurate(char*, size_t);
 
 // Formats dest with the current machine time in YYYY-MM-DD.HH:mm:ss format
-void machineTimeSecAccurate(char*);
+int machineTimeSecAccurate(char*, size_t);
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool valid_format(char* date);
+bool valid_format(const char*);
 
 #endif

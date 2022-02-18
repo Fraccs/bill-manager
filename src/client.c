@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 16/02/2022
+ * Last change : 18/02/2022
  * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
@@ -14,7 +14,7 @@
 
 /* Checks if another istance of username exists, 
 if it doesn't it saves the username and password in 'clients.txt'*/
-int registerClient(client* c, char* username, char* password) {
+int registerClient(client* c, const char* username, const char* password) {
     FILE* client_file;
     // ifstream read;
     // ofstream write;
@@ -57,7 +57,7 @@ int registerClient(client* c, char* username, char* password) {
 
 /* Looks for username matches in 'clients.txt', 
 if it finds one and the password is correct it logs-in the given client*/
-int loginClient(client* c, char* username, char* password) {
+int loginClient(client* c, const char* username, const char* password) {
     FILE* client_file;
     char* temp;
     char* temp_user, temp_pass;
@@ -162,7 +162,7 @@ void deleteAll(client* c) {
 }
 
 // Deletes the passed bill from the client's bill list
-void deleteBill(client* c, char* file_name) {
+void deleteBill(client* c, const char* file_name) {
     // char* temp;
     // char* path_string;
     // filesystem::path path;
@@ -233,7 +233,7 @@ void viewAll(client* c) {
 }
 
 // Prints the content of a bill
-int viewBill(client* c, char* file_name) {
+int viewBill(client* c, const char* file_name) {
     // FILE* read;
     // char* temp;
     // char* path_string;

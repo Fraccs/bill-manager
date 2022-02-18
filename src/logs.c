@@ -12,7 +12,7 @@
 
 #include "logs.h"
 
-int logEvent(char* logfile_name, char* str) {
+int logEvent(const char* logfile_name, const char* str) {
     FILE* log_file;
     char time_string[20];
 
