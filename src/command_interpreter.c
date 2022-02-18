@@ -6,14 +6,14 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 16/02/2022
+ * Last change : 18/02/2022
  * Description : Source file containing commandline-interface functions definitions
  *============================================================================*/
 
 #include "command_interpreter.h"
 
 // Returns if the command starts with "bill"
-bool startsWithBill(char* command) {
+bool startsWithBill(const char* command) {
     if(command[0] != 'b') return false;
     if(command[1] != 'i') return false;
     if(command[2] != 'l') return false;
@@ -23,22 +23,27 @@ bool startsWithBill(char* command) {
     return true;
 }
 
-// Returns the flags of the passed command ('--example')
-char* findMainFlag(char* command) {
-    char* temp = "";
+// Returns the main flag of the passed command ("--example")
+void findMainFlag(char* dest, const char* command, size_t dest_s) {
+    char cts[2];
 
+    memset(dest, 0, dest_s);
+    
     for(int i = 0; i < strlen(command); i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
             for(int j = i + 1; command[j] != ' ' && command[j] != '\0'; j++) {
-                strcat(temp, command[j]);
+                charToString(cts, command[j]);
+                strcat(dest, cts);
             }    
+
+            break;
         }
     }
 
-    return temp;
+    dest[strlen(dest)] = '\0';
 }
 
-// Returns a vector containing all the flags of the passed command
+// Returns a vector containing all the flags of the passed command ("-a", "-b", ...)
 char** findFlags(char* command) {
     char** flags;
     char* temp = "";
@@ -65,9 +70,8 @@ char** findFlags(char* command) {
 }
 
 // Returns a string containing the argument relative to the passed flag
-char* getArgument(char* command, char* flag) {
-    char* arg;
-    char* temp;
+void getArgument(char* dest, const char* command, const char* flag) {
+    char temp[2];
     int count = 0;
     int pos;
 
@@ -85,11 +89,7 @@ char* getArgument(char* command, char* flag) {
     }
 
     for(int i = pos + strlen(flag) + 1; command[i] != ' ' && command[i] != '\0'; i++) {
-        temp = charToString(command[i]);
-        strcat(arg, temp);
+        charToString(temp, command[i]);
+        strcat(dest, temp);
     }
-
-    free(temp);
-
-    return arg;
 }
