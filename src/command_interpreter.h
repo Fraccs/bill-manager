@@ -21,15 +21,15 @@
 #include "utils.h"
 
 // Returns if the command starts with "bill"
-bool startsWithBill(const char*);
+bool startsWithBill(const char* command);
 
 // Returns the main flag of the passed command ("--example")
-void findMainFlag(char*, const char*, size_t);
+void findMainFlag(char* dest, const char* command, size_t dest_s);
 
 // Returns a vector containing all the flags of the passed command ("-a", "-b", ...)
-char** findFlags(char*);
+char** findFlags(char* command);
 
 // Returns a string containing the argument relative to the passed flag
-void getArgument(char*, const char*, const char*);
+void getArgument(char* dest, const char* command, const char* flag);
 
 #endif

@@ -23,6 +23,6 @@
 #endif
 
 // Enables or disables echo in stdin
-void setStdinEcho(bool);
+void setStdinEcho(bool enable_echo);
 
 #endif

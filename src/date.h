@@ -27,12 +27,12 @@ int currentMachineMonth();
 int currentMachineDay();
 
 // Formats dest with the current machine time in YYYY-MM-DD format
-int machineTimeDayAccurate(char*, size_t);
+int machineTimeDayAccurate(char* dest, size_t dest_s);
 
 // Formats dest with the current machine time in YYYY-MM-DD.HH:mm:ss format
-int machineTimeSecAccurate(char*, size_t);
+int machineTimeSecAccurate(char* dest, size_t dest_s);
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool valid_format(const char*);
+bool valid_format(const char* date);
 
 #endif

@@ -16,6 +16,6 @@
 #include <stdlib.h>
 
 // Converts a char to a C string
-void charToString(char*, char);
+void charToString(char* dest, char c);
 
 #endif

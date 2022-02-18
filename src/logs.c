@@ -20,7 +20,7 @@ int logEvent(const char* logfile_name, const char* str) {
 
     if(log_file == NULL) return -1; 
 
-    machineTimeSecAccurate(time_string);
+    machineTimeSecAccurate(time_string, 20);
 
     // Appending to the last istance of the file 
     fprintf(log_file, "%s | %s\n", time_string, str);

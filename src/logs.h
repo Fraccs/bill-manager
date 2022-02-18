@@ -17,6 +17,6 @@
 #include "date.h"
 
 // Logs the passed string to a txt, keeping track of the current machine time
-int logEvent(const char*, const char*);
+int logEvent(const char* logfile_name, const char* str);
 
 #endif
