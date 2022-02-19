@@ -85,7 +85,9 @@ int loginClient(client* c, const char* username, const char* password) {
 
         if(strncmp(temp_user, username, USER_MAXLEN)) {
             if(strncmp(temp_pass, password, PASS_MAXLEN)) {
-                loginClient(c, username, password);
+                strncmp(c->username, username, USER_MAXLEN);
+                strncmp(c->password, password, PASS_MAXLEN);
+                c->logged_in = true;
                 return 0;
             }
             else {
