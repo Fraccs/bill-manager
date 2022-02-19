@@ -23,12 +23,12 @@ int registerClient(client* c, const char* username, const char* password) {
     memset(temp_user, 0, USER_MAXLEN);
 
     if(strnlen(username, USER_MAXLEN) < 3) return -1;
-    if(strnlen(password, PASS_MAXLEN) < 6) return -2;
-    if(c->logged_in) return -3;
+    if(strnlen(password, PASS_MAXLEN) < 6) return -1;
+    if(c->logged_in) return -1;
 
     f_handle = fopen("data/clients.txt", "r");
 
-    if(f_handle == NULL) return -4;
+    if(f_handle == NULL) return -1;
 
     // Checking for the existence of username
     while(fscanf(f_handle, "%[^\n]", line)) {
@@ -36,7 +36,7 @@ int registerClient(client* c, const char* username, const char* password) {
             strncat(temp_user, line[i], USER_MAXLEN);
 
             if(strncmp(temp_user, username, USER_MAXLEN)) {
-                return -5;
+                return -1;
             }
         }
     }
@@ -53,6 +53,8 @@ int registerClient(client* c, const char* username, const char* password) {
 
     // Creating a directory for 'username'
     mkdir(strcat("data/", username), 0777);
+
+    return 0;
 }
 
 /* Looks for username matches in 'clients.txt', 
@@ -68,8 +70,8 @@ int loginClient(client* c, const char* username, const char* password) {
     memset(temp_pass, 0, PASS_MAXLEN);
 
     if(strnlen(username, USER_MAXLEN) < 3) return -1;
-    if(strnlen(password, PASS_MAXLEN) < 6) return -2;
-    if(c->logged_in) return -3;
+    if(strnlen(password, PASS_MAXLEN) < 6) return -1;
+    if(c->logged_in) return -1;
 
     // Checking for other istances of username
     f_handle = fopen("data/clients.txt", "r");
@@ -91,7 +93,7 @@ int loginClient(client* c, const char* username, const char* password) {
                 return 0;
             }
             else {
-                return -4;
+                return -1;
             }
         }
     }
@@ -99,13 +101,13 @@ int loginClient(client* c, const char* username, const char* password) {
     fclose(f_handle);
 
     // Client not found
-    return -5;
+    return -1;
 }
 
 //  Logout from the current client
 int logoutClient(client* c) {
     if(strncmp(c->username, "default", USER_MAXLEN)) return -1;
-    if(!c->logged_in) return -2;
+    if(!c->logged_in) return -1;
  
     strncpy(c->username, "default", USER_MAXLEN);
     strncpy(c->password, "default", PASS_MAXLEN);
