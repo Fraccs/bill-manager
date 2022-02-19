@@ -6,114 +6,120 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/02/2022
+ * Last change : 19/02/2022
  * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
 #include "client.h"
 
-/* Checks if another istance of username exists, 
+/* Checks if another instance of username exists, 
 if it doesn't it saves the username and password in 'clients.txt'*/
 int registerClient(client* c, const char* username, const char* password) {
-    FILE* client_file;
-    // ifstream read;
-    // ofstream write;
-    char* temp;
-    char* temp_user;
+    FILE* f_handle;
+    char line[USER_MAXLEN + PASS_MAXLEN + 1];
+    char temp_user[USER_MAXLEN + 1];
 
-    if(strlen(username) < 3) return -1;
-    if(c->logged_in) return -2;
+    memset(line, 0, USER_MAXLEN + PASS_MAXLEN);
+    memset(temp_user, 0, USER_MAXLEN);
 
-    client_file = fopen("Data/clients.txt", "r");
+    if(strnlen(username, USER_MAXLEN) < 3) return -1;
+    if(strnlen(password, PASS_MAXLEN) < 6) return -2;
+    if(c->logged_in) return -3;
 
-    if(client_file == NULL) return -3;
+    f_handle = fopen("data/clients.txt", "r");
 
-    // Checking for other istances of username
-    while(fscanf(client_file, "%[^\n]", temp)) {
-        for(int i = 0; temp[i] != ' ' && temp[i] != '\0'; i++) {
-            strcat(temp_user, temp[i]);
+    if(f_handle == NULL) return -4;
 
-            if(temp_user == username) {
-                return -4;
+    // Checking for the existence of username
+    while(fscanf(f_handle, "%[^\n]", line)) {
+        for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
+            strncat(temp_user, line[i], USER_MAXLEN);
+
+            if(strncmp(temp_user, username, USER_MAXLEN)) {
+                return -5;
             }
         }
     }
     
-    fclose(client_file);
+    fclose(f_handle);
 
     // Autologin
-    c->username = username;
-    c->password = password;
-    c->logged_in = true;
+    loginClient(c, username, password);
     
     // Writing in the file
-    client_file = fopen("Data/clients.txt", "w");
-    printf("%s %s\n", username, password);
-    fclose(client_file);
+    f_handle = fopen("data/clients.txt", "w");
+    fprintf(f_handle, "%s %s\n", username, password);
+    fclose(f_handle);
 
     // Creating a directory for 'username'
-    mkdir(strcat("Data/", username), 0777);
+    mkdir(strcat("data/", username), 0777);
 }
 
 /* Looks for username matches in 'clients.txt', 
 if it finds one and the password is correct it logs-in the given client*/
 int loginClient(client* c, const char* username, const char* password) {
-    FILE* client_file;
-    char* temp;
-    char* temp_user, temp_pass;
+    FILE* f_handle;
+    char line[USER_MAXLEN + PASS_MAXLEN + 1];
+    char temp_user[USER_MAXLEN + 1];
+    char temp_pass[PASS_MAXLEN + 1];
 
-    if(strlen(username) < 3) return -1;;
-    if(c->logged_in) return -2;
+    memset(line, 0, USER_MAXLEN + PASS_MAXLEN);
+    memset(temp_user, 0, USER_MAXLEN);
+    memset(temp_pass, 0, PASS_MAXLEN);
+
+    if(strnlen(username, USER_MAXLEN) < 3) return -1;
+    if(strnlen(password, PASS_MAXLEN) < 6) return -2;
+    if(c->logged_in) return -3;
 
     // Checking for other istances of username
-    client_file = fopen("Data/clients.txt", "r");
+    f_handle = fopen("data/clients.txt", "r");
 
-    while(fscanf(client_file, "%[^\n]", temp)) {
-        temp_user = "";
-        temp_pass = "";
-
-        for(int i = 0; temp[i] != ' ' && temp[i] != '\0'; i++) {
-            strcat(temp_user, temp[i]);
+    while(fscanf(f_handle, "%[^\n]", line)) {
+        for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
+            strncat(temp_user, line[i], USER_MAXLEN);
         }
 
-        for(int i = srtlen(temp_user) + 1; temp[i] != ' ' && temp[i] != '\0'; i++) {
-            strcat(temp_pass, temp[i]);
+        for(int i = srtlen(temp_user) + 1; line[i] != ' ' && line[i] != '\0'; i++) {
+            strncat(temp_pass, line[i], PASS_MAXLEN);
         }
 
-        if(strcmp(temp_user, username)) {
-            if(strcmp(temp_pass, password)) {
-                c->username = username;
-                c->password = password;
+        if(strncmp(temp_user, username, USER_MAXLEN)) {
+            if(strncmp(temp_pass, password, PASS_MAXLEN)) {
+                strncmp(c->username, username, USER_MAXLEN);
+                strncmp(c->password, password, PASS_MAXLEN);
                 c->logged_in = true;
                 return 0;
             }
             else {
-                return -3;
+                return -4;
             }
         }
     }
     
-    fclose(client_file);
+    fclose(f_handle);
 
     // Client not found
-    return -4;
+    return -5;
 }
 
 //  Logout from the current client
 int logoutClient(client* c) {
-    if(c->username == "Default") return -1;
-
-    c->username = "Default";
-    c->password = "Default";
+    if(strncmp(c->username, "default", USER_MAXLEN)) return -1;
+    if(!c->logged_in) return -2;
+ 
+    strncpy(c->username, "default", USER_MAXLEN);
+    strncpy(c->password, "default", PASS_MAXLEN);
     c->logged_in = false;
+
+    return 0;
 }
 
 // Adds the passed bill to the client's bill list
 int addBill(client* c, bill b) {
-    FILE* write;
+    FILE* f_handle;
     int num = 0;
 
-    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
 
     // // Getting the number of files in the client's directory
     // for(auto& file: file_iterator) {
@@ -122,7 +128,7 @@ int addBill(client* c, bill b) {
     //     }
     // }
 
-    // write.open("Data/" + username + "/bill" + to_string(num + 1) + ".txt", fstream::app);
+    // write.open("data/" + username + "/bill" + to_string(num + 1) + ".txt", fstream::app);
     
     // if(write == NULL) return -1;
 
@@ -138,14 +144,14 @@ int addBill(client* c, bill b) {
     // write << "Paid in: " << bill.getPaidDate() << endl;
     // write << "Due date: " << bill.getDueDate() << endl;
    
-    // fclose(write);
+    fclose(f_handle);
 
     return 0;
 }
 
 // Deletes all the bills of the logged client
 void deleteAll(client* c) {
-    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
     // char* path_string;
     // filesystem::path path;
 
@@ -163,61 +169,61 @@ void deleteAll(client* c) {
 
 // Deletes the passed bill from the client's bill list
 void deleteBill(client* c, const char* file_name) {
-    // char* temp;
+    // char* line;
     // char* path_string;
     // filesystem::path path;
 
-    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
 
     // // Iterating through all the lines of all the files
     // for(auto& file: file_iterator) {
     //     if(file.is_regular_file()){
-    //         // Getting file path (Data/User/bill.txt)
+    //         // Getting file path (data/User/bill.txt)
     //         path = file;
     //         // Path to char*             path_string = path.u8string();
 
-    //         if(path_string == "Data/" + username + "/" + file_name + ".txt") {
+    //         if(path_string == "data/" + username + "/" + file_name + ".txt") {
     //             remove(path_string.c_str());
     //         }
     //     }
     // }
 }
 
-// Deletes the logged client
-void deleteClient(client* c) {
-    FILE* client_file;
-    char* temp;
-    char* temp_user;
+// // Deletes the logged client
+// void deleteClient(client* c) {
+//     FILE* f_handle;
+//     char* line;
+//     char* temp_user;
 
 
-    client_file = fopen("Data/clients.txt", "r");
+//     f_handle = fopen("data/clients.txt", "r");
 
-    // Deleting client from clients.txt
-    // while(getline(read, temp)) {
-    //     for(int i = 0; temp[i] != ' '; i++) {
-    //         temp_user.push_back(temp[i]);
-    //     }
+//     // Deleting client from clients.txt
+//     // while(getline(read, line)) {
+//     //     for(int i = 0; line[i] != ' '; i++) {
+//     //         temp_user.push_back(line[i]);
+//     //     }
 
-    //     if(temp_user == username) {
-    //         write << "";
-    //     }
-    // }
+//     //     if(temp_user == username) {
+//     //         write << "";
+//     //     }
+//     // }
 
-    fclose(client_file);
+//     fclose(f_handle);
 
-    // Deleting client's folder
-    deleteAll(c);
-    // remove(("Data/" + username + "/").c_str());
+//     // Deleting client's folder
+//     deleteAll(c);
+//     // remove(("data/" + username + "/").c_str());
 
-    logoutClient(c);
-}
+//     logoutClient(c);
+// }
 
 // Prints the bills that match the flags
 void viewAll(client* c) {
     // char* path_string;
     // filesystem::path path;
 
-    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
 
     // // Iterating through the directory
     // for(auto& file: file_iterator) {
@@ -235,11 +241,11 @@ void viewAll(client* c) {
 // Prints the content of a bill
 int viewBill(client* c, const char* file_name) {
     // FILE* read;
-    // char* temp;
+    // char* line;
     // char* path_string;
     // filesystem::path path;
 
-    // auto file_iterator = filesystem::directory_iterator("Data/" + username + "/");
+    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
 
     // // Iterating through the directory
     // for(auto& file: file_iterator) {
@@ -248,11 +254,11 @@ int viewBill(client* c, const char* file_name) {
     //         path = file;
     //         // Path to char*             path_string = path.u8string();
 
-    //         if(path_string == "Data/" + username + "/" + file_name + ".txt") {
+    //         if(path_string == "data/" + username + "/" + file_name + ".txt") {
     //             read.open(path_string);
 
-    //             while(getline(read, temp)) {
-    //                 cout << temp << endl;
+    //             while(getline(read, line)) {
+    //                 cout << line << endl;
     //             }
 
     //             read.close();
