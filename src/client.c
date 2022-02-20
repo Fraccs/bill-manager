@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 19/02/2022
+ * Last change : 20/02/2022
  * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
@@ -87,8 +87,8 @@ int loginClient(client* c, const char* username, const char* password) {
 
         if(strncmp(temp_user, username, USER_MAXLEN)) {
             if(strncmp(temp_pass, password, PASS_MAXLEN)) {
-                strncmp(c->username, username, USER_MAXLEN);
-                strncmp(c->password, password, PASS_MAXLEN);
+                strncpy(c->username, username, USER_MAXLEN);
+                strncpy(c->password, password, PASS_MAXLEN);
                 c->logged_in = true;
                 return 0;
             }
