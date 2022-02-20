@@ -19,9 +19,9 @@
 
 // Struct bill
 typedef struct {
-    char* type;
-    char* due_date;
-    char* paid_date;
+    char type[21];
+    char due_date[11];
+    char paid_date[11];
     bool paid;
     float cost;
     float usage;
