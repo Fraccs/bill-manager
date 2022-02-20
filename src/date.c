@@ -41,7 +41,7 @@ int machineTimeDayAccurate(char* dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
 
-    if(dest_s != 11) return -1; // Date size + 1
+    if(dest_s != 10) return -1; // Date size + 1
 
     strftime(dest, dest_s, "%Y-%m-%d", &tstruct);
 
@@ -53,9 +53,9 @@ int machineTimeSecAccurate(char* dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
 
-    if(dest_s != 20) return -1; // Date size + 1
+    if(dest_s != 19) return -1; // Date size + 1
 
-    strftime(dest, 20, "%Y-%m-%d.%X", &tstruct);
+    strftime(dest, dest_s, "%Y-%m-%d.%X", &tstruct);
 
     return 0;
 }
