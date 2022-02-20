@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/02/2022
+ * Last change : 20/02/2022
  * Description : Header file containing commandline-interface functions declarations
  *============================================================================*/
 
@@ -24,12 +24,12 @@
 bool startsWithBill(const char* command);
 
 // Returns the main flag of the passed command ("--example")
-void findMainFlag(char* dest, const char* command, size_t dest_s);
+int findMainFlag(char* dest, const char* command, size_t dest_s);
 
-// Returns a vector containing all the flags of the passed command ("-a", "-b", ...)
-char** findFlags(char* command);
+// Loads dest with all the flags of the passed command ("-a", "-b", ...), except for the main flag
+void findFlags(char* dest[], const char* command);
 
 // Returns a string containing the argument relative to the passed flag
-void getArgument(char* dest, const char* command, const char* flag);
+int getArgument(char* dest, const char* command, const char* flag, size_t dest_s);
 
 #endif
