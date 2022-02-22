@@ -1,11 +1,11 @@
 # **Bill Manager**
-> ### *A simple command-line interface application that helps you to manage your bills.*
+> ### *A simple command-line interface application written in C that helps you to manage your bills.*
 
 ## **WARNING!**
 > ### *This is a school project and it is not maintained anymore!*
 
 ## **Compiler**
-> Windows: (compiler) -o bill_manager main.cpp .\src\bill.cpp .\src\client.cpp .\src\command_interpreter.cpp .\src\date.cpp .\src\logs.cpp .\src\help.cpp
+> Windows: (compiler) -o bill_manager main.c .\src\bill.c .\src\client.c .\src\command_interpreter.c .\src\date.c .\src\echo.c .\src\help.c .\src\logs.c .\src\utils.c
 
 > Unix: Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=gcc).
 
