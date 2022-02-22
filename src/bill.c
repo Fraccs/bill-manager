@@ -27,6 +27,12 @@ bill* billCreate() {
 
     if(b == NULL) return NULL;
 
+    memset(b->type, 0, TYPE_MAXLEN);
+    memset(b->due_date, 0, DDAT_MAXLEN);
+    memset(b->paid_date, 0, PDAT_MAXLEN);
+    b->paid = false;
+    b->cost = 0;
+
     return b;
 }
 
