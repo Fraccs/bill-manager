@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/02/2022
+ * Last change : 22/02/2022
  * Description : Source file containing date related functions definitions
  *============================================================================*/
 
@@ -61,7 +61,7 @@ int machineTimeSecAccurate(char* dest, size_t dest_s) {
 }
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool valid_format(const char* date) {
+bool dvalidFormat(const char* date) {
     if(strlen(date) != 10) return false;
     if(date[4] != '-' || date[7] != '-') return false;
 

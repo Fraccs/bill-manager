@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/02/2022
+ * Last change : 22/02/2022
  * Description : Header file containing date related functions declarations 
  *============================================================================*/
 
@@ -16,6 +16,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
+
+#define DDAT_MAXLEN 10
+#define PDAT_MAXLEN 10
 
 // Returns the current machine year
 int currentMachineYear();
@@ -33,6 +36,6 @@ int machineTimeDayAccurate(char* dest, size_t dest_s);
 int machineTimeSecAccurate(char* dest, size_t dest_s);
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool valid_format(const char* date);
+bool dvalidFormat(const char* date);
 
 #endif
