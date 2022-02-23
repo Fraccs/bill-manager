@@ -1,5 +1,5 @@
 CC=gcc 
-OBJ=main.o bill.o client.o command_interpreter.o date.o echo.o help.o logs.o
+OBJ=main.o bill.o client.o command_interpreter.o date.o echo.o help.o logs.o utils.o
 
 output: $(OBJ)
 	$(CC) -o bill_manager $(OBJ)
@@ -27,6 +27,9 @@ help.o: src/help.h src/help.c
 
 logs.o: src/logs.h src/logs.c
 	$(CC) -c src/logs.c
+
+utils.o: src/utils.h src/utils.c
+	$(CC) -c src/utils.c
 
 clean:
 	rm *.o bill_manager
