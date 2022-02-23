@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 22/02/2022
+ * Last change : 23/02/2022
  * Description : Source file containing bill related structs and functions definitions
  *============================================================================*/
 
@@ -37,8 +37,12 @@ bill* billCreate() {
 }
 
 // Frees the memory of the passed bill
-void billDestroy(bill* b) {
+int billDestroy(bill* b) {
+    if(b == NULL) return -1;
+
     free(b);
+
+    return 0;
 }
 
 // Set the type of a bill
