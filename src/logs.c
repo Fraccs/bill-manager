@@ -6,17 +6,17 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 17/02/2022
+ * Last change : 23/02/2022
  * Description : Source file containing logs related functions definition
  *============================================================================*/
 
 #include "logs.h"
 
-int logEvent(const char* logfile_name, const char* str) {
+int logEvent(const char *logfile_name, const char *str) {
     FILE* log_file;
     char time_string[20];
 
-    log_file = fopen(logfile_name, "w");
+    log_file = fopen(logfile_name, "a+");
 
     if(log_file == NULL) return -1; 
 

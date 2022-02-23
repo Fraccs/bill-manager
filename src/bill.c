@@ -22,8 +22,8 @@ typedef struct bs {
 } bill;
 
 // Returns a pointer to the memory allocated on the heap for a new bill
-bill* billCreate() {
-    bill* b = malloc(sizeof(bill));
+bill *billCreate() {
+    bill *b = malloc(sizeof(bill));
 
     if(b == NULL) return NULL;
 
@@ -37,7 +37,7 @@ bill* billCreate() {
 }
 
 // Frees the memory of the passed bill
-int billDestroy(bill* b) {
+int billDestroy(bill *b) {
     if(b == NULL) return -1;
 
     free(b);
@@ -46,7 +46,7 @@ int billDestroy(bill* b) {
 }
 
 // Set the type of a bill
-int billSetType(bill* b, const char* type) {
+int billSetType(bill *b, const char *type) {
     if(strlen(type) > 20) return -1;
 
     strncpy(b->type, type, TYPE_MAXLEN);
@@ -55,7 +55,7 @@ int billSetType(bill* b, const char* type) {
 }
 
 // Set the due date of a bill (format=d: due_date, format=p: paid_date)
-int billSetDueDate(bill* b, const char* due_date, const char* format) {
+int billSetDueDate(bill *b, const char *due_date, const char *format) {
     if(!dvalidFormat(due_date)) {
         return -1;
     }
@@ -74,7 +74,7 @@ int billSetDueDate(bill* b, const char* due_date, const char* format) {
 }
 
 // Set if the bill was paid or not
-int billSetPaid(bill* b, bool paid) {
+int billSetPaid(bill *b, bool paid) {
     if(b->paid == paid) {
         return -1;
     }
@@ -85,7 +85,7 @@ int billSetPaid(bill* b, bool paid) {
 }
 
 // Set the cost of a bill
-int billSetCost(bill* b, float cost) {
+int billSetCost(bill *b, float cost) {
     if(cost <= 0) return -1;
 
     b->cost = cost;

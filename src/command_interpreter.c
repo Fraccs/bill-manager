@@ -6,14 +6,14 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 20/02/2022
+ * Last change : 23/02/2022
  * Description : Source file containing commandline-interface functions definitions
  *============================================================================*/
 
 #include "command_interpreter.h"
 
 // Returns if the command starts with "bill"
-bool startsWithBill(const char* command) {
+bool startsWithBill(const char *command) {
     if(command[0] != 'b') return false;
     if(command[1] != 'i') return false;
     if(command[2] != 'l') return false;
@@ -24,7 +24,7 @@ bool startsWithBill(const char* command) {
 }
 
 // Returns the main flag of the passed command ("--example")
-int findMainFlag(char* dest, const char* command, size_t dest_s) {
+int findMainFlag(char *dest, const char *command, size_t dest_s) {
     char cts[2];
 
     memset(dest, 0, dest_s);
@@ -46,7 +46,7 @@ int findMainFlag(char* dest, const char* command, size_t dest_s) {
 }
 
 // Loads dest with all the flags of the passed command ("-a", "-b", ...), except for the main flag
-void findFlags(char* dest[], const char* command) {
+void findFlags(char *dest[], const char *command) {
     char** flags;
     char* temp = "";
 
@@ -72,7 +72,7 @@ void findFlags(char* dest[], const char* command) {
 }
 
 // Returns a string containing the argument relative to the passed flag
-int getArgument(char* dest, const char* command, const char* flag, size_t dest_s) {
+int getArgument(char *dest, const char *command, const char *flag, size_t dest_s) {
     char temp[2];
     int count = 0;
     int pos = -1;
