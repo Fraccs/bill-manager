@@ -6,14 +6,14 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/02/2022
+ * Last change : 25/02/2022
  * Description : Source file containing date related functions definitions
  *============================================================================*/
 
 #include "date.h"
 
 // Returns the current machine year
-int currentMachineYear() {
+int dateYear() {
     time_t year = time(NULL);
     struct tm* ts = localtime(&year);
 
@@ -21,7 +21,7 @@ int currentMachineYear() {
 }
 
 // Returns the current machine month
-int currentMachineMonth() {
+int dateMonth() {
     time_t month = time(NULL);
     struct tm* ts = localtime(&month);
     
@@ -29,7 +29,7 @@ int currentMachineMonth() {
 }
 
 // Returns the current machine day
-int currentMachineDay() {
+int dateDay() {
     time_t day = time(NULL);
     struct tm *ts = localtime(&day);
 
@@ -38,12 +38,13 @@ int currentMachineDay() {
 
 /* Formats dest with the current machine time in YYYY-MM-DD format
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int machineTimeDayAccurate(char *dest, size_t dest_s) {
+int dateDayAccurate(char *dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
 
     if(dest_s != 10) return -1; // Date size + 1
 
+    memset(dest_s, 0, dest_s + 1);
     strftime(dest, dest_s, "%Y-%m-%d", &tstruct);
 
     return 0;
@@ -51,19 +52,20 @@ int machineTimeDayAccurate(char *dest, size_t dest_s) {
 
 /* Formats dest with the current machine time in YYYY-MM-DD.HH:mm:ss format
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int machineTimeSecAccurate(char *dest, size_t dest_s) {
+int dateSecAccurate(char *dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
 
     if(dest_s != 19) return -1; // Date size + 1
 
+    memset(dest_s, 0, dest_s + 1);
     strftime(dest, dest_s, "%Y-%m-%d.%X", &tstruct);
 
     return 0;
 }
 
 // Returns if the passed date respects the YYYY-MM-DD format
-bool dvalidFormat(const char *date) {
+bool dateValidFormat(const char *date) {
     if(strlen(date) != 10) return false;
     if(date[4] != '-' || date[7] != '-') return false;
 
