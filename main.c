@@ -6,186 +6,197 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
+ * Last change : 26/02/2022
  * Description : Main 
  *============================================================================*/
 
 #include <stdio.h>
+#include <stdlib.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+// Replace with unix libs
+#endif
 
 #include "src/client.h"
 #include "src/bill.h"
-#include "src/logs.h"
 #include "src/command_interpreter.h"
+#include "src/echo.h"
 #include "src/help.h"
+#include "src/logs.h"
+#include "src/utils.h"
+
+#define COMM_MAXLEN 80
+#define MNFG_MAXLEN 20
+#define ARGM_MAXLEN 30
 
 int main() {
-    char *command;
-    char *main_argument;
-    char *temp;
-    char *main_flag;
-    char **flags;
-    char **args;
+    client *c = clientCreate();
+    bill *b = billCreate();
+    char temp_user[USER_MAXLEN + 1];
+    char temp_pass[PASS_MAXLEN + 1];
+    char command[COMM_MAXLEN + 1];
+    char main_flag[MNFG_MAXLEN + 1];
+    char argument[ARGM_MAXLEN + 1];
+    char sub_flags[10][3];
+    int flags_s = 0;
+    int ret; // Error checking
 
-    // Directory where all the data will be stored
-    // filesystem::create_directory("Data");
+    if(c == NULL || b == NULL) {
+        return EXIT_FAILURE;
+    }
+
+    #ifdef _WIN32
+    CreateDirectory("data", NULL);
+    #else
+    // Replace with unix code    
+    #endif
 
     while(true) {
         printf(">: ");
         fflush(stdin);
-        getline(cin, command);
+        fgets(command, COMM_MAXLEN, stdin);
+        strtok(command, "\n");
 
-        // Blank input
-        if(command == "") continue;
-
-        if(!starts_with_bill(command)) {
+        if(!cliStartsWithBill(command)) {
             printf("Unknown command '%s'.\n", command);
             printf("Try 'bill --help' for more info.\n");   
             continue;
         }
 
         // Getting the main flag ('--example')
-        main_flag = find_main_flag(command);
+        cliGetMainFlag(main_flag, command, MNFG_MAXLEN);
 
-        if(main_flag.size() == 0) {
+        if(strlen(main_flag) == 0) {
             printf("No main flag found in '%s'.\n", command);
             continue;
         }
-
-        if(main_flag == "--add") {
-            if(!client.isLoggedIn()) {
-                cout << "Log in a client first!" << endl;
+        
+        if(strcmp(main_flag, "--add") == 0) {
+            if(!clientGetLoggedin(c)) {
+                printf("Log in a client first!\n");
                 continue;
             }
 
-            flags = find_flags(command);
+            flags_s = cliGetSubFlags(sub_flags, command);
 
-            try {
-                for(int i = 0; i < flags.size(); i++) {
-                    if(flags[i] == "-c") {
-                        temp_bill.setCost(stof(get_argument(command, flags[i])));
-                    }
-
-                    if(flags[i] == "-d") {
-                        temp_bill.setPaidDate(get_argument(command, flags[i]));
-                    }
-
-                    if(flags[i] == "-e") {
-                        temp_bill.setDueDate(get_argument(command, flags[i]));
-                    }
-
-                    if(flags[i] == "-u") {     
-                        temp_bill.setUsage(stof(get_argument(command, flags[i])));             
-                    }
-
-                    if(flags[i] == "-p") {
-                        temp_bill.setPaid();
-                    }   
-
-                    if(flags[i] == "-t") {
-                        temp_bill.setType(get_argument(command, flags[i]));
-                    }    
+            for(int i = 0; i < flags_s; i++) {
+                if(strcmp(sub_flags[i], "-c") == 0) {
+                    cliGetArgument(argument, command, "-c", COMM_MAXLEN);
+                    billSetCost(b, atof(argument));
                 }
+
+                if(strcmp(sub_flags[i], "-e") == 0) {
+                    cliGetArgument(argument, command, "-e", COMM_MAXLEN);
+                    billSetDate(b, argument, "d");
+                }
+
+                if(strcmp(sub_flags[i], "-d") == 0) {
+                    cliGetArgument(argument, command, "-d", COMM_MAXLEN);
+                    billSetDate(b, argument, "p");
+                }
+
+                if(strcmp(sub_flags[i], "-p") == 0) {
+                    billSetPaid(b, true);
+                }   
+
+                if(strcmp(sub_flags[i], "-t") == 0) {
+                    cliGetArgument(argument, command, "-t", COMM_MAXLEN);
+                    billSetType(b, argument);
+                }    
             }
-            catch(const string err) {
-                cout << err << endl;
-                continue;
-            }
-                   
-            client.addBill(temp_bill);     
+            
+            clientAddBill(c, b);     
         }
 
-        if(main_flag == "--client") {
-            cout << client.getUsername() << endl;                
+        if(strcmp(main_flag, "--client") == 0) {
+            clientGetUsername(c, temp_user, USER_MAXLEN);
+            printf("%s\n", temp_user);                
         }
 
-        if(main_flag == "--delete") {
-            if(!client.isLoggedIn()) {
-                cout << "Log in a client first!" << endl;
+        if(strcmp(main_flag, "--delete") == 0) {
+            if(!clientGetLoggedin(c)) {
+                printf("Log in a client first!\n");
                 continue;
             }
 
-            flags = find_flags(command);
+            flags_s = cliGetSubFlags(sub_flags, command);
 
-            // bill --delete -a (deletes all bills)
-            if(flags[0] == "-a") {
-                client.deleteAll();
+            if(strcmp(sub_flags[0], "-a") == 0) {
+                clientDeleteAll(c);
                 continue;
             }
             
-            if(flags[0] == "-n") {
-                client.deleteBill(get_argument(command, flags[0]));
+            if(strcmp(sub_flags[0], "-n") == 0) {
+                cliGetArgument(argument , command, sub_flags[0], ARGM_MAXLEN);
+                clientDeleteBill(c, argument);
             }
 
-            if(flags[0] == "-c") {
-                client.deleteClient();
-            }
-        }
-
-        if(main_flag == "--help") {
-            print_help();
-        }
-
-        if(main_flag == "--login") {
-            main_argument = get_argument(command, main_flag);
-
-            cout << "Password for '" << main_argument << "': ";
-            cin >> temp;
-
-            try {
-                client.loginClient(main_argument, temp);
-            }
-            catch(const string err) {
-                cout << err << endl;
+            if(strcmp(sub_flags[0], "-c") == 0) {
+                // deleteClient(c);
             }
         }
 
-        if(main_flag == "--logout") {
-            try {
-                client.logoutClient();
-            }
-            catch(const string err) {
-                cout << err << endl;
+        if(strcmp(main_flag, "--help") == 0) {
+            printHelp();
+        }
+
+        if(strcmp(main_flag, "--login") == 0) {
+            cliGetArgument(argument, command, main_flag, ARGM_MAXLEN);
+
+            printf("Password for '%s': ", argument);
+            fgets(temp_pass, PASS_MAXLEN, stdin);
+
+            clientLogin(c, argument, temp_pass);
+        }
+
+        if(strcmp(main_flag, "--logout") == 0) {
+            if(clientLogout(c) == -1) {
+                printf("An error occurred during the logout process.\n");
             }
         }
 
-        if(main_flag == "--quit") {
-            return 0;
+        if(strcmp(main_flag, "--quit") == 0) {
+            clientDestroy(c);
+            billDestroy(b);
+            return EXIT_SUCCESS;
         }
 
-        if(main_flag == "--register") {
-            main_argument = get_argument(command, main_flag);
+        if(strcmp(main_flag, "--register") == 0) {
+            ret = cliGetArgument(temp_user, command, main_flag, USER_MAXLEN);
 
-            cout << "Password: ";
-            cin >> temp;
+            if(ret == -1) {
+                printf("No argument provided for '%s'.\n", command);
+            } 
 
-            try {
-                client.registerClient(main_argument, temp);
-            }
-            catch(const string err) {
-                cout << err << endl;
+            printf("Password: ");
+            fgets(temp_pass, PASS_MAXLEN, stdin);
+            strtok(temp_pass, "\n");
+
+            ret = clientRegister(c, temp_user, temp_pass);
+
+            if(ret == -1) {
+                printf("An error occurred in the registration process.\n");
             }
         }
 
-        if(main_flag == "--view") {
-            if(!client.isLoggedIn()) {
-                cout << "Log in a client first!" << endl;
+        if(strcmp(main_flag, "--view") == 0) {
+            if(!clientGetLoggedin(c)) {
+                printf("Log in a client first!\n");
                 continue;
             }
+ 
+            flags_s = cliGetSubFlags(sub_flags, command);
 
-            flags = find_flags(command);
-
-            if(flags[0] == "NOFLAGS") {
-                client.viewAll();
+            if(flags_s == 0) {
+                clientViewAll(c);
             }
             else {
-                for(int i = 0; i < flags.size(); i++) {
-                    if(flags[i] == "-n") {
-                        try {
-                            client.viewBill(get_argument(command, flags[i]));
-                        }
-                        catch(const string err) {
-                            cout << err << endl;
-                        }
+                for(int i = 0; i < flags_s; i++) {
+                    if(strcmp(sub_flags[i], "-n") == 0) {
+                        cliGetArgument(argument, command, sub_flags[i], ARGM_MAXLEN);
+                        clientViewBill(c, argument);
                     }
                 }
             }
