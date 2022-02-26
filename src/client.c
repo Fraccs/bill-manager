@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 24/02/2022
+ * Last change : 26/02/2022
  * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
@@ -21,35 +21,43 @@ typedef struct cs {
 } client;
 
 // Returns a pointer to the memory allocated on the heap for a new client
-client* clientCreate() {
-    client* c = malloc(sizeof(client)); 
+client *clientCreate() {
+    client *c = malloc(sizeof(client)); 
 
     if(c == NULL) return NULL;
 
     memset(c->username, 0, USER_MAXLEN + 1);
     memset(c->password, 0, PASS_MAXLEN + 1);
+
+    strcpy(c->username, "default");
+    strcpy(c->password, "default");
     c->logged_in = false;
 
     return c;
 }
 
 // Frees the memory of the passed client
-void clientDestroy(client *c) {
+int clientDestroy(client *c) {
+    if(c == NULL) return -1;
+
     free(c);
+
+    return 0;
 }
 
 /* Checks if another instance of username exists, 
-if it doesn't it saves the username and password in 'clients.txt'*/
+if it doesn't, it saves the username and password in 'clients.txt'*/
 int clientRegister(client *c, const char *username, const char *password) {
-    FILE* f_handle;
+    FILE *f_handle;
     char line[USER_MAXLEN + PASS_MAXLEN + 1];
     char temp_user[USER_MAXLEN + 1];
+    char path[USER_MAXLEN + 6] = "data/";
 
     memset(line, 0, USER_MAXLEN + PASS_MAXLEN + 1);
     memset(temp_user, 0, USER_MAXLEN + 1);
 
-    if(strnlen(username, USER_MAXLEN) < 3) return -1;
-    if(strnlen(password, PASS_MAXLEN) < 6) return -1;
+    if(strlen(username) < 3) return -1;
+    if(strlen(password) < 6) return -1;
     if(c->logged_in) return -1;
 
     /* Opening clients.txt in reading and appending mode
@@ -59,32 +67,38 @@ int clientRegister(client *c, const char *username, const char *password) {
     if(f_handle == NULL) return -1;
 
     // Checking for the existence of username
-    while(fscanf(f_handle, "%[^\n]", line)) {
+    while(fgets(line, USER_MAXLEN + PASS_MAXLEN, f_handle)) {
         for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
-            strncat(temp_user, line[i], USER_MAXLEN);
+            strncat(temp_user, charToString(line[i]), USER_MAXLEN);
 
-            if(strncmp(temp_user, username, USER_MAXLEN)) {
+            // Username already exists
+            if(strncmp(temp_user, username, USER_MAXLEN) == 0) {
+                fclose(f_handle);
                 return -1;
             }
         }
+
+        memset(temp_user, 0, USER_MAXLEN + 1);
     }
     
     fclose(f_handle);
     
     // Writing in the file
     f_handle = fopen("data/clients.txt", "a");
+
+    if(f_handle == NULL) return -1; 
+
     fprintf(f_handle, "%s %s\n", username, password);
     fclose(f_handle);
 
     // Creating a directory for 'username'
     #ifdef _WIN32
-    CreateDirectory(strcat("data/", username), NULL);
+    CreateDirectory(strcat(path, username), NULL);
     #else
     // Replace with unix code
     #endif
 
-    // Autologin after successful registration
-    loginClient(c, username, password);
+    printf("Registered successfully!\n");
 
     return 0;
 }
@@ -92,7 +106,7 @@ int clientRegister(client *c, const char *username, const char *password) {
 /* Looks for username matches in 'clients.txt', 
 if it finds one and the password is correct it logs-in the given client*/
 int clientLogin(client *c, const char *username, const char *password) {
-    FILE* f_handle;
+    FILE *f_handle;
     char line[USER_MAXLEN + PASS_MAXLEN + 1];
     char temp_user[USER_MAXLEN + 1];
     char temp_pass[PASS_MAXLEN + 1];
@@ -110,26 +124,32 @@ int clientLogin(client *c, const char *username, const char *password) {
 
     if(f_handle == NULL) return -1;
 
-    while(fscanf(f_handle, "%[^\n]", line)) {
+    while(fgets(line, USER_MAXLEN + PASS_MAXLEN, f_handle)) {
         for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
-            strncat(temp_user, line[i], USER_MAXLEN);
+            strncat(temp_user, charToString(line[i]), USER_MAXLEN);
         }
 
-        for(int i = srtlen(temp_user) + 1; line[i] != ' ' && line[i] != '\0'; i++) {
-            strncat(temp_pass, line[i], PASS_MAXLEN);
+        for(int i = strlen(temp_user) + 1; line[i] != ' ' && line[i] != '\0'; i++) {
+            strncat(temp_pass, charToString(line[i]), PASS_MAXLEN);
         }
 
-        if(strncmp(temp_user, username, USER_MAXLEN)) {
-            if(strncmp(temp_pass, password, PASS_MAXLEN)) {
+        if(strncmp(temp_user, username, USER_MAXLEN) == 0) {
+            if(strncmp(temp_pass, password, PASS_MAXLEN) == 0) {
                 strncpy(c->username, username, USER_MAXLEN);
                 strncpy(c->password, password, PASS_MAXLEN);
                 c->logged_in = true;
+                
+                fclose(f_handle);
                 return 0;
             }
             else {
+                fclose(f_handle);
                 return -1;
             }
         }
+
+        memset(temp_user, 0, USER_MAXLEN + 1);
+        memset(temp_pass, 0, PASS_MAXLEN + 1);
     }
     
     fclose(f_handle);
@@ -140,11 +160,10 @@ int clientLogin(client *c, const char *username, const char *password) {
 
 //  Logout from the current client
 int clientLogout(client *c) {
-    if(strncmp(c->username, "default", USER_MAXLEN)) return -1;
-    if(!c->logged_in) return -1;
+    if((strcmp(c->username, "default") == 0) || (!c->logged_in)) return -1;
  
-    strncpy(c->username, "default", USER_MAXLEN);
-    strncpy(c->password, "default", PASS_MAXLEN);
+    strcpy(c->username, "default");
+    strcpy(c->password, "default");
     c->logged_in = false;
 
     return 0;
@@ -330,8 +349,7 @@ int clientGetPassword(client *c, char *dest, size_t dest_s) {
     return 0;
 }
 
-/* Returns if the passed client is logged-in or not
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
+// Returns if the passed client is logged-in or not
 int clientGetLoggedin(client *c) {
     if(c == NULL) return -1;
     
