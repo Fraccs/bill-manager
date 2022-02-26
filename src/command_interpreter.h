@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/02/2022
+ * Last change : 26/02/2022
  * Description : Header file containing commandline-interface functions declarations
  *============================================================================*/
 
@@ -21,15 +21,18 @@
 #include "utils.h"
 
 // Returns if the command starts with "bill"
-bool startsWithBill(const char *command);
+bool cliStartsWithBill(const char *command);
 
-// Returns the main flag of the passed command ("--example")
-int findMainFlag(char *dest, const char *command, size_t dest_s);
+/* Loads dest with the main flag of the passed command ("--example")
+(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
+int cliGetMainFlag(char *dest, const char *command, size_t dest_s);
 
-// Loads dest with all the flags of the passed command ("-a", "-b", ...), except for the main flag
-void findFlags(char *dest[], const char *command);
+/* Loads dest with the subflags of the passed command ex:("-a", "-b", ...) and
+returns the number of subflags found in the command */
+int cliGetSubFlags(char dest[][3], const char *command);
 
-// Returns a string containing the argument relative to the passed flag
-int getArgument(char *dest, const char *command, const char *flag, size_t dest_s);
+/* Loads dest with the argument relative to the passed flag
+(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
+int cliGetArgument(char *dest, const char *command, const char *flag, size_t dest_s);
 
 #endif
