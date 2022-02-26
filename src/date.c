@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 25/02/2022
+ * Last change : 26/02/2022
  * Description : Source file containing date related functions definitions
  *============================================================================*/
 
@@ -44,7 +44,7 @@ int dateDayAccurate(char *dest, size_t dest_s) {
 
     if(dest_s != 10) return -1; // Date size + 1
 
-    memset(dest_s, 0, dest_s + 1);
+    memset(dest, 0, dest_s + 1);
     strftime(dest, dest_s, "%Y-%m-%d", &tstruct);
 
     return 0;
@@ -58,7 +58,7 @@ int dateSecAccurate(char *dest, size_t dest_s) {
 
     if(dest_s != 19) return -1; // Date size + 1
 
-    memset(dest_s, 0, dest_s + 1);
+    memset(dest, 0, dest_s + 1);
     strftime(dest, dest_s, "%Y-%m-%d.%X", &tstruct);
 
     return 0;

@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 25/02/2022
+ * Last change : 26/02/2022
  * Description : Header file containing date related functions declarations 
  *============================================================================*/
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <time.h>
 
 #define DDAT_MAXLEN 10
