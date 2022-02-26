@@ -139,14 +139,19 @@ int main() {
         }
 
         if(strcmp(main_flag, "--help") == 0) {
-            printHelp();
+            helpPrint();
         }
 
         if(strcmp(main_flag, "--login") == 0) {
             cliGetArgument(argument, command, main_flag, ARGM_MAXLEN);
 
             printf("Password for '%s': ", argument);
+
+            echoEnable(false);
             fgets(temp_pass, PASS_MAXLEN, stdin);
+            echoEnable(true);
+
+            printf("\n");
 
             clientLogin(c, argument, temp_pass);
         }
@@ -171,8 +176,13 @@ int main() {
             } 
 
             printf("Password: ");
+
+            echoEnable(false);
             fgets(temp_pass, PASS_MAXLEN, stdin);
             strtok(temp_pass, "\n");
+            echoEnable(true);
+
+            printf("\n");
 
             ret = clientRegister(c, temp_user, temp_pass);
 

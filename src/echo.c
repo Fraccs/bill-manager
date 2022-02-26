@@ -6,14 +6,14 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
+ * Last change : 26/02/2022
  * Description : Source file containing stdin-echo related functions definitions 
  *============================================================================*/
 
 #include "echo.h"
 
 // Enables or disables echo in stdin
-void setStdinEcho(bool enable_echo) {
+void echoEnable(bool enable_echo) {
     #ifdef _WIN32
     HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE); 
     DWORD mode;
