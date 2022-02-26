@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 24/02/2022
+ * Last change : 26/02/2022
  * Description : Source file containing bill related structs and functions definitions
  *============================================================================*/
 
@@ -56,17 +56,17 @@ int billSetType(bill *b, const char *type) {
 }
 
 // Set the due date of a bill (format=d: due_date, format=p: paid_date)
-int billSetDueDate(bill *b, const char *due_date, const char *format) {
-    if(!dvalidFormat(due_date)) {
+int billSetDate(bill *b, const char *due_date, const char *format) {
+    if(!dateValidFormat(due_date)) {
         return -1;
     }
 
-    if(strcmp(format, "d")) {
+    if(strcmp(format, "d") == 0) {
         strncpy(b->due_date, due_date, DDAT_MAXLEN);
         return 0;
     }
     
-    if(strcmp(format, "p")) {
+    if(strcmp(format, "p") == 0) {
         strncpy(b->paid_date, due_date, PDAT_MAXLEN);
         return 0;
     }
