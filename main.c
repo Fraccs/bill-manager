@@ -21,7 +21,7 @@
 
 #include "src/client.h"
 #include "src/bill.h"
-#include "src/command_interpreter.h"
+#include "src/cli.h"
 #include "src/echo.h"
 #include "src/help.h"
 #include "src/logs.h"

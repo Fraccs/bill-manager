@@ -1,5 +1,5 @@
 /*============================================================================
- * Name        : command_interpreter.c
+ * Name        : cli.c
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
@@ -10,7 +10,7 @@
  * Description : Source file containing commandline-interface functions definitions
  *============================================================================*/
 
-#include "command_interpreter.h"
+#include "cli.h"
 
 // Returns if the command starts with "bill"
 bool cliStartsWithBill(const char *command) {

@@ -5,7 +5,7 @@
 > ### *This is a school project and it is not maintained anymore!*
 
 ## **Compiler**
-> Windows: (compiler) -o bill_manager main.c .\src\bill.c .\src\client.c .\src\command_interpreter.c .\src\date.c .\src\echo.c .\src\help.c .\src\logs.c .\src\utils.c
+> Windows: (compiler) -o bill_manager main.c .\src\bill.c .\src\client.c .\src\cli.c .\src\date.c .\src\echo.c .\src\help.c .\src\logs.c .\src\utils.c
 
 > Unix: Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=gcc).
 
