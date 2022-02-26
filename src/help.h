@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 14/02/2022
+ * Last change : 26/02/2022
  * Description : Header file containing help related functions declarations 
  *============================================================================*/
 
@@ -16,6 +16,6 @@
 #include <stdio.h>
 
 // Prints the help page related to the passed string
-void printHelp();
+void helpPrint();
 
 #endif
