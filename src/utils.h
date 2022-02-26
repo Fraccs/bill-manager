@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/02/2022
+ * Last change : 26/02/2022
  * Description : Header file containing multi-purpose functions declarations
  *============================================================================*/
 
@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 
-// Converts a char to a C string
-void charToString(char *dest, char c);
+// Converts a char into a C string
+char *charToString(char c);
 
 #endif

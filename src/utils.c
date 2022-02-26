@@ -6,14 +6,18 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/02/2022
+ * Last change : 26/02/2022
  * Description : Source file containing multi-puropose functions declarations
  *============================================================================*/
 
 #include "utils.h"
 
-// Converts a char to a C string
-void charToString(char *dest, char c) {
-    dest[0] = c;
-    dest[1] = '\0';
+// Converts a char into a C string
+char *charToString(char c) {
+    char *str = malloc(sizeof(char) * 2);
+    
+    str[0] = c;
+    str[1] = '\0';
+
+    return str;
 }
