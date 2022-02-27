@@ -62,9 +62,26 @@ int dateSecAccurate(char *dest, size_t dest_s) {
     return 0;
 }
 
-// Returns the time since the Epoch (seconds)
-time_t dateEpochSeconds() {
-    return time(NULL);
+// Returns the time since the Epoch in seconds
+char *dateEpochSeconds() {
+    time_t epoch_sec = time(NULL);
+    time_t epoch_sec_temp = epoch_sec;
+    int n_of_digits = 0;
+    char *str;
+
+    /* ---- Number of digits ---- */
+    do {
+        epoch_sec_temp /= 10;
+        n_of_digits++;
+    } 
+    while(epoch_sec_temp != 0);
+
+    /* ---- int to char* ---- */
+    str = malloc(sizeof(char) * (n_of_digits + 1)); 
+    memset(str, 0, n_of_digits + 1);
+    itoa(epoch_sec, str, 10);
+
+    return str;
 }
 
 // Returns if the passed date respects the YYYY-MM-DD format

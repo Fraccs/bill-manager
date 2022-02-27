@@ -40,7 +40,7 @@ int dateDayAccurate(char *dest, size_t dest_s);
 int dateSecAccurate(char *dest, size_t dest_s);
 
 // Returns the time since the Epoch (seconds)
-time_t dateEpochSeconds();
+char *dateEpochSeconds();
 
 // Returns if the passed date respects the YYYY-MM-DD format
 bool dateValidFormat(const char *date);
