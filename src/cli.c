@@ -31,7 +31,7 @@ int cliGetMainFlag(char *dest, const char *command, size_t dest_s) {
     for(int i = 0; i < strlen(command); i++) {
         if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
             for(int j = i + 1; command[j] != ' ' && command[j] != '\0'; j++) {
-                strncat(dest, charToString(command[j]), dest_s);
+                strncat(dest, utilsCharToString(command[j]), dest_s);
             }    
 
             return 0;
@@ -61,8 +61,8 @@ int cliGetSubFlags(char dest[][3], const char *command) {
     for(int i = 0; i < strlen(temp_command) - 3; i++) {
         if(temp_command[i] == ' ' && temp_command[i+1] == '-' && temp_command[i+3] == ' ') {
             // Copying the subflag in temp_subflag
-            strcat(temp_subflag, charToString(command[i+1]));
-            strcat(temp_subflag, charToString(command[i+2]));
+            strcat(temp_subflag, utilsCharToString(command[i+1]));
+            strcat(temp_subflag, utilsCharToString(command[i+2]));
 
             // Copying the temp_subflag in the flags list
             strcpy(dest[n_of_flags], temp_subflag);
@@ -104,7 +104,7 @@ int cliGetArgument(char *dest, const char *command, const char *flag, size_t des
 
     // Loading dest with the argument
     for(int i = pos + strlen(flag) + 1; command[i] != ' ' && command[i] != '\0'; i++) {
-        strncat(dest, charToString(command[i]), dest_s);
+        strncat(dest, utilsCharToString(command[i]), dest_s);
     }
 
     return 0;

@@ -68,7 +68,7 @@ int clientRegister(client *c, const char *username, const char *password) {
     /* ---- Checking if the username already exists ---- */
     while(fgets(line, USER_MAXLEN + PASS_MAXLEN, f_handle)) {
         for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
-            strncat(temp_user, charToString(line[i]), USER_MAXLEN);
+            strncat(temp_user, utilsCharToString(line[i]), USER_MAXLEN);
 
             if(strncmp(temp_user, username, USER_MAXLEN) == 0) {
                 fclose(f_handle);
@@ -119,12 +119,12 @@ int clientLogin(client *c, const char *username, const char *password) {
     while(fgets(line, USER_MAXLEN + PASS_MAXLEN, f_handle)) {
         /* ----- Get username from line ---- */
         for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
-            strncat(temp_user, charToString(line[i]), USER_MAXLEN);
+            strncat(temp_user, utilsCharToString(line[i]), USER_MAXLEN);
         }
 
         /* ----- Get password from line ---- */
         for(int i = strlen(temp_user) + 1; line[i] != ' ' && line[i] != '\0'; i++) {
-            strncat(temp_pass, charToString(line[i]), PASS_MAXLEN);
+            strncat(temp_pass, utilsCharToString(line[i]), PASS_MAXLEN);
         }
 
         /* ---- Comparing with login input ---- */
