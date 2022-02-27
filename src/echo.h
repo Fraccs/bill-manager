@@ -1,17 +1,19 @@
 /*============================================================================
- * Name        : echo.hpp
+ * Name        : echo.h
  * Version     : Alpha
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 13/02/2022
- * Description : Header file containing stdin-echo related function declarations
+ * Last change : 26/02/2022
+ * Description : Header file containing stdin-echo related functions declarations
  *============================================================================*/
 
-#ifndef _ECHO_HPP
-#define _ECHO_HPP
+#ifndef _ECHO_H
+#define _ECHO_H
+
+#include <stdbool.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -21,6 +23,6 @@
 #endif
 
 // Enables or disables echo in stdin
-void setStdinEcho(bool);
+void echoEnable(bool enable_echo);
 
 #endif
