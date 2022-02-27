@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 24/02/2022
+ * Last change : 27/02/2022
  * Description : Header file containing bill related structs and functions declarations
  *============================================================================*/
 
@@ -43,22 +43,19 @@ int billSetPaid(bill *b, bool paid);
 // Set the cost of a bill
 int billSetCost(bill *b, float cost);
 
-/* Loads dest with the passed bill's type
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int billGetType(bill *b, char *dest, size_t dest_s);
+// Returns the type of the passed bill
+char *billGetType(bill *b);
 
-/* Loads dest with the passed bill's due_date
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int billGetDueDate(bill *b, char *dest, size_t dest_s);
+// Returns the due_date of the passed bill
+char *billGetDueDate(bill *b);
 
-/* Loads dest with the passed bill's paid_date
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int billGetPaidDate(bill *b, char *dest, size_t dest_s);
+// Returns the paid_date of the passed bill
+char *billGetPaidDate(bill *b);
 
 // Returns if the passed bill was paid
 int billGetPaid(bill *b);
 
-// Returns the passed-bill's cost
+// Returns the cost of the passed bill
 float billGetCost(bill *b); 
 
 #endif

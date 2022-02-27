@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 26/02/2022
+ * Last change : 27/02/2022
  * Description : Source file containing bill related structs and functions definitions
  *============================================================================*/
 
@@ -94,37 +94,25 @@ int billSetCost(bill *b, float cost) {
     return 0;
 }
 
-/* Loads dest with the passed bill's type
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int billGetType(bill *b, char *dest, size_t dest_s) {
-    if(b == NULL || dest == NULL || dest_s < DDAT_MAXLEN) return -1;
-    
-    memset(dest, 0, dest_s + 1);
-    strncpy(dest, b->type, dest_s);
+// Returns the type of the passed bill
+char *billGetType(bill *b) {
+    if(b == NULL) return NULL;
 
-    return 0;
+    return b->type;
 }
 
-/* Loads dest with the passed bill's due_date
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int billGetDueDate(bill *b, char *dest, size_t dest_s) {
-    if(b == NULL || dest == NULL || dest_s < DDAT_MAXLEN) return -1;
+// Returns the due_date of the passed bill
+char *billGetDueDate(bill *b) {
+    if(b == NULL) return NULL;
 
-    memset(dest, 0, dest_s + 1);
-    strncpy(dest, b->due_date, dest_s);
-
-    return 0;
+    return b->due_date;
 }
 
-/* Loads dest with the passed bill's paid_date
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
-int billGetPaidDate(bill *b, char *dest, size_t dest_s) {
-    if(b == NULL || dest == NULL || dest_s < PDAT_MAXLEN) return -1;
+// Returns the paid_date of the passed bill
+char *billGetPaidDate(bill *b) {
+    if(b == NULL) return NULL;
 
-    memset(dest, 0, dest_s + 1);
-    strncpy(dest, b->paid_date, dest_s);
-
-    return 0;
+    return b->paid_date;
 }
 
 // Returns if the passed bill was paid
@@ -134,7 +122,7 @@ int billGetPaid(bill *b) {
     return b->paid; 
 }
 
-// Returns the passed-bill's cost
+// Returns the cost of the passed bill
 float billGetCost(bill *b) {
     if(b == NULL) return -1;
 
