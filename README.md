@@ -29,6 +29,9 @@
 * Example 2: bill --add -t Gas -c 100 -u 1000 -p
     * Result: Type=Gas; Cost=100; Date=Today; Paid=true
 
+### ***bill --clear***
+* Clears previous console output.
+
 ### ***bill --client***
 * Prints the active client.
 
