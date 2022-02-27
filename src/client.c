@@ -6,14 +6,14 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 26/02/2022
+ * Last change : 27/02/2022
  * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
 #include "client.h"
 
 /* Client struct, note that this is an opaque type and only pointer declaration is valid.
-Use the predefined functions to access members*/
+Use the predefined functions to access members */
 typedef struct cs {
     char username[USER_MAXLEN + 1];
     char password[PASS_MAXLEN + 1];
@@ -46,7 +46,7 @@ int clientDestroy(client *c) {
 }
 
 /* Checks if another instance of username exists, 
-if it doesn't, it saves the username and password in 'clients.txt'*/
+if it doesn't, it saves the username and password in 'clients.txt' */
 int clientRegister(client *c, const char *username, const char *password) {
     FILE *f_handle;
     char line[USER_MAXLEN + PASS_MAXLEN + 1];
@@ -60,38 +60,30 @@ int clientRegister(client *c, const char *username, const char *password) {
     if(strlen(password) < 6) return -1;
     if(c->logged_in) return -1;
 
-    /* Opening clients.txt in reading and appending mode
-    (the file is created if it doesn't exist)*/
+    /* ---- Register mechanism ---- */
     f_handle = fopen("data/clients.txt", "a+");
 
     if(f_handle == NULL) return -1;
 
-    // Checking for the existence of username
+    /* ---- Checking if the username already exists ---- */
     while(fgets(line, USER_MAXLEN + PASS_MAXLEN, f_handle)) {
         for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
             strncat(temp_user, charToString(line[i]), USER_MAXLEN);
 
-            // Username already exists
             if(strncmp(temp_user, username, USER_MAXLEN) == 0) {
                 fclose(f_handle);
-                return -1;
+                return -1; // Found same username
             }
         }
 
         memset(temp_user, 0, USER_MAXLEN + 1);
     }
     
-    fclose(f_handle);
-    
-    // Writing in the file
-    f_handle = fopen("data/clients.txt", "a");
-
-    if(f_handle == NULL) return -1; 
-
+    /* ---- Saving the new client ---- */
     fprintf(f_handle, "%s %s\n", username, password);
     fclose(f_handle);
 
-    // Creating a directory for 'username'
+    /* ---- New client's directory ---- */
     #ifdef _WIN32
     CreateDirectory(strcat(path, username), NULL);
     #else
@@ -104,7 +96,7 @@ int clientRegister(client *c, const char *username, const char *password) {
 }
 
 /* Looks for username matches in 'clients.txt', 
-if it finds one and the password is correct it logs-in the given client*/
+if it finds one and the password is correct it logs-in the given client */
 int clientLogin(client *c, const char *username, const char *password) {
     FILE *f_handle;
     char line[USER_MAXLEN + PASS_MAXLEN + 1];
@@ -119,20 +111,23 @@ int clientLogin(client *c, const char *username, const char *password) {
     if(strlen(password) < 6 || strlen(username) > 20) return -1;
     if(c->logged_in) return -1;
 
-    // Checking for other istances of username
+    /* ---- Login mechanism ---- */
     f_handle = fopen("data/clients.txt", "r");
 
     if(f_handle == NULL) return -1;
 
     while(fgets(line, USER_MAXLEN + PASS_MAXLEN, f_handle)) {
+        /* ----- Get username from line ---- */
         for(int i = 0; line[i] != ' ' && line[i] != '\0'; i++) {
             strncat(temp_user, charToString(line[i]), USER_MAXLEN);
         }
 
+        /* ----- Get password from line ---- */
         for(int i = strlen(temp_user) + 1; line[i] != ' ' && line[i] != '\0'; i++) {
             strncat(temp_pass, charToString(line[i]), PASS_MAXLEN);
         }
 
+        /* ---- Comparing with login input ---- */
         if(strncmp(temp_user, username, USER_MAXLEN) == 0) {
             if(strncmp(temp_pass, password, PASS_MAXLEN) == 0) {
                 strncpy(c->username, username, USER_MAXLEN);
@@ -140,11 +135,11 @@ int clientLogin(client *c, const char *username, const char *password) {
                 c->logged_in = true;
                 
                 fclose(f_handle);
-                return 0;
+                return 0; // Successful login
             }
             else {
                 fclose(f_handle);
-                return -1;
+                return -1; // Wrong password
             }
         }
 
@@ -154,11 +149,10 @@ int clientLogin(client *c, const char *username, const char *password) {
     
     fclose(f_handle);
 
-    // Client not found
-    return -1;
+    return -1; // Client not found
 }
 
-//  Logout from the current client
+// Logout from the current client
 int clientLogout(client *c) {
     if((strcmp(c->username, "default") == 0) || (!c->logged_in)) return -1;
  
@@ -171,37 +165,46 @@ int clientLogout(client *c) {
 
 // Adds the passed bill to the client's bill list
 int clientAddBill(client *c, bill *b) {
-    // FILE* f_handle;
-    // int num = 0;
+    FILE *f_handle;
+    char temp[TYPE_MAXLEN + 1];
+    char path[PATH_MAXLEN + 1];
 
-    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
+    memset(path, 0, PATH_MAXLEN + 1);
 
-    // // Getting the number of files in the client's directory
-    // for(auto& file: file_iterator) {
-    //     if(file.is_regular_file()){
-    //         num++;
-    //     }
-    // }
+    /* ---- New bill path ---- */
+    strncat(path, "data/", PATH_MAXLEN); // data/
+    clientGetUsername(c, temp, USER_MAXLEN); 
+    strncat(path, temp, PATH_MAXLEN); // data/username
+    strncat(path, "/", PATH_MAXLEN); // data/username/
+    strncat(path, dateEpochSeconds(), PATH_MAXLEN); // data/username/EPOCH_SECONDS
+    strncat(path, ".txt", PATH_MAXLEN); // data/username/EPOCH_SECONDS.txt
 
-    // write.open("data/" + username + "/bill" + to_string(num + 1) + ".txt", fstream::app);
+    /* ---- Writing onto the file ---- */
+    f_handle = fopen(path, "a");
     
-    // if(write == NULL) return -1;
+    if(f_handle == NULL) return -1;
 
-    // fprintf(write, "Type: %s\nCost: %f\nUsage: %f\n", bill.type, bill.cost, bill.usage);
+    billGetType(b, temp, TYPE_MAXLEN);
+    fprintf(f_handle, "Type: %s\n", temp);
 
-    // if(bill.getPaid()) {
-    //     write << "Paid: True" << endl;
-    // }
-    // else {
-    //     write << "Paid: False" << endl;
-    // }
+    fprintf(f_handle, "Cost: %f\n", billGetCost(b));
 
-    // write << "Paid in: " << bill.getPaidDate() << endl;
-    // write << "Due date: " << bill.getDueDate() << endl;
+    if(billGetPaid(b)) {
+        fprintf(f_handle, "Paid: True\n");
+    }
+    else {
+        fprintf(f_handle, "Paid: False\n");
+    }
+
+    billGetPaidDate(b, temp, PDAT_MAXLEN);
+    fprintf(f_handle, "Paid in: %s\n", temp);
+
+    billGetDueDate(b, temp, DDAT_MAXLEN);
+    fprintf(f_handle, "Due date: %s\n", temp);
    
-    // fclose(f_handle);
+    fclose(f_handle);
 
-    // return 0;
+    return 0;
 }
 
 // Deletes all the bills of the logged client
@@ -328,7 +331,7 @@ int clientViewBill(client *c, const char *file_name) {
 }
 
 /* Loads dest with the passed client's username
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
+(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
 int clientGetUsername(client *c, char *dest, size_t dest_s) {
     if(c == NULL || dest == NULL) return -1;
 
@@ -339,7 +342,7 @@ int clientGetUsername(client *c, char *dest, size_t dest_s) {
 }
 
 /* Loads dest with the passed client's password
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
+(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
 int clientGetPassword(client *c, char *dest, size_t dest_s) {
     if(c == NULL || dest == NULL) return -1;
 
