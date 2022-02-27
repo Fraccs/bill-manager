@@ -72,13 +72,11 @@ void clientViewAll(client *c);
 // Prints the content of a bill
 int clientViewBill(client *c, const char *file_name);
 
-/* Loads dest with the passed client's username
-(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
-int clientGetUsername(client *c, char *dest, size_t dest_s);
+// Returns the username of the passed client
+char *clientGetUsername(client *c);
 
-/* Loads dest with the passed client's password
-(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
-int clientGetPassword(client *c, char *dest, size_t dest_s);
+// Returns the password of the passed client
+char *clientGetPassword(client *c);
 
 // Returns if the passed client is logged-in or not
 int clientGetLoggedin(client *c);

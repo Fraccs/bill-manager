@@ -166,15 +166,13 @@ int clientLogout(client *c) {
 // Adds the passed bill to the client's bill list
 int clientAddBill(client *c, bill *b) {
     FILE *f_handle;
-    char temp[TYPE_MAXLEN + 1];
     char path[PATH_MAXLEN + 1];
 
     memset(path, 0, PATH_MAXLEN + 1);
 
     /* ---- New bill path ---- */
-    strncat(path, "data/", PATH_MAXLEN); // data/
-    clientGetUsername(c, temp, USER_MAXLEN); 
-    strncat(path, temp, PATH_MAXLEN); // data/username
+    strncat(path, "data/", PATH_MAXLEN); // data/ 
+    strncat(path, clientGetUsername(c), PATH_MAXLEN); // data/username
     strncat(path, "/", PATH_MAXLEN); // data/username/
     strncat(path, dateEpochSeconds(), PATH_MAXLEN); // data/username/EPOCH_SECONDS
     strncat(path, ".txt", PATH_MAXLEN); // data/username/EPOCH_SECONDS.txt
@@ -183,10 +181,8 @@ int clientAddBill(client *c, bill *b) {
     f_handle = fopen(path, "a");
     
     if(f_handle == NULL) return -1;
-
-    billGetType(b, temp, TYPE_MAXLEN);
-    fprintf(f_handle, "Type: %s\n", temp);
-
+    
+    fprintf(f_handle, "Type: %s\n", billGetType(b));
     fprintf(f_handle, "Cost: %f\n", billGetCost(b));
 
     if(billGetPaid(b)) {
@@ -196,11 +192,8 @@ int clientAddBill(client *c, bill *b) {
         fprintf(f_handle, "Paid: False\n");
     }
 
-    billGetPaidDate(b, temp, PDAT_MAXLEN);
-    fprintf(f_handle, "Paid in: %s\n", temp);
-
-    billGetDueDate(b, temp, DDAT_MAXLEN);
-    fprintf(f_handle, "Due date: %s\n", temp);
+    fprintf(f_handle, "Paid in: %s\n", billGetPaidDate(b));
+    fprintf(f_handle, "Due date: %s\n", billGetDueDate(b));
    
     fclose(f_handle);
 
@@ -330,26 +323,18 @@ int clientViewBill(client *c, const char *file_name) {
     // return -1; 
 }
 
-/* Loads dest with the passed client's username
-(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
-int clientGetUsername(client *c, char *dest, size_t dest_s) {
-    if(c == NULL || dest == NULL) return -1;
+// Returns the username of the passed client
+char *clientGetUsername(client *c) {
+    if(c == NULL) return NULL;
 
-    memset(dest, 0, dest_s + 1);
-    strncpy(dest, c->username, dest_s);
-
-    return 0;
+    return c->username;
 }
 
-/* Loads dest with the passed client's password
-(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
-int clientGetPassword(client *c, char *dest, size_t dest_s) {
-    if(c == NULL || dest == NULL) return -1;
+// Returns the password of the passed client
+char *clientGetPassword(client *c) {
+    if(c == NULL) return NULL;
 
-    memset(dest, 0, dest_s + 1);
-    strncpy(dest, c->password, dest_s);
-
-    return 0;
+    return c->password;
 }
 
 // Returns if the passed client is logged-in or not
