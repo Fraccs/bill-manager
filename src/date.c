@@ -37,7 +37,7 @@ int dateDay() {
 }
 
 /* Formats dest with the current machine time in YYYY-MM-DD format
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
+(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
 int dateDayAccurate(char *dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
@@ -50,7 +50,7 @@ int dateDayAccurate(char *dest, size_t dest_s) {
 }
 
 /* Formats dest with the current machine time in YYYY-MM-DD.HH:mm:ss format
-(dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
+(dest_s is the size of dest excluding the additional NULL terminating character '\0') */
 int dateSecAccurate(char *dest, size_t dest_s) {
     time_t pc_time = time(NULL);
     struct tm tstruct = *localtime(&pc_time);
