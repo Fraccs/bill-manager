@@ -60,8 +60,8 @@ int clientAddBill(client *c, bill *b);
 // Deletes all the bills of the logged client
 void clientDeleteAll(client *c);
 
-// Deletes the passed bill from the client's bill list
-void clientDeleteBill(client *c, const char *file_name);
+// Deletes the passed bill from the client's directory
+int clientDeleteBill(client *c, const char *file_name);
 
 // Deletes the logged client
 // void clientDelete(client *c);

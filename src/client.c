@@ -218,26 +218,25 @@ void clientDeleteAll(client *c) {
     // }
 }
 
-// Deletes the passed bill from the client's bill list
-void clientDeleteBill(client *c, const char *file_name) {
-    // char* line;
-    // char* path_string;
-    // filesystem::path path;
+// Deletes the passed bill from the client's directory
+int clientDeleteBill(client *c, const char *file_name) {
+    char path[PATH_MAXLEN + 1];
+    int ret; // Error checking
 
-    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
+    memset(path, 0, PATH_MAXLEN + 1);
 
-    // // Iterating through all the lines of all the files
-    // for(auto& file: file_iterator) {
-    //     if(file.is_regular_file()){
-    //         // Getting file path (data/User/bill.txt)
-    //         path = file;
-    //         // Path to char*             path_string = path.u8string();
+    /* ---- File path ---- */
+    strncat(path, "data/", PATH_MAXLEN); // data/ 
+    strncat(path, clientGetUsername(c), PATH_MAXLEN); // data/username
+    strncat(path, "/", PATH_MAXLEN); // data/username/
+    strncat(path, file_name, PATH_MAXLEN); // data/username/file_name
+    strncat(path, ".txt", PATH_MAXLEN); // data/username/file_name.txt
 
-    //         if(path_string == "data/" + username + "/" + file_name + ".txt") {
-    //             remove(path_string.c_str());
-    //         }
-    //     }
-    // }
+    ret = remove(path);
+
+    if(ret == -1) return ret;
+
+    return 0;
 }
 
 // // Deletes the logged client
