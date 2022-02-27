@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 26/02/2022
+ * Last change : 27/02/2022
  * Description : Header file containing date related functions declarations 
  *============================================================================*/
 
@@ -38,6 +38,9 @@ int dateDayAccurate(char *dest, size_t dest_s);
 /* Formats dest with the current machine time in YYYY-MM-DD.HH:mm:ss format
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
 int dateSecAccurate(char *dest, size_t dest_s);
+
+// Returns the time since the Epoch (seconds)
+time_t dateEpochSeconds();
 
 // Returns if the passed date respects the YYYY-MM-DD format
 bool dateValidFormat(const char *date);

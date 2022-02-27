@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 26/02/2022
+ * Last change : 27/02/2022
  * Description : Source file containing date related functions definitions
  *============================================================================*/
 
@@ -59,9 +59,12 @@ int dateSecAccurate(char *dest, size_t dest_s) {
 
     strftime(dest, dest_s + 1, "%Y-%m-%d.%X", &tstruct);
 
-    printf("%s\n", dest);
-
     return 0;
+}
+
+// Returns the time since the Epoch (seconds)
+time_t dateEpochSeconds() {
+    return time(NULL);
 }
 
 // Returns if the passed date respects the YYYY-MM-DD format
