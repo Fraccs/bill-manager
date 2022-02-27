@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 26/02/2022
+ * Last change : 27/02/2022
  * Description : Main 
  *============================================================================*/
 
@@ -110,9 +110,12 @@ int main() {
             clientAddBill(c, b);     
         }
 
+        if(strcmp(main_flag, "--clear") == 0) {
+            utilsClearConsole();
+        }
+
         if(strcmp(main_flag, "--client") == 0) {
-            clientGetUsername(c, temp_user, USER_MAXLEN);
-            printf("%s\n", temp_user);                
+            printf("%s\n", clientGetUsername(c));                
         }
 
         if(strcmp(main_flag, "--delete") == 0) {
