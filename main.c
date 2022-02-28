@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/02/2022
+ * Last change : 28/02/2022
  * Description : Main 
  *============================================================================*/
 
@@ -16,7 +16,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #else
-// Replace with unix libs
+#include <sys/stat.h>
 #endif
 
 #include "src/client.h"
@@ -43,15 +43,17 @@ int main() {
     int flags_s = 0;
     int ret; // Error checking
 
+    #ifndef _WIN32
+    if(mkdir("data", S_IRWXU) == -1) {
+        return EXIT_FAILURE;
+    }
+    #else
+    CreateDirectory("data", NULL);
+    #endif
+
     if(c == NULL || b == NULL) {
         return EXIT_FAILURE;
     }
-
-    #ifdef _WIN32
-    CreateDirectory("data", NULL);
-    #else
-    // Replace with unix code    
-    #endif
 
     while(true) {
         printf(">: ");
