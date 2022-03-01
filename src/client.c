@@ -89,7 +89,7 @@ int clientRegister(client *c, const char *username, const char *password) {
     #ifdef _WIN32
     CreateDirectory(strcat(path, username), NULL);
     #else
-    // Replace with unix code
+    if(mkdir(strcat(path, username), S_IRWXU) == -1) return -1;
     #endif
 
     /* ---- Logging registration success ---- */
@@ -150,6 +150,8 @@ int clientLogin(client *c, const char *username, const char *password) {
                 strncat(log_string, username, LOGS_MAXLEN);
                 strncat(log_string, "' logged in successfully.", LOGS_MAXLEN);
 
+                logEvent("logs.txt", log_string);
+
                 return 0; // Successful login
             }
             else {
@@ -159,6 +161,8 @@ int clientLogin(client *c, const char *username, const char *password) {
                 strncat(log_string, "Unsuccessful login for client '", LOGS_MAXLEN);
                 strncat(log_string, username, LOGS_MAXLEN);
                 strncat(log_string, "', wrong password.", LOGS_MAXLEN);
+
+                logEvent("logs.txt", log_string);
 
                 return -1; // Wrong password
             }
@@ -174,6 +178,8 @@ int clientLogin(client *c, const char *username, const char *password) {
     strncat(log_string, "Unsuccessful login, client '", LOGS_MAXLEN);
     strncat(log_string, username, LOGS_MAXLEN);
     strncat(log_string, "' not found.", LOGS_MAXLEN);
+
+    logEvent("logs.txt", log_string);
 
     return -1; // Client not found
 }
@@ -194,6 +200,8 @@ int clientLogout(client *c) {
     strncat(log_string, "Client '", LOGS_MAXLEN);
     strncat(log_string, c->username, LOGS_MAXLEN);
     strncat(log_string, "' successfully logged out.", LOGS_MAXLEN);
+
+    logEvent("logs.txt", log_string);
 
     return 0;
 }

@@ -1,5 +1,5 @@
 CC=gcc 
-OBJ=main.o bill.o client.o command_interpreter.o date.o echo.o help.o logs.o utils.o
+OBJ=main.o bill.o client.o cli.o date.o echo.o help.o logs.o utils.o
 
 output: $(OBJ)
 	$(CC) -o bill_manager $(OBJ)
@@ -13,8 +13,8 @@ bill.o: src/bill.h src/bill.c
 client.o: src/client.h src/client.c
 	$(CC) -c src/client.c
 
-command_interpreter.o: src/command_interpreter.h src/command_interpreter.c
-	$(CC) -c src/command_interpreter.c
+cli.o: src/cli.h src/cli.c
+	$(CC) -c src/cli.c
 
 date.o: src/date.h src/date.c
 	$(CC) -c src/date.c

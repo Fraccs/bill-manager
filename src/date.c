@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/02/2022
+ * Last change : 28/02/2022
  * Description : Source file containing date related functions definitions
  *============================================================================*/
 
@@ -78,8 +78,10 @@ char *dateEpochSeconds() {
 
     /* ---- int to char* ---- */
     str = malloc(sizeof(char) * (n_of_digits + 1)); 
+
     memset(str, 0, n_of_digits + 1);
-    itoa(epoch_sec, str, 10);
+    
+    snprintf(str, n_of_digits + 1, "%ld", epoch_sec);
 
     return str;
 }
