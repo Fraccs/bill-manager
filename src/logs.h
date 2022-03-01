@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 23/02/2022
+ * Last change : 28/02/2022
  * Description : Header file containing logs related functions declarations
  *============================================================================*/
 
@@ -15,6 +15,8 @@
 
 #include <stdio.h>
 #include "date.h"
+
+#define LOGS_MAXLEN 100
 
 // Logs the passed string to a txt, keeping track of the current machine time
 int logEvent(const char *logfile_name, const char *str);
