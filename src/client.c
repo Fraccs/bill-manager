@@ -288,36 +288,30 @@ void clientViewAll(client *c) {
 
 // Prints the content of a bill
 int clientViewBill(client *c, const char *file_name) {
-    // FILE* read;
-    // char* line;
-    // char* path_string;
-    // filesystem::path path;
+    FILE *f_handle;
+    char line[101];
+    char path[PATH_MAXLEN + 1];
 
-    // auto file_iterator = filesystem::directory_iterator("data/" + username + "/");
+    memset(line, 0, 101);
+    memset(path, 0, PATH_MAXLEN + 1);
 
-    // // Iterating through the directory
-    // for(auto& file: file_iterator) {
-    //     if(file.is_regular_file()){
-    //         // Getting file path
-    //         path = file;
-    //         // Path to char*             path_string = path.u8string();
+    /* ---- Path creation ---- */
+    strncat(path, "data/", PATH_MAXLEN); // data/
+    strncat(path, c->username, PATH_MAXLEN); // data/username
+    strncat(path, "/", PATH_MAXLEN); // data/username/
+    strncat(path, file_name, PATH_MAXLEN);  // data/username/FILE_NAME
+    strncat(path, ".txt", PATH_MAXLEN);  // data/username/FILE_NAME.txt
 
-    //         if(path_string == "data/" + username + "/" + file_name + ".txt") {
-    //             read.open(path_string);
+    f_handle = fopen(path, "r");
 
-    //             while(getline(read, line)) {
-    //                 cout << line << endl;
-    //             }
+    if(f_handle == NULL) return -1; // File not found
 
-    //             read.close();
+    /* ---- Print content ---- */
+    while(fgets(line, 100, f_handle)) {
+        printf("%s", line);
+    }   
 
-    //             return 0;
-    //         }
-    //     }
-    // }   
-
-    // // Bill not found
-    // return -1; 
+    return 0; 
 }
 
 // Returns the username of the passed client
