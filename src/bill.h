@@ -6,8 +6,8 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/02/2022
- * Description : Header file containing bill related structs and functions declarations
+ * Last change : 02/03/2022
+ * Description : Header file containing bill module structs and functions declarations
  *============================================================================*/
 
 #ifndef _BILL_H
@@ -19,38 +19,39 @@
 
 #include "date.h"
 
-#define TYPE_MAXLEN 20
+/* ---- Constants ----- */
+#define TYPE_MAXLEN 20 // bs->type max length
 
-/* Bill struct, note that this is an opaque type and only pointer declaration is valid.
-Use the predefined functions to access members*/
+/* bill type (incomplete declaration of struct bs).
+Note that this is an opaque type and only pointer declaration is valid,
+use the predefined functions to access members */
 typedef struct bs bill;
 
-// Returns a pointer to the memory allocated on the heap for a new bill
+// Returns a pointer to the memory allocated for a struct bs
 bill *billCreate();
 
-// Frees the memory of the passed bill
+// Destroys the passed bill (calls free() on the allocated memory)
 int billDestroy(bill *b);
 
-// Set the type of a bill
+// Set the type of the passed bill
 int billSetType(bill *b, const char *type);
 
-// Set the due date of a bill (format="d": due_date, format="p": paid_date)
+/* Set the type of date defined by format
+(format="d": set bill->due_date, format="p": set bill->paid_date) */
 int billSetDate(bill *b, const char *due_date, const char *format);
 
-// Set if the bill was paid or not
+// Set if the passed bill was paid or not
 int billSetPaid(bill *b, bool paid);
 
-// Set the cost of a bill
+// Set the cost of the passed bill
 int billSetCost(bill *b, float cost);
 
 // Returns the type of the passed bill
 char *billGetType(bill *b);
 
-// Returns the due_date of the passed bill
-char *billGetDueDate(bill *b);
-
-// Returns the paid_date of the passed bill
-char *billGetPaidDate(bill *b);
+/* Returns the type of date defined by format
+(format="d": set bill->due_date, format="p": set bill->paid_date) */
+char *billGetDate(bill *b, const char *format);
 
 // Returns if the passed bill was paid
 int billGetPaid(bill *b);
