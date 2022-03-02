@@ -87,7 +87,7 @@ int clientRegister(client *c, const char *username, const char *password) {
     #ifdef _WIN32
     CreateDirectory(strcat(path, username), NULL);
     #else
-    if(mkdir(strcat(path, username), S_IRWXU) == -1) return -1;
+    mkdir(strcat(path, username), S_IRWXU);
     #endif
 
     return 0;
