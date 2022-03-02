@@ -209,7 +209,11 @@ int main() {
                 for(int i = 0; i < flags_s; i++) {
                     if(strcmp(sub_flags[i], "-n") == 0) {
                         cliGetArgument(argument, command, sub_flags[i], ARGM_MAXLEN);
-                        clientViewBill(c, argument);
+                        ret = clientViewBill(c, argument);
+                    
+                        if(ret == -1) {
+                            printf("An error occurred during the view process.\n");
+                        }
                     }
                 }
             }
