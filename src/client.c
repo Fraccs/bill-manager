@@ -192,16 +192,17 @@ int clientLogout(client *c) {
 
     if((strcmp(c->username, "default") == 0) || (!c->logged_in)) return -1;
  
-    strcpy(c->username, "default");
-    strcpy(c->password, "default");
-    c->logged_in = false;
-
     /* ---- Logging logout success ---- */
     strncat(log_string, "Client '", LOGS_MAXLEN);
     strncat(log_string, c->username, LOGS_MAXLEN);
     strncat(log_string, "' successfully logged out.", LOGS_MAXLEN);
 
     logEvent("logs.txt", log_string);
+
+    /* ---- Logout ---- */
+    strcpy(c->username, "default");
+    strcpy(c->password, "default");
+    c->logged_in = false;
 
     return 0;
 }
