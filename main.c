@@ -44,9 +44,7 @@ int main() {
     int ret; // Error checking
 
     #ifndef _WIN32
-    if(mkdir("data", S_IRWXU) == -1) {
-        return EXIT_FAILURE;
-    }
+    mkdir("data", S_IRWXU);
     #else
     CreateDirectory("data", NULL);
     #endif
