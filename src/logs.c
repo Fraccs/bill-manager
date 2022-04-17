@@ -1,12 +1,12 @@
 /*============================================================================
  * Name        : logs.c
- * Version     : Alpha
+ * Version     : v0.0.1
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 26/02/2022
+ * Last change : 04/03/2022
  * Description : Source file containing logs related functions definition
  *============================================================================*/
 

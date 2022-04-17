@@ -1,12 +1,12 @@
 /*============================================================================
  * Name        : bill.c
- * Version     : Alpha
+ * Version     : v0.0.1
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 02/03/2022
+ * Last change : 04/03/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
@@ -29,6 +29,7 @@ bill *billCreate() {
 
     if(b == NULL) return NULL;
 
+    /* ---- Initialization ---- */
     memset(b->type, 0, TYPE_MAXLEN + 1);
     memset(b->due_date, 0, DDAT_MAXLEN + 1);
     memset(b->paid_date, 0, PDAT_MAXLEN + 1);

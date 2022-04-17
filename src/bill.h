@@ -1,18 +1,19 @@
 /*============================================================================
  * Name        : bill.h
- * Version     : Alpha
+ * Version     : v0.0.1
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 02/03/2022
+ * Last change : 04/03/2022
  * Description : Header file containing bill module structs and functions declarations
  *============================================================================*/
 
 #ifndef _BILL_H
 #define _BILL_H
 
+/* ---- Headers ---- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,7 +51,7 @@ int billSetCost(bill *b, float cost);
 char *billGetType(bill *b);
 
 /* Returns the type of date defined by format
-(format="d": set bill->due_date, format="p": set bill->paid_date) */
+(format="d": get bill->due_date, format="p": get bill->paid_date) */
 char *billGetDate(bill *b, const char *format);
 
 // Returns if the passed bill was paid

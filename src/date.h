@@ -1,24 +1,26 @@
 /*============================================================================
  * Name        : date.h
- * Version     : Alpha
+ * Version     : v0.0.1
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/02/2022
+ * Last change : 04/03/2022
  * Description : Header file containing date related functions declarations 
  *============================================================================*/
 
 #ifndef _DATE_H
 #define _DATE_H
 
+/* ---- Headers ---- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
 
+/* ---- Constants ---- */
 #define DDAT_MAXLEN 10
 #define PDAT_MAXLEN 10
 

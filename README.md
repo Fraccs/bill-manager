@@ -1,32 +1,35 @@
 # **Bill Manager**
-> ### *A simple command-line interface application written in C that helps you to manage your bills.*
 
-## **WARNING!**
-> ### *This is a school project and it is not maintained anymore!*
+> ## *A simple command-line interface application written in C that helps you to manage your bills.*
 
-## **Compiler**
+## **Version**
+
+> ### v0.0.1
+
+## **How to compile**
+
 > Windows: (compiler) -o bill_manager main.c .\src\bill.c .\src\client.c .\src\cli.c .\src\date.c .\src\echo.c .\src\help.c .\src\logs.c .\src\utils.c
 
 > Unix: Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=gcc).
 
 ## **Commands**
+
 ### ***bill --add***
+
 * Creates a new bill.
-* Flags: 
+* Flags:
     * -t (type):
-        * Argument: Electricity; Gas; Phone; Water.  
+        - Argument: Electricity; Gas; Phone; Water.  
     * -c (Cost)
-        * Argument: Number.
-    * -u (Usage):
         * Argument: Number.
     * -p (Paid):
         * Argument: No argument, if this flag is included, the bill is set as paid.
     * -d (Date): 
         * Argument: YYYY-MM-DD date format.
-    * If some flags aren't included in the command, the values will be set as default values.*
+    * *Values for flags that aren't specified in the command will be set as default.*
 * Example 1: bill --add -t Water -c 50 -d 2021-12-22
     * Result: Type=Water; Cost=50; Date=2021-12-22; Paid=false
-* Example 2: bill --add -t Gas -c 100 -u 1000 -p
+* Example 2: bill --add -t Gas -c 100 -p
     * Result: Type=Gas; Cost=100; Date=Today; Paid=true
 
 ### ***bill --clear***

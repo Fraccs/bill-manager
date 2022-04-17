@@ -1,15 +1,16 @@
 /*============================================================================
  * Name        : main.c
- * Version     : Alpha
+ * Version     : v0.0.1
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 28/02/2022
+ * Last change : 04/03/2022
  * Description : Main 
  *============================================================================*/
 
+/* ---- Headers ---- */ 
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,6 +28,7 @@
 #include "src/logs.h"
 #include "src/utils.h"
 
+/* ---- Constants ---- */
 #define COMM_MAXLEN 80
 #define MNFG_MAXLEN 20
 #define ARGM_MAXLEN 30
@@ -43,13 +45,15 @@ int main() {
     int flags_s = 0;
     int ret; // Error checking
 
+    /* ---- Data directory ---- */
     #ifndef _WIN32
     mkdir("data", S_IRWXU);
     #else
     CreateDirectory("data", NULL);
     #endif
 
-    if(c == NULL || b == NULL) {
+    // Failed allocation
+    if(c == NULL || b == NULL) { 
         return EXIT_FAILURE;
     }
 
@@ -65,7 +69,6 @@ int main() {
             continue;
         }
 
-        // Getting the main flag ('--example')
         cliGetMainFlag(main_flag, command, MNFG_MAXLEN);
 
         if(strlen(main_flag) == 0) {

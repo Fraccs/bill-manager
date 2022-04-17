@@ -1,12 +1,12 @@
 /*============================================================================
  * Name        : client.c
- * Version     : Alpha
+ * Version     : v0.0.1
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/02/2022
+ * Last change : 04/03/2022
  * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
@@ -190,8 +190,8 @@ int clientAddBill(client *c, bill *b) {
         fprintf(f_handle, "Paid: False\n");
     }
 
-    fprintf(f_handle, "Paid in: %s\n", billGetPaidDate(b));
-    fprintf(f_handle, "Due date: %s\n", billGetDueDate(b));
+    fprintf(f_handle, "Paid in: %s\n", billGetDate(b, "p"));
+    fprintf(f_handle, "Due date: %s\n", billGetDate(b, "d"));
    
     fclose(f_handle);
 
