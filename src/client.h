@@ -1,22 +1,19 @@
 /*============================================================================
  * Name        : client.h
- * Version     : Alpha
+ * Version     : v1.0.0
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/02/2022
+ * Last change : 04/03/2022
  * Description : Header file containing client related structs and functions declarations
  *============================================================================*/
 
 #ifndef _CLIENT_H
 #define _CLIENT_H
 
-#define USER_MAXLEN 10
-#define PASS_MAXLEN 20
-#define PATH_MAXLEN 27
-
+/* ---- Headers ---- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -31,7 +28,13 @@
 #endif
 
 #include "bill.h"
+#include "logs.h"
 #include "utils.h"
+
+/* ---- Constants ---- */
+#define USER_MAXLEN 10
+#define PASS_MAXLEN 20
+#define PATH_MAXLEN 27
 
 /* Client struct, note that this is an opaque type and only pointer declaration is valid.
 Use the predefined functions to access members */

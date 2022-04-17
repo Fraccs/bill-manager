@@ -1,12 +1,12 @@
 /*============================================================================
  * Name        : client.c
- * Version     : Alpha
+ * Version     : v1.0.0
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 27/02/2022
+ * Last change : 04/03/2022
  * Description : Source file containing client related structs and functions definitions
  *============================================================================*/
 
@@ -52,9 +52,11 @@ int clientRegister(client *c, const char *username, const char *password) {
     char line[USER_MAXLEN + PASS_MAXLEN + 1];
     char temp_user[USER_MAXLEN + 1];
     char path[USER_MAXLEN + 6] = "data/";
+    char log_string[LOGS_MAXLEN + 1];
 
     memset(line, 0, USER_MAXLEN + PASS_MAXLEN + 1);
     memset(temp_user, 0, USER_MAXLEN + 1);
+    memset(log_string, 0, LOGS_MAXLEN + 1);
 
     if(strlen(username) < 3) return -1;
     if(strlen(password) < 6) return -1;
@@ -90,6 +92,13 @@ int clientRegister(client *c, const char *username, const char *password) {
     mkdir(strcat(path, username), S_IRWXU);
     #endif
 
+    /* ---- Logging registration success ---- */
+    strncat(log_string, "Client '", LOGS_MAXLEN);
+    strncat(log_string, username, LOGS_MAXLEN);
+    strncat(log_string, "' registered successfully.", LOGS_MAXLEN);
+
+    logEvent("logs.txt", log_string);
+
     return 0;
 }
 
@@ -100,10 +109,12 @@ int clientLogin(client *c, const char *username, const char *password) {
     char line[USER_MAXLEN + PASS_MAXLEN + 1];
     char temp_user[USER_MAXLEN + 1];
     char temp_pass[PASS_MAXLEN + 1];
+    char log_string[LOGS_MAXLEN + 1];
 
     memset(line, 0, USER_MAXLEN + PASS_MAXLEN + 1);
     memset(temp_user, 0, USER_MAXLEN + 1);
     memset(temp_pass, 0, PASS_MAXLEN + 1);
+    memset(log_string, 0, LOGS_MAXLEN + 1);
 
     if(strlen(username) < 3 || strlen(username) > 10) return -1;
     if(strlen(password) < 6 || strlen(username) > 20) return -1;
@@ -133,10 +144,26 @@ int clientLogin(client *c, const char *username, const char *password) {
                 c->logged_in = true;
                 
                 fclose(f_handle);
+
+                /* ---- Logging login success ---- */
+                strncat(log_string, "Client '", LOGS_MAXLEN);
+                strncat(log_string, username, LOGS_MAXLEN);
+                strncat(log_string, "' logged in successfully.", LOGS_MAXLEN);
+
+                logEvent("logs.txt", log_string);
+
                 return 0; // Successful login
             }
             else {
                 fclose(f_handle);
+
+                /* ---- Logging login failure ---- */
+                strncat(log_string, "Unsuccessful login for client '", LOGS_MAXLEN);
+                strncat(log_string, username, LOGS_MAXLEN);
+                strncat(log_string, "', wrong password.", LOGS_MAXLEN);
+
+                logEvent("logs.txt", log_string);
+
                 return -1; // Wrong password
             }
         }
@@ -147,13 +174,32 @@ int clientLogin(client *c, const char *username, const char *password) {
     
     fclose(f_handle);
 
+    /* ---- Logging login failure ---- */
+    strncat(log_string, "Unsuccessful login, client '", LOGS_MAXLEN);
+    strncat(log_string, username, LOGS_MAXLEN);
+    strncat(log_string, "' not found.", LOGS_MAXLEN);
+
+    logEvent("logs.txt", log_string);
+
     return -1; // Client not found
 }
 
 // Logout from the current client
 int clientLogout(client *c) {
+    char log_string[LOGS_MAXLEN + 1];
+
+    memset(log_string, 0, LOGS_MAXLEN + 1);
+
     if((strcmp(c->username, "default") == 0) || (!c->logged_in)) return -1;
  
+    /* ---- Logging logout success ---- */
+    strncat(log_string, "Client '", LOGS_MAXLEN);
+    strncat(log_string, c->username, LOGS_MAXLEN);
+    strncat(log_string, "' successfully logged out.", LOGS_MAXLEN);
+
+    logEvent("logs.txt", log_string);
+
+    /* ---- Logout ---- */
     strcpy(c->username, "default");
     strcpy(c->password, "default");
     c->logged_in = false;
@@ -190,8 +236,8 @@ int clientAddBill(client *c, bill *b) {
         fprintf(f_handle, "Paid: False\n");
     }
 
-    fprintf(f_handle, "Paid in: %s\n", billGetPaidDate(b));
-    fprintf(f_handle, "Due date: %s\n", billGetDueDate(b));
+    fprintf(f_handle, "Paid in: %s\n", billGetDate(b, "p"));
+    fprintf(f_handle, "Due date: %s\n", billGetDate(b, "d"));
    
     fclose(f_handle);
 
