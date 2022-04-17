@@ -8,9 +8,7 @@
 
 ## **How to compile**
 
-> {compiler} -o bill_manager main.c .\src\app.c .\src\bill.c .\src\client.c .\src\cli.c .\src\date.c .\src\echo.c .\src\help.c .\src\logs.c .\src\utils.c
-
-> If 'make' is supported by your system, compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=gcc).
+> Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=gcc).
 
 ## **Commands**
 
