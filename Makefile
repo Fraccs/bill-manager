@@ -1,11 +1,14 @@
 CC=gcc 
-OBJ=main.o bill.o client.o cli.o date.o echo.o help.o logs.o utils.o
+OBJ=main.o app.o bill.o client.o cli.o date.o echo.o help.o logs.o utils.o
 
 output: $(OBJ)
-	$(CC) -o bill_manager $(OBJ)
+	$(CC) -o billman $(OBJ)
 
 main.o: main.c
 	$(CC) -c main.c
+
+app.o: src/app.h src/app.c
+	$(CC) -c src/app.c
 
 bill.o: src/bill.h src/bill.c
 	$(CC) -c src/bill.c
@@ -32,4 +35,4 @@ utils.o: src/utils.h src/utils.c
 	$(CC) -c src/utils.c
 
 clean:
-	rm *.o bill_manager
+	rm *.o billman
