@@ -1,6 +1,6 @@
 /*============================================================================
  * Name        : date.h
- * Version     : v0.0.1
+ * Version     : v1.0.0
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
