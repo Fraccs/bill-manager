@@ -86,11 +86,7 @@ int clientRegister(client *c, const char *username, const char *password) {
     fclose(f_handle);
 
     /* ---- New client's directory ---- */
-    #ifdef _WIN32
-    CreateDirectory(strcat(path, username), NULL);
-    #else
     mkdir(strcat(path, username), S_IRWXU);
-    #endif
 
     /* ---- Logging registration success ---- */
     strncat(log_string, "Client '", LOGS_MAXLEN);

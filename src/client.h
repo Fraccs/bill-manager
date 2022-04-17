@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 04/03/2022
+ * Last change : 17/04/2022
  * Description : Header file containing client related structs and functions declarations
  *============================================================================*/
 
@@ -18,14 +18,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#else
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#endif
 
 #include "bill.h"
 #include "logs.h"

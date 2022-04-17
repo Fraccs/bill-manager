@@ -24,12 +24,8 @@ int startApplication(int argc, char *argv[]) {
     int flags_s = 0;
     int ret; // Error checking
 
-    /* ---- Data directory ---- */
-    #ifndef _WIN32
+    // Data directory
     mkdir("data", S_IRWXU);
-    #else
-    CreateDirectory("data", NULL);
-    #endif
 
     // Failed allocation
     if(c == NULL || b == NULL) { 

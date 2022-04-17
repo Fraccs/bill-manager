@@ -18,12 +18,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#else
 #include <sys/stat.h>
-#endif
 
 #include "cli.h"
 #include "client.h"
