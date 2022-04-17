@@ -13,7 +13,7 @@
 #include "app.h"
 
 // Main function
-int initApplication(int argc, char *argv[]) {
+int startApplication(int argc, char *argv[]) {
     client *c = clientCreate();
     bill *b = billCreate();
     char temp_user[USER_MAXLEN + 1];

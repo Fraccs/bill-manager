@@ -14,7 +14,7 @@
 #include "src/app.h"
 
 int main(int argc, char *argv[]) {
-    int err = initApplication(argc, argv);
+    int err = startApplication(argc, argv);
 
     return err;
 }

@@ -35,4 +35,4 @@ utils.o: src/utils.h src/utils.c
 	$(CC) -c src/utils.c
 
 clean:
-	rm *.o bill_manager
+	rm *.o billman

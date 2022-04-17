@@ -39,6 +39,6 @@
 #define ARGM_MAXLEN 30
 
 // Main function
-int initApplication(int argc, char *argv[]);
+int startApplication(int argc, char *argv[]);
 
 #endif
