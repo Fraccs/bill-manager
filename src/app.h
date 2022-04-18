@@ -27,11 +27,6 @@
 #include "logs.h"
 #include "utils.h"
 
-/* ---- Constants ---- */
-#define COMM_MAXLEN 80
-#define MNFG_MAXLEN 20
-#define ARGM_MAXLEN 30
-
 // Main function
 int startApplication(int argc, char *argv[]);
 

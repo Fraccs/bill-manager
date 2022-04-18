@@ -20,7 +20,12 @@
 #include <string.h>
 
 #include "utils.h"
-#include "app.h"
+
+/* ---- Constants ---- */
+#define COMM_MAXLEN 80
+#define MNFG_MAXLEN 20
+#define ARGM_MAXLEN 30
+#define SUBFLAG_LEN 2
 
 /* Loads dest with the entire commandline command ("billman --example -e 999") */
 int cliExtractCommand(char *dest, int argc, char *argv[]);
@@ -31,7 +36,7 @@ int cliGetMainFlag(char *dest, const char *command, size_t dest_s);
 
 /* Loads dest with the subflags of the passed command ex:("-a", "-b", ...) and
 returns the number of subflags found in the command */
-int cliGetSubFlags(char dest[][3], const char *command);
+int cliGetSubFlags(char **dest, const char *command);
 
 /* Loads dest with the argument relative to the passed flag
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/

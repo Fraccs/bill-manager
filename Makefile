@@ -3,7 +3,6 @@ OBJ=main.o app.o bill.o cli.o date.o echo.o help.o logs.o utils.o
 
 output: $(OBJ)
 	$(CC) -o billman $(OBJ)
-	rm *.o
 
 main.o: main.c
 	$(CC) -c main.c
