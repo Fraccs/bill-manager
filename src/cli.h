@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 04/03/2022
+ * Last change : 17/04/2022
  * Description : Header file containing commandline-interface functions declarations
  *============================================================================*/
 
@@ -20,9 +20,6 @@
 #include <string.h>
 
 #include "utils.h"
-
-// Returns if the command starts with "bill"
-bool cliStartsWithBill(const char *command);
 
 /* Loads dest with the main flag of the passed command ("--example")
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
