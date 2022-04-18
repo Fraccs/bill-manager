@@ -6,21 +6,18 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 04/03/2022
+ * Last change : 18/04/2022
  * Description : Source file containing commandline-interface functions definitions
  *============================================================================*/
 
 #include "cli.h"
 
-// Returns if the command starts with "bill"
-bool cliStartsWithBill(const char *command) {
-    if(command[0] != 'b') return false;
-    if(command[1] != 'i') return false;
-    if(command[2] != 'l') return false;
-    if(command[3] != 'l') return false;
-    if(command[4] != ' ') return false;
-
-    return true;
+/* Loads dest with the entire commandline command ("billman --example -e 999") */
+int extractCommand(char *dest, int argc, char *argv[]) {
+    for(int i = 0; i < argc; i++) {
+        strncat(dest, argv[i], COMM_MAXLEN);
+        strncat(dest, " ", COMM_MAXLEN);
+    }
 }
 
 /* Loads dest with the main flag of the passed command ("--example")
