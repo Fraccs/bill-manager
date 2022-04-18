@@ -13,20 +13,27 @@
 #include "cli.h"
 
 /* Loads dest with the entire commandline command ("billman --example -e 999") */
-int extractCommand(char *dest, int argc, char *argv[]) {
+int cliExtractCommand(char *dest, int argc, char *argv[]) {
+    memset(dest, 0, COMM_MAXLEN + 1);
+
     for(int i = 0; i < argc; i++) {
         strncat(dest, argv[i], COMM_MAXLEN);
-        strncat(dest, " ", COMM_MAXLEN);
+
+        if(i != argc - 1) {
+            strncat(dest, " ", COMM_MAXLEN);
+        }
     }
+
+    return 0;
 }
 
 /* Loads dest with the main flag of the passed command ("--example")
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
 int cliGetMainFlag(char *dest, const char *command, size_t dest_s) {
     memset(dest, 0, dest_s + 1);
-    
-    for(int i = 0; i < strlen(command); i++) {
-        if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {
+
+    for(int i = 0; i < strlen(command) - 2; i++) {
+        if(command[i] == ' ' && command[i+1] == '-' && command[i+2] == '-') {   
             for(int j = i + 1; command[j] != ' ' && command[j] != '\0'; j++) {
                 strncat(dest, utilsCharToString(command[j]), dest_s);
             }    

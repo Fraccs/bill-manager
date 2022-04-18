@@ -23,7 +23,7 @@
 #include "app.h"
 
 /* Loads dest with the entire commandline command ("billman --example -e 999") */
-int extractCommand(char *dest, int argc, char *argv[]);
+int cliExtractCommand(char *dest, int argc, char *argv[]);
 
 /* Loads dest with the main flag of the passed command ("--example")
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/

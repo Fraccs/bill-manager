@@ -13,10 +13,7 @@
 
 // Main function
 int startApplication(int argc, char *argv[]) {
-    client *c = clientCreate();
     bill *b = billCreate();
-    char temp_user[USER_MAXLEN + 1];
-    char temp_pass[PASS_MAXLEN + 1];
     char command[COMM_MAXLEN + 1];
     char main_flag[MNFG_MAXLEN + 1];
     char argument[ARGM_MAXLEN + 1];
@@ -24,11 +21,8 @@ int startApplication(int argc, char *argv[]) {
     int flags_s = 0;
     int ret; // Error checking
 
-    // Data directory
-    mkdir("data", S_IRWXU);
-
     // Failed allocation
-    if(c == NULL || b == NULL) { 
+    if(b == NULL) { 
         return EXIT_FAILURE;
     }
 
@@ -38,79 +32,60 @@ int startApplication(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    // Data directory
+    mkdir("data", S_IRWXU);
+
     /* ---- Command parsing and analysis ---- */
-    extractCommand(command, argc, argv);
+    cliExtractCommand(command, argc, argv);
     cliGetMainFlag(main_flag, command, MNFG_MAXLEN);
 
     if(strlen(main_flag) == 0) {
         printf("No main flag found in '%s'.\n", command);
     }
-    
-    if(strcmp(main_flag, "--add") == 0) {
-        if(!clientGetLoggedin(c)) {
-            printf("Log in a client first!\n");
 
-        }
-
+    if(strncmp(main_flag, "--add", MNFG_MAXLEN) == 0) {
         flags_s = cliGetSubFlags(sub_flags, command);
 
         for(int i = 0; i < flags_s; i++) {
-            if(strcmp(sub_flags[i], "-c") == 0) {
-                cliGetArgument(argument, command, "-c", COMM_MAXLEN);
-                billSetCost(b, atof(argument));
-            }
+            // TODO: sub_flags need fix
+            // if(strcmp(sub_flags[i], "-c") == 0) {
+            //     cliGetArgument(argument, command, "-c", COMM_MAXLEN);
+            //     billSetCost(b, atof(argument));
+            // }
 
-            if(strcmp(sub_flags[i], "-e") == 0) {
-                cliGetArgument(argument, command, "-e", COMM_MAXLEN);
-                billSetDate(b, argument, "d");
-            }
+            // if(strcmp(sub_flags[i], "-e") == 0) {
+            //     cliGetArgument(argument, command, "-e", COMM_MAXLEN);
+            //     billSetDate(b, argument, "d");
+            // }
 
-            if(strcmp(sub_flags[i], "-d") == 0) {
-                cliGetArgument(argument, command, "-d", COMM_MAXLEN);
-                billSetDate(b, argument, "p");
-            }
+            // if(strcmp(sub_flags[i], "-d") == 0) {
+            //     cliGetArgument(argument, command, "-d", COMM_MAXLEN);
+            //     billSetDate(b, argument, "p");
+            // }
 
-            if(strcmp(sub_flags[i], "-p") == 0) {
-                billSetPaid(b, true);
-            }   
+            // if(strcmp(sub_flags[i], "-p") == 0) {
+            //     billSetPaid(b, true);
+            // }   
 
-            if(strcmp(sub_flags[i], "-t") == 0) {
-                cliGetArgument(argument, command, "-t", COMM_MAXLEN);
-                billSetType(b, argument);
-            }    
+            // if(strcmp(sub_flags[i], "-t") == 0) {
+            //     cliGetArgument(argument, command, "-t", COMM_MAXLEN);
+            //     billSetType(b, argument);
+            // }    
         }
         
-        clientAddBill(c, b);     
+        billAdd(b);     
     }
 
     if(strcmp(main_flag, "--clear") == 0) {
         utilsClearConsole();
     }
 
-    if(strcmp(main_flag, "--client") == 0) {
-        printf("%s\n", clientGetUsername(c));                
-    }
-
     if(strcmp(main_flag, "--delete") == 0) {
-        if(!clientGetLoggedin(c)) {
-            printf("Log in a client first!\n");
-
-        }
-
         flags_s = cliGetSubFlags(sub_flags, command);
-
-        if(strcmp(sub_flags[0], "-a") == 0) {
-            clientDeleteAll(c);
-
-        }
         
         if(strcmp(sub_flags[0], "-n") == 0) {
-            cliGetArgument(argument , command, sub_flags[0], ARGM_MAXLEN);
-            clientDeleteBill(c, argument);
-        }
-
-        if(strcmp(sub_flags[0], "-c") == 0) {
-            // deleteClient(c);
+            cliGetArgument(argument, command, sub_flags[0], ARGM_MAXLEN);
+            billDelete(argument);
         }
     }
 
@@ -118,75 +93,21 @@ int startApplication(int argc, char *argv[]) {
         helpPrint();
     }
 
-    if(strcmp(main_flag, "--login") == 0) {
-        cliGetArgument(argument, command, main_flag, ARGM_MAXLEN);
-
-        printf("Password for '%s': ", argument);
-
-        echoEnable(false);
-        fgets(temp_pass, PASS_MAXLEN, stdin);
-        echoEnable(true);
-
-        printf("\n");
-
-        clientLogin(c, argument, temp_pass);
-    }
-
-    if(strcmp(main_flag, "--logout") == 0) {
-        if(clientLogout(c) == -1) {
-            printf("An error occurred during the logout process.\n");
-        }
-    }
-
     if(strcmp(main_flag, "--quit") == 0) {
-        clientDestroy(c);
         billDestroy(b);
         return EXIT_SUCCESS;
     }
 
-    if(strcmp(main_flag, "--register") == 0) {
-        ret = cliGetArgument(temp_user, command, main_flag, USER_MAXLEN);
-
-        if(ret == -1) {
-            printf("No argument provided for '%s'.\n", command);
-        } 
-
-        printf("Password: ");
-
-        echoEnable(false);
-        fgets(temp_pass, PASS_MAXLEN, stdin);
-        strtok(temp_pass, "\n");
-        echoEnable(true);
-
-        printf("\n");
-
-        ret = clientRegister(c, temp_user, temp_pass);
-
-        if(ret == -1) {
-            printf("An error occurred in the registration process.\n");
-        }
-    }
-
     if(strcmp(main_flag, "--view") == 0) {
-        if(!clientGetLoggedin(c)) {
-            printf("Log in a client first!\n");
-
-        }
-
         flags_s = cliGetSubFlags(sub_flags, command);
 
-        if(flags_s == 0) {
-            clientViewAll(c);
-        }
-        else {
-            for(int i = 0; i < flags_s; i++) {
-                if(strcmp(sub_flags[i], "-n") == 0) {
-                    cliGetArgument(argument, command, sub_flags[i], ARGM_MAXLEN);
-                    ret = clientViewBill(c, argument);
-                
-                    if(ret == -1) {
-                        printf("An error occurred during the view process.\n");
-                    }
+        for(int i = 0; i < flags_s; i++) {
+            if(strcmp(sub_flags[i], "-n") == 0) {
+                cliGetArgument(argument, command, sub_flags[i], ARGM_MAXLEN);
+                ret = billView(argument);
+            
+                if(ret == -1) {
+                    printf("An error occurred during the view process.\n");
                 }
             }
         }
