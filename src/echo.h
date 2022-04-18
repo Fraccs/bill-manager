@@ -15,7 +15,6 @@
 
 /* ---- Headers ---- */
 #include <stdbool.h>
-
 #include <termios.h>
 #include <unistd.h>
 
