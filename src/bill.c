@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 04/03/2022
+ * Last change : 18/04/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
@@ -132,4 +132,84 @@ float billGetCost(bill *b) {
     if(b == NULL) return -1;
 
     return b->cost;
+}
+
+// Adds the passed bill to the bill list
+int billAdd(bill *b) {
+    FILE *f_handle;
+    char path[PATH_MAXLEN + 1];
+
+    memset(path, 0, PATH_MAXLEN + 1);
+
+    /* ---- File path ---- */
+    strncat(path, "data/", PATH_MAXLEN); // data/ 
+    strncat(path, dateEpochSeconds(), PATH_MAXLEN); // data/file_name
+    strncat(path, ".txt", PATH_MAXLEN); // data/file_name.txt
+
+    /* ---- Writing onto the file ---- */
+    f_handle = fopen(path, "a");
+    
+    if(f_handle == NULL) return -1;
+    
+    fprintf(f_handle, "Type: %s\n", billGetType(b));
+    fprintf(f_handle, "Cost: %f\n", billGetCost(b));
+
+    if(billGetPaid(b)) {
+        fprintf(f_handle, "Paid: True\n");
+    }
+    else {
+        fprintf(f_handle, "Paid: False\n");
+    }
+
+    fprintf(f_handle, "Paid in: %s\n", billGetDate(b, "p"));
+    fprintf(f_handle, "Due date: %s\n", billGetDate(b, "d"));
+   
+    fclose(f_handle);
+
+    return 0;
+}
+
+// Deletes the passed bill from the bill list
+int billDelete(const char *file_name) {
+    char path[PATH_MAXLEN + 1];
+    int ret; // Error checking
+
+    memset(path, 0, PATH_MAXLEN + 1);
+
+    /* ---- File path ---- */
+    strncat(path, "data/", PATH_MAXLEN); // data/ 
+    strncat(path, file_name, PATH_MAXLEN); // data/file_name
+    strncat(path, ".txt", PATH_MAXLEN); // data/file_name.txt
+
+    ret = remove(path);
+
+    if(ret == -1) return ret;
+
+    return 0;
+}
+
+// Prints the content of a bill
+int billView(const char *file_name) {
+    FILE *f_handle;
+    char line[101];
+    char path[PATH_MAXLEN + 1];
+
+    memset(line, 0, 101);
+    memset(path, 0, PATH_MAXLEN + 1);
+
+    /* ---- Path creation ---- */
+    strncat(path, "data/", PATH_MAXLEN); // data/
+    strncat(path, file_name, PATH_MAXLEN);  // data/FILE_NAME
+    strncat(path, ".txt", PATH_MAXLEN);  // data/FILE_NAME.txt
+
+    f_handle = fopen(path, "r");
+
+    if(f_handle == NULL) return -1; // File not found
+
+    /* ---- Print content ---- */
+    while(fgets(line, 100, f_handle)) {
+        printf("%s", line);
+    }   
+
+    return 0; 
 }
