@@ -22,7 +22,6 @@
 
 #include "cli.h"
 #include "bill.h"
-#include "echo.h"
 #include "help.h"
 #include "logs.h"
 #include "utils.h"
