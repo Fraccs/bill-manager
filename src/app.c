@@ -36,40 +36,41 @@ int startApplication(int argc, char *argv[]) {
     mkdir("data", S_IRWXU);
 
     /* ---- Command parsing and analysis ---- */
-    extractCommand(command, argc, argv);
+    cliExtractCommand(command, argc, argv);
     cliGetMainFlag(main_flag, command, MNFG_MAXLEN);
 
     if(strlen(main_flag) == 0) {
         printf("No main flag found in '%s'.\n", command);
     }
-    
-    if(strcmp(main_flag, "--add") == 0) {
+
+    if(strncmp(main_flag, "--add", MNFG_MAXLEN) == 0) {
         flags_s = cliGetSubFlags(sub_flags, command);
 
         for(int i = 0; i < flags_s; i++) {
-            if(strcmp(sub_flags[i], "-c") == 0) {
-                cliGetArgument(argument, command, "-c", COMM_MAXLEN);
-                billSetCost(b, atof(argument));
-            }
+            // TODO: sub_flags need fix
+            // if(strcmp(sub_flags[i], "-c") == 0) {
+            //     cliGetArgument(argument, command, "-c", COMM_MAXLEN);
+            //     billSetCost(b, atof(argument));
+            // }
 
-            if(strcmp(sub_flags[i], "-e") == 0) {
-                cliGetArgument(argument, command, "-e", COMM_MAXLEN);
-                billSetDate(b, argument, "d");
-            }
+            // if(strcmp(sub_flags[i], "-e") == 0) {
+            //     cliGetArgument(argument, command, "-e", COMM_MAXLEN);
+            //     billSetDate(b, argument, "d");
+            // }
 
-            if(strcmp(sub_flags[i], "-d") == 0) {
-                cliGetArgument(argument, command, "-d", COMM_MAXLEN);
-                billSetDate(b, argument, "p");
-            }
+            // if(strcmp(sub_flags[i], "-d") == 0) {
+            //     cliGetArgument(argument, command, "-d", COMM_MAXLEN);
+            //     billSetDate(b, argument, "p");
+            // }
 
-            if(strcmp(sub_flags[i], "-p") == 0) {
-                billSetPaid(b, true);
-            }   
+            // if(strcmp(sub_flags[i], "-p") == 0) {
+            //     billSetPaid(b, true);
+            // }   
 
-            if(strcmp(sub_flags[i], "-t") == 0) {
-                cliGetArgument(argument, command, "-t", COMM_MAXLEN);
-                billSetType(b, argument);
-            }    
+            // if(strcmp(sub_flags[i], "-t") == 0) {
+            //     cliGetArgument(argument, command, "-t", COMM_MAXLEN);
+            //     billSetType(b, argument);
+            // }    
         }
         
         billAdd(b);     
