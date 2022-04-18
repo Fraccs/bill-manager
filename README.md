@@ -31,10 +31,10 @@
     
     * *If any parameter is not provided it will be set as default.*
 
-* Example 1: billman --add -t Water -c 50 -d 2021-12-22
+* Example 1: ```$ billman --add -t Water -c 50 -d 2021-12-22```
     * Result: Type=Water; Cost=50; Date=2021-12-22; Paid=false
 
-* Example 2: billman --add -t Gas -c 100 -p
+* Example 2: ```$ billman --add -t Gas -c 100 -p```
     * Result: Type=Gas; Cost=100; Date=Today; Paid=true
 
 ### ***billman --clear***
@@ -56,10 +56,10 @@
     * -n (name):
         * Argument: The name of the bill to delete.
 
-* Example 1: bill --delete -a 
+* Example 1: ```$ billman --delete -a``` 
     * Result: Deleted all bills in the client's directory (no echo).
 
-* Example 2: bill --delete -n bill_name
+* Example 2: ```$ billman --delete -n bill_name```
     * Result: Deleted the specified bill (no echo).
 
 ### ***billman --help***
@@ -92,13 +92,13 @@
     
     * *If no flags are included in the command, the command prints all the bills in the client's directory.*
 
-* Example 1: bill --view
+* Example 1: ```$ billman --view```
     * Result: 
         * bill1.txt
         * bill2.txt
         * bill3.txt
 
-* Example 2: bill --view -n bill1
+* Example 2: ```$ billman --view -n bill1```
     * Result:  
         * Type: type
         * Cost: float
