@@ -6,11 +6,19 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 17/04/2022
+ * Last change : 18/04/2022
  * Description : Source file containing commandline-interface functions definitions
  *============================================================================*/
 
 #include "cli.h"
+
+/* Loads dest with the entire commandline command ("billman --example -e 999") */
+int extractCommand(char *dest, int argc, char *argv[]) {
+    for(int i = 0; i < argc; i++) {
+        strncat(dest, argv[i], COMM_MAXLEN);
+        strncat(dest, " ", COMM_MAXLEN);
+    }
+}
 
 /* Loads dest with the main flag of the passed command ("--example")
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/

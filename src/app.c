@@ -5,7 +5,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 17/04/2022
+ * Last change : 18/04/2022
  * Description : Source file containing the app's core functions definitions
  *============================================================================*/
 
@@ -35,8 +35,11 @@ int startApplication(int argc, char *argv[]) {
     // No commands provided
     if(argc < 2) {
         helpPrint();
+        return EXIT_FAILURE;
     }
 
+    /* ---- Command parsing and analysis ---- */
+    extractCommand(command, argc, argv);
     cliGetMainFlag(main_flag, command, MNFG_MAXLEN);
 
     if(strlen(main_flag) == 0) {
