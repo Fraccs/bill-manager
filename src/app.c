@@ -76,10 +76,6 @@ int startApplication(int argc, char *argv[]) {
         billAdd(b);     
     }
 
-    if(strcmp(main_flag, "--clear") == 0) {
-        utilsClearConsole();
-    }
-
     if(strcmp(main_flag, "--delete") == 0) {
         flags_s = cliGetSubFlags(sub_flags, command);
         

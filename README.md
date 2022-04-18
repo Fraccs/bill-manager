@@ -37,10 +37,6 @@
 * Example 2: ```$ billman --add -t Gas -c 100 -p```
     * Result: Type=Gas; Cost=100; Date=Today; Paid=true
 
-### ***billman --clear***
-
-> Clears previous console output.
-
 ### ***billman --delete {parameters}***
 
 > Deletes a bill.
