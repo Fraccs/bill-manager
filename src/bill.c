@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/04/2022
+ * Last change : 19/04/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
@@ -71,6 +71,7 @@ int billSetDate(bill *b, const char *due_date, const char *format) {
     
     if(strcmp(format, "p") == 0) {
         strncpy(b->paid_date, due_date, PDAT_MAXLEN);
+        b->paid = true;
         return 0;
     }
 
