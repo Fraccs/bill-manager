@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/04/2022
+ * Last change : 19/04/2022
  * Description : Header file containing app module functions declarations
  *============================================================================*/
 
@@ -26,7 +26,10 @@
 #include "logs.h"
 #include "utils.h"
 
-// Main function
+// Buffering setup
+void initApplication();
+
+// Program's core function
 int startApplication(int argc, char *argv[]);
 
 #endif

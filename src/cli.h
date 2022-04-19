@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/04/2022
+ * Last change : 19/04/2022
  * Description : Header file containing commandline-interface functions declarations
  *============================================================================*/
 
@@ -36,7 +36,7 @@ int cliGetMainFlag(char *dest, const char *command, size_t dest_s);
 
 /* Loads dest with the subflags of the passed command ex:("-a", "-b", ...) and
 returns the number of subflags found in the command */
-int cliGetSubFlags(char **dest, const char *command);
+size_t cliGetSubFlags(char ***dest, const char *command);
 
 /* Loads dest with the argument relative to the passed flag
 (dest_s is the size of dest excluding the additional NULL terminating character '\0')*/
