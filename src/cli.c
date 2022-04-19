@@ -59,13 +59,13 @@ size_t cliGetSubFlags(char ***dest, const char *command) {
     memset(temp_command, 0, command_s + 2);
 
     /* ---- Copy of the command (not to modify the original command) ---- */
-    strncpy(temp_command, command, COMM_MAXLEN);
-    strncat(temp_command, " ", COMM_MAXLEN); // Adding a space at the end (otherwise subflags at the end would't be found)
+    strncpy(temp_command, command, command_s);
+    strncat(temp_command, " ", command_s + 1); // Adding a space at the end (otherwise subflags at the end would't be found)
 
-    (*dest) = malloc(sizeof(char *) * 10);
+    *dest = malloc(sizeof(char *) * 10);
 
     // Failed allocation
-    if((*dest) == NULL) return EXIT_FAILURE;
+    if(*dest == NULL) return EXIT_FAILURE;
 
     for(int i = 0; i < strlen(temp_command) - 3; i++) {
         if(temp_command[i] == ' ' && temp_command[i+1] == '-' && temp_command[i+3] == ' ') {
