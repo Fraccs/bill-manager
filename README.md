@@ -52,10 +52,6 @@
 
 > Prints the help page of the program.
 
-### ***billman --quit***
-
-> Quit the program.
-
 ### ***billman --view {arguments}***
 
 > Prints the content of a bill.

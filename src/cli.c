@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/04/2022
+ * Last change : 19/04/2022
  * Description : Source file containing commandline-interface functions definitions
  *============================================================================*/
 
@@ -47,32 +47,43 @@ int cliGetMainFlag(char *dest, const char *command, size_t dest_s) {
 
 /* Loads dest with the subflags of the passed command ex:("-a", "-b", ...) and
 returns the number of subflags found in the command */
-int cliGetSubFlags(char dest[][3], const char *command) {
-    const size_t command_s = strlen(command);
+size_t cliGetSubFlags(char ***dest, const char *command) {
+    const size_t command_s = strnlen(command, COMM_MAXLEN);
     char *temp_command = malloc(sizeof(char) * (command_s + 2));
-    char temp_subflag[3];
-    int n_of_flags = 0;
+    char temp_subflag[SUBFLAG_LEN + 1];
+    size_t n_of_flags = 0;
 
-    memset(temp_subflag, 0, 3);
+    // Failed allocation
+    if(temp_command == NULL) return EXIT_FAILURE;
+
     memset(temp_command, 0, command_s + 2);
 
-    // Copy of the command in a temp_command (not to modify the original command)
-    strcpy(temp_command, command);
+    /* ---- Copy of the command (not to modify the original command) ---- */
+    strncpy(temp_command, command, command_s);
+    strncat(temp_command, " ", command_s + 1); // Adding a space at the end (otherwise subflags at the end would't be found)
 
-    // Adding a space at the end of temp_command, otherwise flags at the end wouldn't work
-    strcat(temp_command, " ");
+    *dest = malloc(sizeof(char *) * 10);
+
+    // Failed allocation
+    if(*dest == NULL) return EXIT_FAILURE;
 
     for(int i = 0; i < strlen(temp_command) - 3; i++) {
         if(temp_command[i] == ' ' && temp_command[i+1] == '-' && temp_command[i+3] == ' ') {
-            // Copying the subflag in temp_subflag
-            strcat(temp_subflag, utilsCharToString(command[i+1]));
-            strcat(temp_subflag, utilsCharToString(command[i+2]));
-
-            // Copying the temp_subflag in the flags list
-            strcpy(dest[n_of_flags], temp_subflag);
-            
             // Ereasing the temp_subflag
-            memset(temp_subflag, 0, 3);
+            memset(temp_subflag, 0, SUBFLAG_LEN + 1);
+
+            // Copying the subflag in temp_subflag
+            strncat(temp_subflag, utilsCharToString(temp_command[i+1]), SUBFLAG_LEN);
+            strncat(temp_subflag, utilsCharToString(temp_command[i+2]), SUBFLAG_LEN);
+
+            /* ---- Allocating memory for the new subflag and copying ---- */
+            (*dest)[n_of_flags] = malloc(sizeof(char) * (SUBFLAG_LEN + 1));
+
+            // Failed allocation
+            if((*dest)[n_of_flags] == NULL) return EXIT_FAILURE;
+            
+            memset((*dest)[n_of_flags], 0, SUBFLAG_LEN + 1);
+            strncpy((*dest)[n_of_flags], temp_subflag, SUBFLAG_LEN);
 
             n_of_flags++;
         }
