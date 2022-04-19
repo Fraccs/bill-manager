@@ -56,17 +56,17 @@ int startApplication(int argc, char *argv[]) {
 
         for(int i = 0; i < flags_s; i++) {
             if(strncmp(sub_flags[i], "-c", SUBFLAG_LEN) == 0) {
-                cliGetArgument(argument, command, "-c", COMM_MAXLEN);
+                cliGetArgument(argument, command, "-c", ARGM_MAXLEN);
                 billSetCost(b, atof(argument));
             }
 
             if(strncmp(sub_flags[i], "-e", SUBFLAG_LEN) == 0) {
-                cliGetArgument(argument, command, "-e", COMM_MAXLEN);
+                cliGetArgument(argument, command, "-e", ARGM_MAXLEN);
                 billSetDate(b, argument, "d");
             }
 
             if(strncmp(sub_flags[i], "-d", SUBFLAG_LEN) == 0) {
-                cliGetArgument(argument, command, "-d", COMM_MAXLEN);
+                cliGetArgument(argument, command, "-d", ARGM_MAXLEN);
                 billSetDate(b, argument, "p");
             }
 
@@ -75,7 +75,7 @@ int startApplication(int argc, char *argv[]) {
             }   
 
             if(strncmp(sub_flags[i], "-t", SUBFLAG_LEN) == 0) {
-                cliGetArgument(argument, command, "-t", COMM_MAXLEN);
+                cliGetArgument(argument, command, "-t", ARGM_MAXLEN);
                 billSetType(b, argument);
             }    
         }
