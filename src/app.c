@@ -118,5 +118,15 @@ int startApplication(int argc, char *argv[]) {
                 return EXIT_FAILURE;
             }
         }
+
+        if(strcmp(sub_flags[0], "-a") == 0) {
+            ret = billViewAll();
+        
+            if(ret == -1) {
+                printf("An error occurred during the view process.\n");
+    
+                return EXIT_FAILURE;
+            }
+        }
     }
 }

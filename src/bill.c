@@ -214,3 +214,25 @@ int billView(const char *file_name) {
 
     return 0; 
 }
+
+// Prints the list of bills
+int billViewAll() {
+    DIR *dir;
+    struct dirent *ent;
+
+    dir = opendir("data/");
+
+    // Opening failed
+    if(dir == NULL) return -1;
+
+    while((ent = readdir(dir)) != NULL) {
+        if(strcmp(ent->d_name, ".") == 0) continue;
+        if(strcmp(ent->d_name, "..") == 0) continue;
+        
+        printf("%s\n", ent->d_name);
+    }
+
+    closedir(dir);
+
+    return 0;
+}

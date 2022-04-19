@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 18/04/2022
+ * Last change : 19/04/2022
  * Description : Header file containing bill module structs and functions declarations
  *============================================================================*/
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 
 #include "date.h"
 
@@ -69,5 +70,8 @@ int billDelete(const char *file_name);
 
 // Prints the content of a bill
 int billView(const char *file_name);
+
+// Prints the list of bills
+int billViewAll();
 
 #endif
