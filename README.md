@@ -65,6 +65,9 @@
 * Parameters: 
     * -n (file name):
         * Argument: Name of the bill to view. 
+    
+    * -a (all):
+        * Argument: No argument.
 
 * Example 1: ```$ billman --view -n bill1```
     * Result:  
