@@ -26,15 +26,21 @@
     * -p (Paid):
         * Argument: No argument required, if this flag is included, the bill is set as paid.
     
-    * -d (Date): 
+    * -e (The expiry date):
         * Argument: Date in YYYY-MM-DD format.
+
+    * -d (The day when it was paid): 
+        * Argument: Date in YYYY-MM-DD format, *it will automatically mark the bill as paid*.
     
     * *If any parameter is not provided, its value is set as default.*
 
-* Example 1: ```$ billman --add -t Water -c 50 -d 2021-12-22```
-    * Result: Type=Water; Cost=50; Date=2021-12-22; Paid=false
+* Example 1: ```$ billman --add -t Water -c 50```
+    * Result: Type=Water; Cost=50;
 
-* Example 2: ```$ billman --add -t Gas -c 100 -p```
+* Example 2: ```$ billman --add -t Water -c 50 -d 2021-12-22```
+    * Result: Type=Water; Cost=50; Date=2021-12-22; Paid=True
+
+* Example 3: ```$ billman --add -t Gas -c 100 -p```
     * Result: Type=Gas; Cost=100; Date=Today; Paid=true
 
 ### ***billman --delete {parameters}***
