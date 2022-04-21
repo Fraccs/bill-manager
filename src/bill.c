@@ -26,6 +26,7 @@ typedef struct bs {
 // Returns a pointer to the memory allocated for a struct bs
 bill *billCreate() {
     bill *b = malloc(sizeof(bill));
+    char temp_date[DDAT_MAXLEN + 1];
 
     if(b == NULL) return NULL;
 
@@ -33,6 +34,12 @@ bill *billCreate() {
     memset(b->type, 0, TYPE_MAXLEN + 1);
     memset(b->due_date, 0, DDAT_MAXLEN + 1);
     memset(b->paid_date, 0, PDAT_MAXLEN + 1);
+    dateDayAccurate(temp_date, DDAT_MAXLEN);
+
+    /* ---- Default values ---- */
+    strncpy(b->type, "Default", TYPE_MAXLEN);
+    strncpy(b->due_date, temp_date, TYPE_MAXLEN);
+    strncpy(b->paid_date, "YYYY-MM-DD", TYPE_MAXLEN);
     b->paid = false;
     b->cost = 0;
 
@@ -139,13 +146,19 @@ float billGetCost(bill *b) {
 int billAdd(bill *b) {
     FILE *f_handle;
     char path[PATH_MAXLEN + 1];
+    char name[TYPE_MAXLEN + DDAT_MAXLEN + 1];
 
     memset(path, 0, PATH_MAXLEN + 1);
+    memset(name, 0, TYPE_MAXLEN + DDAT_MAXLEN + 1);
+
+    /* ---- Name creation ---- */
+    strncat(name, billGetType(b), TYPE_MAXLEN);
+    strncat(name, billGetDate(b, "d"), TYPE_MAXLEN + DDAT_MAXLEN);
 
     /* ---- File path ---- */
     strncat(path, "data/", PATH_MAXLEN); // data/ 
-    strncat(path, dateEpochSeconds(), PATH_MAXLEN); // data/file_name
-    strncat(path, ".txt", PATH_MAXLEN); // data/file_name.txt
+    strncat(path, name, PATH_MAXLEN); // data/file_name
+    strncat(path, ".bill", PATH_MAXLEN); // data/file_name.bill
 
     /* ---- Writing onto the file ---- */
     f_handle = fopen(path, "a");
@@ -180,7 +193,7 @@ int billDelete(const char *file_name) {
     /* ---- File path ---- */
     strncat(path, "data/", PATH_MAXLEN); // data/ 
     strncat(path, file_name, PATH_MAXLEN); // data/file_name
-    strncat(path, ".txt", PATH_MAXLEN); // data/file_name.txt
+    strncat(path, ".bill", PATH_MAXLEN); // data/file_name.bill
 
     ret = remove(path);
 
@@ -200,8 +213,8 @@ int billView(const char *file_name) {
 
     /* ---- Path creation ---- */
     strncat(path, "data/", PATH_MAXLEN); // data/
-    strncat(path, file_name, PATH_MAXLEN);  // data/FILE_NAME
-    strncat(path, ".txt", PATH_MAXLEN);  // data/FILE_NAME.txt
+    strncat(path, file_name, PATH_MAXLEN);  // data/file_name
+    strncat(path, ".bill", PATH_MAXLEN);  // data/file_name.bill
 
     f_handle = fopen(path, "r");
 
