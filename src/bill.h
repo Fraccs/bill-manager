@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 21/04/2022
+ * Last change : 22/04/2022
  * Description : Header file containing bill module structs and functions declarations
  *============================================================================*/
 

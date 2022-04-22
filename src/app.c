@@ -40,15 +40,15 @@ int startApplication(int argc, char *argv[]) {
     if(dir == NULL) {
         switch(errno) {
             case EACCES:
-                perror("Cannot open '/etc/billman': permission denied");
+                perror("Cannot open '/etc/billman'");
                 return EXIT_FAILURE;
 
             case ENOENT:
-                perror("Cannot open '/etc/billman': directory does not exist");
+                perror("Cannot open '/etc/billman'");
                 return EXIT_FAILURE;
 
             default:
-                perror("Unexpected behaviour: program exited");
+                perror("opendir");
                 return EXIT_FAILURE;
         }   
     }

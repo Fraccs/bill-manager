@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 21/04/2022
+ * Last change : 22/04/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
@@ -239,15 +239,15 @@ int billViewAll() {
     if(dir == NULL) {
         switch(errno) {
             case EACCES:
-                perror("Cannot open '/etc/billman': permission denied");
+                perror("Cannot open '/etc/billman'");
                 return EXIT_FAILURE;
 
             case ENOENT:
-                perror("Cannot open '/etc/billman': directory does not exist");
+                perror("Cannot open '/etc/billman'");
                 return EXIT_FAILURE;
 
             default:
-                perror("Unexpected behaviour: program exited");
+                perror("opendir");
                 return EXIT_FAILURE;
         }   
     }
