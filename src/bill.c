@@ -156,7 +156,7 @@ int billAdd(bill *b) {
     strncat(name, billGetDate(b, "d"), TYPE_MAXLEN + DDAT_MAXLEN);
 
     /* ---- File path ---- */
-    strncat(path, "/etc/billman", PATH_MAXLEN);
+    strncat(path, "/var/lib/billman/", PATH_MAXLEN);
     strncat(path, name, PATH_MAXLEN);
     strncat(path, ".bill", PATH_MAXLEN);
 
@@ -191,13 +191,16 @@ int billDelete(const char *file_name) {
     memset(path, 0, PATH_MAXLEN + 1);
 
     /* ---- File path ---- */
-    strncat(path, "/etc/billman", PATH_MAXLEN);
+    strncat(path, "/var/lib/billman/", PATH_MAXLEN);
     strncat(path, file_name, PATH_MAXLEN);
     strncat(path, ".bill", PATH_MAXLEN);
 
     ret = remove(path);
 
-    if(ret == -1) return ret;
+    if(ret == -1) {
+        perror("remove");
+        return -1;
+    }
 
     return 0;
 }
@@ -212,13 +215,16 @@ int billView(const char *file_name) {
     memset(path, 0, PATH_MAXLEN + 1);
 
     /* ---- Path creation ---- */
-    strncat(path, "/etc/billman", PATH_MAXLEN);
+    strncat(path, "/var/lib/billman/", PATH_MAXLEN);
     strncat(path, file_name, PATH_MAXLEN);
     strncat(path, ".bill", PATH_MAXLEN);
 
     f_handle = fopen(path, "r");
 
-    if(f_handle == NULL) return -1; // File not found
+    if(f_handle == NULL) {
+        perror("fopen"); // File not found
+        return -1;
+    }
 
     /* ---- Print content ---- */
     while(fgets(line, 100, f_handle)) {
@@ -230,28 +236,16 @@ int billView(const char *file_name) {
 
 // Prints the list of bills
 int billViewAll() {
-    DIR *dir;
+    DIR *dir = opendir("/var/lib/billman");
     struct dirent *ent;
 
-    dir = opendir("/etc/billman");
-
-    // /etc/billman could not be opened
+    // '/var/lib/billman' could not be opened
     if(dir == NULL) {
-        switch(errno) {
-            case EACCES:
-                perror("Cannot open '/etc/billman'");
-                return EXIT_FAILURE;
+        perror("opendir");
+        return -1;
+    } 
 
-            case ENOENT:
-                perror("Cannot open '/etc/billman'");
-                return EXIT_FAILURE;
-
-            default:
-                perror("opendir");
-                return EXIT_FAILURE;
-        }   
-    }
-
+    // Printing contents of /var/lib/billman
     while((ent = readdir(dir)) != NULL) {
         if(strcmp(ent->d_name, ".") == 0) continue;
         if(strcmp(ent->d_name, "..") == 0) continue;
