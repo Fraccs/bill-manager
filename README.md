@@ -1,6 +1,6 @@
 # **Bill Manager**
 
-> ## *A simple command-line interface application written in C that helps you to manage your bills.*
+> ## *A simple command-line application written in C that helps you to manage your bills.*
 
 ## **Version**
 
@@ -8,72 +8,113 @@
 
 ## **How to compile**
 
-> Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=gcc).
+> Compile using ```$ make```, edit the included [Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile) with the correct compiler (default=gcc).
 
 ## **Commands**
 
-### ***billman --add {parameters}***
+### ***```$ billman --add <options>```***
 
 > Creates a new bill.
 
-* Parameters:
-    * -t (type):
-        - Argument: The type of bill (Water, Electricity...).  
+Options:
+
+* ```-t <type>``` (string):
+
+    - ```type```: The type of bill (Water, Electricity...).  
+
+* ```-c <cost>``` (float):
     
-    * -c (Cost)
-        * Argument: The cost of the bill.
-    
-    * -p (Paid):
-        * Argument: No argument required, if this flag is included, the bill is set as paid.
-    
-    * -e (The expiry date):
-        * Argument: Date in YYYY-MM-DD format.
+    * ```cost```: The cost of the bill.
 
-    * -d (The day when it was paid): 
-        * Argument: Date in YYYY-MM-DD format, *it will automatically mark the bill as paid*.
-    
-    * *If any parameter is not provided, its value is set as default.*
+* ```-e <due_date>``` (date):
 
-* Example 1: ```$ billman --add -t Water -c 50```
-    * Result: Type=Water; Cost=50;
+    * ```due_date```: The expiry date in YYYY-MM-DD format.
 
-* Example 2: ```$ billman --add -t Water -c 50 -d 2021-12-22```
-    * Result: Type=Water; Cost=50; Date=2021-12-22; Paid=True
+* ```-d <paid_date>``` (date): 
 
-* Example 3: ```$ billman --add -t Gas -c 100 -p```
-    * Result: Type=Gas; Cost=100; Date=Today; Paid=true
+    * ```paid_date```: The date the bill was paid in YYYY-MM-DD format, *it will automatically mark the bill as paid*.
 
-### ***billman --delete {parameters}***
+* ```-p``` (bool):
+
+    * *No argument required, if this flag is included, the bill is set as paid.*
+
+* *If an option is not provided, its value is set as default.*
+
+Example 1: ```$ billman --add -t Water -c 50```
+
+* Result: Added the specified bill (no echo).
+
+    * Type: Water
+    * Cost: 50
+    * Paid: False
+    * Paid in: YYYY-MM-DD
+    * Due date: YYYY-MM-DD
+
+Example 2: ```$ billman --add -t Water -c 50 -d 2021-12-22```
+
+* Result: Added the specified bill (no echo).
+
+    * Type: Water
+    * Cost: 50
+    * Paid: True
+    * Paid in: 2021-12-22
+    * Due date: YYYY-MM-DD
+
+Example 3: ```$ billman --add -t Gas -c 100 -p```
+
+* Result: Added the specified bill (no echo).
+
+    * Type: Gas
+    * Cost: 100
+    * Paid: True
+    * Paid in: YYYY-MM-DD
+    * Due date: YYYY-MM-DD
+
+### ***```$ billman --delete <options>```***
 
 > Deletes a bill.
 
-* Parameters: 
-    * -n (name):
-        * Argument: The name of the bill to delete.
+Options: 
 
-* Example 1: ```$ billman --delete -n bill_name```
-    * Result: Deleted the specified bill (no echo).
+* ```-n <file_name>``` (Delete the bill 'file_name'):
 
-### ***billman --help***
+    * ```file_name```: Name without '.bill'.
+
+Example 1: ```$ billman --delete -n file_name```
+
+* Result: Deleted the specified bill (no echo).
+
+### ***```$ billman --help```***
 
 > Prints the help page of the program.
 
-### ***billman --view {arguments}***
+### ***```$ billman --view <options>```***
 
-> Prints the content of a bill.
+> View the list of bills or the content of a bill.
 
-* Parameters: 
-    * -n (file name):
-        * Argument: Name of the bill to view. 
+Options: 
+
+* ```-n <file_name>``` (View the content of the bill 'file_name'):
+
+    * ```file_name```: Name without '.bill'.
     
-    * -a (all):
-        * Argument: No argument.
+* ```-a``` (View the list of bills):
 
-* Example 1: ```$ billman --view -n bill1```
-    * Result:  
-        * Type: type
-        * Cost: float
-        * Usage: float
-        * Paid: True/False
-        * Paid in: YYYY-MM-DD
-        * Due date: YYYY-MM-DD
+    * *No argument*.
+
+Example 1: ```$ billman --view -n bill1```
+
+* Result:  
+    * Type: type
+    * Cost: float
+    * Usage: float
+    * Paid: True/False
+    * Paid in: YYYY-MM-DD
+    * Due date: YYYY-MM-DD
+
+Example 2: ```$ billman --view -a```
+
+* Result:  
+    * YYYY-MM-DD-Phone.bill
+    * YYYY-MM-DD-Electricity.bill
+    * YYYY-MM-DD-Water.bill
