@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 19/04/2022
+ * Last change : 22/04/2022
  * Description : Source file containing the app's core functions definitions
  *============================================================================*/
 
@@ -21,27 +21,44 @@ void initApplication() {
 
 // Program's core function
 int startApplication(int argc, char *argv[]) {
+    /* ---- I/O ---- */
+    DIR *dir = opendir("/etc/billman");
     bill *b = billCreate();
-    char command[COMM_MAXLEN + 1];
-    char main_flag[MNFG_MAXLEN + 1];
-    char argument[ARGM_MAXLEN + 1];
-    char **sub_flags;
-    size_t flags_s = 0;
     int ret; // Error checking
 
-    // Failed allocation
+    /* ---- CLI ---- */
+    char command[COMM_MAXLEN + 1];
+    char main_flag[MNFG_MAXLEN + 1];
+    char **sub_flags;
+    char argument[ARGM_MAXLEN + 1];
+    size_t flags_s = 0;
+
+    // Failed bill allocation
     if(b == NULL) return EXIT_FAILURE;
 
-    // No commands provided
-    if(argc < 2) {
+    // /etc/billman could not be opened
+    if(dir == NULL) {
+        switch(errno) {
+            case EACCES:
+                perror("Cannot open '/etc/billman': permission denied");
+                return EXIT_FAILURE;
+
+            case ENOENT:
+                perror("Cannot open '/etc/billman': directory does not exist");
+                return EXIT_FAILURE;
+
+            default:
+                perror("Unexpected behaviour: program exited");
+                return EXIT_FAILURE;
+        }   
+    }
+
+    if(argc < 2) { // No args provided
         helpPrint();
         return EXIT_SUCCESS;
     }
 
-    // Data directory
-    mkdir("data", S_IRWXU);
-
-    /* ---- Command parsing and analysis ---- */
+    /* ---- Command parsing and execution ---- */
     cliExtractCommand(command, argc, argv);
     cliGetMainFlag(main_flag, command, MNFG_MAXLEN);
 

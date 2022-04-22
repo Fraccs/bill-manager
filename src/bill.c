@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 19/04/2022
+ * Last change : 21/04/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
@@ -156,9 +156,9 @@ int billAdd(bill *b) {
     strncat(name, billGetDate(b, "d"), TYPE_MAXLEN + DDAT_MAXLEN);
 
     /* ---- File path ---- */
-    strncat(path, "data/", PATH_MAXLEN); // data/ 
-    strncat(path, name, PATH_MAXLEN); // data/file_name
-    strncat(path, ".bill", PATH_MAXLEN); // data/file_name.bill
+    strncat(path, "/etc/billman", PATH_MAXLEN);
+    strncat(path, name, PATH_MAXLEN);
+    strncat(path, ".bill", PATH_MAXLEN);
 
     /* ---- Writing onto the file ---- */
     f_handle = fopen(path, "a");
@@ -191,9 +191,9 @@ int billDelete(const char *file_name) {
     memset(path, 0, PATH_MAXLEN + 1);
 
     /* ---- File path ---- */
-    strncat(path, "data/", PATH_MAXLEN); // data/ 
-    strncat(path, file_name, PATH_MAXLEN); // data/file_name
-    strncat(path, ".bill", PATH_MAXLEN); // data/file_name.bill
+    strncat(path, "/etc/billman", PATH_MAXLEN);
+    strncat(path, file_name, PATH_MAXLEN);
+    strncat(path, ".bill", PATH_MAXLEN);
 
     ret = remove(path);
 
@@ -212,9 +212,9 @@ int billView(const char *file_name) {
     memset(path, 0, PATH_MAXLEN + 1);
 
     /* ---- Path creation ---- */
-    strncat(path, "data/", PATH_MAXLEN); // data/
-    strncat(path, file_name, PATH_MAXLEN);  // data/file_name
-    strncat(path, ".bill", PATH_MAXLEN);  // data/file_name.bill
+    strncat(path, "/etc/billman", PATH_MAXLEN);
+    strncat(path, file_name, PATH_MAXLEN);
+    strncat(path, ".bill", PATH_MAXLEN);
 
     f_handle = fopen(path, "r");
 
@@ -233,10 +233,24 @@ int billViewAll() {
     DIR *dir;
     struct dirent *ent;
 
-    dir = opendir("data/");
+    dir = opendir("/etc/billman");
 
-    // Opening failed
-    if(dir == NULL) return -1;
+    // /etc/billman could not be opened
+    if(dir == NULL) {
+        switch(errno) {
+            case EACCES:
+                perror("Cannot open '/etc/billman': permission denied");
+                return EXIT_FAILURE;
+
+            case ENOENT:
+                perror("Cannot open '/etc/billman': directory does not exist");
+                return EXIT_FAILURE;
+
+            default:
+                perror("Unexpected behaviour: program exited");
+                return EXIT_FAILURE;
+        }   
+    }
 
     while((ent = readdir(dir)) != NULL) {
         if(strcmp(ent->d_name, ".") == 0) continue;
