@@ -6,6 +6,44 @@
 
 > ### v1.0.0
 
+## **How to install**
+
+```bash
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.0.0/billman
+```
+
+```bash
+chmod +x billman
+```
+
+```bash
+sudo mv billman /usr/local/bin
+```
+
+```bash
+sudo groupadd billman
+```
+
+```bash
+sudo usermod -aG billman $USER
+```
+
+```bash
+sudo mkdir /var/lib/billman
+```
+
+```bash
+sudo chgrp billman /var/lib/billman
+```
+
+```bash
+sudo chmod g+rwx /var/lib/billman
+```
+
+```bash
+su $USER -
+```
+
 ## **How to compile**
 
 > Compile using ```$ make```, edit the included [Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile) with the correct compiler (default=gcc).
