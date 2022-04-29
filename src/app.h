@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 19/04/2022
+ * Last change : 22/04/2022
  * Description : Header file containing app module functions declarations
  *============================================================================*/
 
@@ -18,7 +18,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <dirent.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <errno.h>
 
 #include "cli.h"
 #include "bill.h"

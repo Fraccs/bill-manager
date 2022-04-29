@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 19/04/2022
+ * Last change : 22/04/2022
  * Description : Header file containing bill module structs and functions declarations
  *============================================================================*/
 
@@ -18,12 +18,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
+#include <errno.h>
 
 #include "date.h"
 
 /* ---- Constants ----- */
 #define TYPE_MAXLEN 20 // bs->type max length
-#define PATH_MAXLEN 19
+#define PATH_MAXLEN 50
 
 /* bill type (incomplete declaration of struct bs).
 Note that this is an opaque type and only pointer declaration is valid,

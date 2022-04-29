@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 19/04/2022
+ * Last change : 22/04/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
@@ -156,9 +156,9 @@ int billAdd(bill *b) {
     strncat(name, billGetDate(b, "d"), TYPE_MAXLEN + DDAT_MAXLEN);
 
     /* ---- File path ---- */
-    strncat(path, "data/", PATH_MAXLEN); // data/ 
-    strncat(path, name, PATH_MAXLEN); // data/file_name
-    strncat(path, ".bill", PATH_MAXLEN); // data/file_name.bill
+    strncat(path, "/var/lib/billman/", PATH_MAXLEN);
+    strncat(path, name, PATH_MAXLEN);
+    strncat(path, ".bill", PATH_MAXLEN);
 
     /* ---- Writing onto the file ---- */
     f_handle = fopen(path, "a");
@@ -191,13 +191,16 @@ int billDelete(const char *file_name) {
     memset(path, 0, PATH_MAXLEN + 1);
 
     /* ---- File path ---- */
-    strncat(path, "data/", PATH_MAXLEN); // data/ 
-    strncat(path, file_name, PATH_MAXLEN); // data/file_name
-    strncat(path, ".bill", PATH_MAXLEN); // data/file_name.bill
+    strncat(path, "/var/lib/billman/", PATH_MAXLEN);
+    strncat(path, file_name, PATH_MAXLEN);
+    strncat(path, ".bill", PATH_MAXLEN);
 
     ret = remove(path);
 
-    if(ret == -1) return ret;
+    if(ret == -1) {
+        perror("remove");
+        return -1;
+    }
 
     return 0;
 }
@@ -212,13 +215,16 @@ int billView(const char *file_name) {
     memset(path, 0, PATH_MAXLEN + 1);
 
     /* ---- Path creation ---- */
-    strncat(path, "data/", PATH_MAXLEN); // data/
-    strncat(path, file_name, PATH_MAXLEN);  // data/file_name
-    strncat(path, ".bill", PATH_MAXLEN);  // data/file_name.bill
+    strncat(path, "/var/lib/billman/", PATH_MAXLEN);
+    strncat(path, file_name, PATH_MAXLEN);
+    strncat(path, ".bill", PATH_MAXLEN);
 
     f_handle = fopen(path, "r");
 
-    if(f_handle == NULL) return -1; // File not found
+    if(f_handle == NULL) {
+        perror("fopen"); // File not found
+        return -1;
+    }
 
     /* ---- Print content ---- */
     while(fgets(line, 100, f_handle)) {
@@ -230,14 +236,16 @@ int billView(const char *file_name) {
 
 // Prints the list of bills
 int billViewAll() {
-    DIR *dir;
+    DIR *dir = opendir("/var/lib/billman");
     struct dirent *ent;
 
-    dir = opendir("data/");
+    // '/var/lib/billman' could not be opened
+    if(dir == NULL) {
+        perror("opendir");
+        return -1;
+    } 
 
-    // Opening failed
-    if(dir == NULL) return -1;
-
+    // Printing contents of /var/lib/billman
     while((ent = readdir(dir)) != NULL) {
         if(strcmp(ent->d_name, ".") == 0) continue;
         if(strcmp(ent->d_name, "..") == 0) continue;
