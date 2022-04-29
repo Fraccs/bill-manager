@@ -36,23 +36,6 @@ int startApplication(int argc, char *argv[]) {
     // Failed bill allocation
     if(b == NULL) return EXIT_FAILURE;
 
-    // /var/lib/billman was removed
-    if(stat("/var/lib/billman", &st) == -1) {
-        ret = mkdir("/var/lib/billman", 07777); // ALLPERMS
-
-        if(ret == -1) {
-            perror("Could not create '/var/lib/billman'");
-        }
-        else {
-            fprintf(stderr, "Re-created '/var/lib/billman' directory\n");
-            return EXIT_SUCCESS;
-        }
-
-        fprintf(stderr, "Please run the program with root privileges\n");
-                
-        return EXIT_FAILURE;
-    }
-
     if(argc < 2) { // No args provided
         helpPrint();
         return EXIT_SUCCESS;
