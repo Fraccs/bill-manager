@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 17/04/2022
+ * Last change : 19/04/2022
  * Description : Main 
  *============================================================================*/
 
@@ -14,6 +14,8 @@
 #include "src/app.h"
 
 int main(int argc, char *argv[]) {
+    initApplication();
+    
     int err = startApplication(argc, argv);
 
     return err;

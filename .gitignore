@@ -1,5 +1,7 @@
 # Program output folders
 data/
+bin/
+build/
 
 # IDE config
 .vscode

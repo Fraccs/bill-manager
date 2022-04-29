@@ -6,7 +6,7 @@
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 04/03/2022
+ * Last change : 18/04/2022
  * Description : Header file containing multi-purpose functions declarations
  *============================================================================*/
 
@@ -18,8 +18,5 @@
 
 // Converts a char into a C string
 char *utilsCharToString(char c);
-
-// Clears console output
-void utilsClearConsole();
 
 #endif

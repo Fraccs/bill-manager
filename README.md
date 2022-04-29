@@ -1,108 +1,158 @@
 # **Bill Manager**
 
-> ## *A simple command-line interface application written in C that helps you to manage your bills.*
+> ## *A simple command-line application written in C that helps you to manage your bills.*
 
 ## **Version**
 
 > ### v1.0.0
 
+## **How to install**
+
+```bash
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.0.0/billman
+```
+
+```bash
+chmod +x billman
+```
+
+```bash
+sudo mv billman /usr/local/bin
+```
+
+```bash
+sudo groupadd billman
+```
+
+```bash
+sudo usermod -aG billman $USER
+```
+
+```bash
+sudo mkdir /var/lib/billman
+```
+
+```bash
+sudo chgrp billman /var/lib/billman
+```
+
+```bash
+sudo chmod g+rwx /var/lib/billman
+```
+
+```bash
+su $USER -
+```
+
 ## **How to compile**
 
-> Compile using 'make'. (Edit the included '[Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile)' with the correct compiler, default=gcc).
+> Compile using ```$ make```, edit the included [Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile) with the correct compiler (default=gcc).
 
 ## **Commands**
 
-### ***billman --add {parameters}***
+### ***```$ billman --add <options>```***
 
 > Creates a new bill.
 
-* Parameters:
-    * -t (type):
-        - Argument: The type of bill (Water, Electricity...).  
+Options:
+
+* ```-t <type>``` (string):
+
+    - ```type```: The type of bill (Water, Electricity...).  
+
+* ```-c <cost>``` (float):
     
-    * -c (Cost)
-        * Argument: The cost of the bill.
-    
-    * -p (Paid):
-        * Argument: No argument required, if this flag is included, the bill is set as paid.
-    
-    * -d (Date): 
-        * Argument: Date in YYYY-MM-DD format.
-    
-    * *If any parameter is not provided it will be set as default.*
+    * ```cost```: The cost of the bill.
 
-* Example 1: billman --add -t Water -c 50 -d 2021-12-22
-    * Result: Type=Water; Cost=50; Date=2021-12-22; Paid=false
+* ```-e <due_date>``` (date):
 
-* Example 2: billman --add -t Gas -c 100 -p
-    * Result: Type=Gas; Cost=100; Date=Today; Paid=true
+    * ```due_date```: The expiry date in YYYY-MM-DD format.
 
-### ***billman --clear***
+* ```-d <paid_date>``` (date): 
 
-> Clears previous console output.
+    * ```paid_date```: The date the bill was paid in YYYY-MM-DD format, *it will automatically mark the bill as paid*.
 
-### ***billman --client***
+* ```-p``` (bool):
 
-> Prints the active client.
+    * *No argument required, if this flag is included, the bill is set as paid.*
 
-### ***billman --delete {parameters}***
+* *If an option is not provided, its value is set as default.*
+
+Example 1: ```$ billman --add -t Water -c 50```
+
+* Result: Added the specified bill (no echo).
+
+    * Type: Water
+    * Cost: 50
+    * Paid: False
+    * Paid in: YYYY-MM-DD
+    * Due date: YYYY-MM-DD
+
+Example 2: ```$ billman --add -t Water -c 50 -d 2021-12-22```
+
+* Result: Added the specified bill (no echo).
+
+    * Type: Water
+    * Cost: 50
+    * Paid: True
+    * Paid in: 2021-12-22
+    * Due date: YYYY-MM-DD
+
+Example 3: ```$ billman --add -t Gas -c 100 -p```
+
+* Result: Added the specified bill (no echo).
+
+    * Type: Gas
+    * Cost: 100
+    * Paid: True
+    * Paid in: YYYY-MM-DD
+    * Due date: YYYY-MM-DD
+
+### ***```$ billman --delete <options>```***
 
 > Deletes a bill.
 
-* Parameters: 
-    * -a (all):
-        * Argument: No argument required, if the flag is included every bill of the client is deleted.
+Options: 
 
-    * -n (name):
-        * Argument: The name of the bill to delete.
+* ```-n <file_name>``` (Delete the bill 'file_name'):
 
-* Example 1: bill --delete -a 
-    * Result: Deleted all bills in the client's directory (no echo).
+    * ```file_name```: Name without '.bill'.
 
-* Example 2: bill --delete -n bill_name
-    * Result: Deleted the specified bill (no echo).
+Example 1: ```$ billman --delete -n file_name```
 
-### ***billman --help***
+* Result: Deleted the specified bill (no echo).
 
-> Prints the base help page of the program.
+### ***```$ billman --help```***
 
-### ***billman --login {username}***
+> Prints the help page of the program.
 
-> Log in an existing client.
+### ***```$ billman --view <options>```***
 
-### ***billman --logout***
+> View the list of bills or the content of a bill.
 
-> Log out from the current client.
+Options: 
 
-### ***billman --quit***
+* ```-n <file_name>``` (View the content of the bill 'file_name'):
 
-> Quit the program.
-
-### ***billman --register {username}***
-
-> Creates a new client (if it doesn't already exist).
-
-### ***billman --view {arguments}***
-
-> Prints the content of a bill / the list of bills owned by the client.
-
-* Arguments: 
-    * -n (file name):
-        * Argument: Name of the bill to view. 
+    * ```file_name```: Name without '.bill'.
     
-    * *If no flags are included in the command, the command prints all the bills in the client's directory.*
+* ```-a``` (View the list of bills):
 
-* Example 1: bill --view
-    * Result: 
-        * bill1.txt
-        * bill2.txt
-        * bill3.txt
+    * *No argument*.
 
-* Example 2: bill --view -n bill1
-    * Result:  
-        * Type: type
-        * Cost: float
-        * Usage: float
-        * Paid: True/False
-        * Paid in: YYYY-MM-DD
-        * Due date: YYYY-MM-DD
+Example 1: ```$ billman --view -n bill1```
+
+* Result:  
+    * Type: type
+    * Cost: float
+    * Usage: float
+    * Paid: True/False
+    * Paid in: YYYY-MM-DD
+    * Due date: YYYY-MM-DD
+
+Example 2: ```$ billman --view -a```
+
+* Result:  
+    * YYYY-MM-DD-Phone.bill
+    * YYYY-MM-DD-Electricity.bill
+    * YYYY-MM-DD-Water.bill

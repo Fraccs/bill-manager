@@ -1,38 +1,14 @@
 CC=gcc 
-OBJ=main.o app.o bill.o client.o cli.o date.o echo.o help.o logs.o utils.o
+OBJ=build/main.o build/app.o build/bill.o build/cli.o build/date.o build/help.o build/logs.o build/utils.o
 
 output: $(OBJ)
-	$(CC) -o billman $(OBJ)
+	$(CC) -o bin/billman $(OBJ)
 
-main.o: main.c
-	$(CC) -c main.c
+build/main.o: main.c
+	$(CC) -c main.c -o build/main.o
 
-app.o: src/app.h src/app.c
-	$(CC) -c src/app.c
-
-bill.o: src/bill.h src/bill.c
-	$(CC) -c src/bill.c
-
-client.o: src/client.h src/client.c
-	$(CC) -c src/client.c
-
-cli.o: src/cli.h src/cli.c
-	$(CC) -c src/cli.c
-
-date.o: src/date.h src/date.c
-	$(CC) -c src/date.c
-
-echo.o: src/echo.h src/echo.c
-	$(CC) -c src/echo.c
-
-help.o: src/help.h src/help.c
-	$(CC) -c src/help.c
-
-logs.o: src/logs.h src/logs.c
-	$(CC) -c src/logs.c
-
-utils.o: src/utils.h src/utils.c
-	$(CC) -c src/utils.c
+build/%.o: src/%.c src/%.h
+	$(CC) -c $< -o $@
 
 clean:
-	rm *.o billman
+	rm build/* bin/*
