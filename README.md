@@ -4,12 +4,12 @@
 
 ## **Version**
 
-> ### v1.0.0
+> ### v1.1.0
 
 ## **How to install**
 
 ```bash
-wget https://github.com/Fraccs/bill-manager/releases/download/v1.0.0/billman
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.1.0/billman
 ```
 
 ```bash
