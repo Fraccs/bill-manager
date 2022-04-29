@@ -9,7 +9,7 @@
 ## **How to install**
 
 ```bash
-(download executable)
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.0.0/billman
 ```
 
 ```bash
