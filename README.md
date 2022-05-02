@@ -8,7 +8,7 @@
 
 ## **How to install**
 
-> Download the install.sh script.
+> Download the install.sh script from the following link and execute it with root permissions ```$ sudo sh install.sh```
 
 ```bash
 wget https://github.com/Fraccs/bill-manager/releases/download/v1.1.0/install.sh
