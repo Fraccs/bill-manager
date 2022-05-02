@@ -4,44 +4,14 @@
 
 ## **Version**
 
-> ### v1.0.0
+> ### v1.1.0
 
 ## **How to install**
 
-```bash
-wget https://github.com/Fraccs/bill-manager/releases/download/v1.0.0/billman
-```
+> Download the install.sh script from the following link and execute it with root permissions ```$ sudo sh install.sh```
 
 ```bash
-chmod +x billman
-```
-
-```bash
-sudo mv billman /usr/local/bin
-```
-
-```bash
-sudo groupadd billman
-```
-
-```bash
-sudo usermod -aG billman $USER
-```
-
-```bash
-sudo mkdir /var/lib/billman
-```
-
-```bash
-sudo chgrp billman /var/lib/billman
-```
-
-```bash
-sudo chmod g+rwx /var/lib/billman
-```
-
-```bash
-su $USER -
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.1.0/install.sh
 ```
 
 ## **How to compile**

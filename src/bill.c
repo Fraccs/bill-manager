@@ -1,12 +1,12 @@
 /*============================================================================
  * Name        : bill.c
- * Version     : v1.0.0
+ * Version     : v1.1.0
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 22/04/2022
+ * Last change : 29/04/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
@@ -152,8 +152,8 @@ int billAdd(bill *b) {
     memset(name, 0, TYPE_MAXLEN + DDAT_MAXLEN + 1);
 
     /* ---- Name creation ---- */
-    strncat(name, billGetType(b), TYPE_MAXLEN);
     strncat(name, billGetDate(b, "d"), TYPE_MAXLEN + DDAT_MAXLEN);
+    strncat(name, billGetType(b), TYPE_MAXLEN);
 
     /* ---- File path ---- */
     strncat(path, "/var/lib/billman/", PATH_MAXLEN);
