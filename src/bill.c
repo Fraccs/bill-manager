@@ -152,8 +152,8 @@ int billAdd(bill *b) {
     memset(name, 0, TYPE_MAXLEN + DDAT_MAXLEN + 1);
 
     /* ---- Name creation ---- */
-    strncat(name, billGetType(b), TYPE_MAXLEN);
     strncat(name, billGetDate(b, "d"), TYPE_MAXLEN + DDAT_MAXLEN);
+    strncat(name, billGetType(b), TYPE_MAXLEN);
 
     /* ---- File path ---- */
     strncat(path, "/var/lib/billman/", PATH_MAXLEN);
