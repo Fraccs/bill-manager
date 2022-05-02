@@ -1,6 +1,6 @@
 #!/bin/bash
 # Downloading the latest binary
-wget https://github.com/Fraccs/bill-manager/releases/download/v1.1.0/billman
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/billman
 
 # Giving the executable permission bit
 chmod +x billman
