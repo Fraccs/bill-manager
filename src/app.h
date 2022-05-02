@@ -1,6 +1,6 @@
 /*============================================================================
  * Name        : app.h
- * Version     : v1.0.0
+ * Version     : v1.1.0
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
