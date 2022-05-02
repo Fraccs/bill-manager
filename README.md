@@ -4,14 +4,14 @@
 
 ## **Version**
 
-> ### v1.1.0
+> ### v1.2.0
 
 ## **How to install**
 
 > Download the install.sh script from the following link and execute it with root permissions ```$ sudo sh install.sh```
 
 ```bash
-wget https://github.com/Fraccs/bill-manager/releases/download/v1.1.0/install.sh
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/install.sh
 ```
 
 ## **How to repair a broken installation**
