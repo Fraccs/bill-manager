@@ -1,12 +1,12 @@
 /*============================================================================
  * Name        : bill.c
- * Version     : v1.0.0
+ * Version     : v1.1.0
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
  * Copyright   : N/D
  * License     : N/D
- * Last change : 22/04/2022
+ * Last change : 29/04/2022
  * Description : Source file containing bill module structs and functions definitions
  *============================================================================*/
 
