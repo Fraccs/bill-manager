@@ -14,6 +14,14 @@
 wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/install.sh
 ```
 
+## **How to uninstall**
+
+> Download the uninstall.sh script from the following link and execute it with root permissions ```$ sudo sh uninstall.sh```
+
+```bash
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/uninstall.sh
+```
+
 ## **How to compile**
 
 > Compile using ```$ make```, edit the included [Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile) with the correct compiler (default=gcc).
