@@ -19,7 +19,15 @@ wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/install.sh
 > Download the repair.sh script from the following link and execute it with root permissions ```$ sudo sh repair.sh```
 
 ```bash
-wget https://github.com/Fraccs/bill-manager/releases/download/v1.1.0/repair.sh
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/repair.sh
+```
+
+## **How to uninstall**
+
+> Download the uninstall.sh script from the following link and execute it with root permissions ```$ sudo sh uninstall.sh```
+
+```bash
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/uninstall.sh
 ```
 
 ## **How to compile**
