@@ -7,6 +7,3 @@ sudo groupdel billman
 
 # Removing the storage directory
 sudo rm -r /var/lib/billman
-
-# User login (to apply the changes)
-su $USER -
