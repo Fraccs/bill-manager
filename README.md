@@ -32,7 +32,7 @@ wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/uninstall.s
 
 ## **How to compile**
 
-> Compile using ```$ make```, edit the included [Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile) with the correct compiler (default=gcc).
+> Build the project with ```cmake --build ./build --config Debug --target billman -j 6 --``` and compile using ```$ make``` inside the build directory.
 
 ## **Commands**
 
