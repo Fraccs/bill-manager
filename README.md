@@ -8,7 +8,7 @@
 
 ## **How to install**
 
-> Download the install.sh script from the following link and execute it with root permissions ```$ sudo sh install.sh```
+> Download the install.sh script from the following link and execute it ```$ sh install.sh```
 
 ```bash
 wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/install.sh
@@ -16,7 +16,7 @@ wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/install.sh
 
 ## **How to repair a broken installation**
 
-> Download the repair.sh script from the following link and execute it without root permissions ```$ sh repair.sh```
+> Download the repair.sh script from the following link and execute ```$ sh repair.sh```
 
 ```bash
 wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/repair.sh
@@ -24,7 +24,7 @@ wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/repair.sh
 
 ## **How to uninstall**
 
-> Download the uninstall.sh script from the following link and execute it with root permissions ```$ sudo sh uninstall.sh```
+> Download the uninstall.sh script from the following link and execute it ```$ sh uninstall.sh```
 
 ```bash
 wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/uninstall.sh
@@ -32,7 +32,7 @@ wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/uninstall.s
 
 ## **How to compile**
 
-> Build the project with ```cmake --build ./build --config Debug --target billman -j 6 --``` and compile using ```$ make``` inside the build directory.
+> Build the cmake project with and compile using ```$ make``` inside the build directory.
 
 ## **Commands**
 
