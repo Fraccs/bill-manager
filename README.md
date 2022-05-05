@@ -16,7 +16,7 @@ wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/install.sh
 
 ## **How to repair a broken installation**
 
-> Download the repair.sh script from the following link and execute it with root permissions ```$ sudo sh repair.sh```
+> Download the repair.sh script from the following link and execute it without root permissions ```$ sh repair.sh```
 
 ```bash
 wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/repair.sh
