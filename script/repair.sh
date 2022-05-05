@@ -13,6 +13,9 @@ GREP="/usr/bin/grep"
 GROUPS="/usr/bin/groups"
 USERMOD="/usr/sbin/usermod"
 ID="/usr/bin/id"
+MKDIR="/usr/bin/mkdir"
+LS="/usr/bin/ls"
+CHGRP="/usr/bin/chgrp"
 
 # Colors
 GREEN='\033[1;32m'
@@ -69,4 +72,37 @@ else
 
     $SUDO $USERMOD -aG $GROUP $USER # usermod -aG billman $USER
     echo "$FIXED: Created the group '$GROUP'${NC}"
+fi
+
+# Checking if the storage directory exists
+if [ -d $STORAGE ]; then
+    echo "$PASSED: the storage directory '$STORAGE' exists${NC}"
+else
+    echo "$ERROR: the storage directory '$STORAGE' does not exist${NC}"
+    echo "$FIXING: Creating the storage directory '$STORAGE'${NC}" 
+
+    $SUDO $MKDIR $STORAGE # mkdir /var/lib/billman
+    echo "$FIXED: Created the storage directory '$STORAGE'${NC}"
+fi
+
+# Checking if the 'billman' group is the owner of the storage directory
+if $LS "/var/lib" -l | $GREP -qw "$GROUP"; then
+    echo "$PASSED: the group '$GROUP' is the owner of the storage directory '$STORAGE'${NC}"
+else
+    echo "$ERROR: the group '$GROUP' is not the owner of the storage directory '$STORAGE'${NC}"
+    echo "$FIXING: Changing the owner group of the storage directory '$STORAGE'${NC}" 
+
+    $SUDO $CHGRP $GROUP $STORAGE # chgrp billman /var/lib/billman
+    echo "$FIXED: Changed the owner group of storage directory '$STORAGE'${NC}"
+fi
+
+# Checking if the 'billman' group has permissions over the storage directory
+if test -r $STORAGE && test -w $STORAGE && test -x $STORAGE; then
+    echo "$PASSED: the group '$GROUP' has permissions over the storage directory '$STORAGE'${NC}"
+else
+    echo "$ERROR: the group '$GROUP' does not have permissions over the storage directory '$STORAGE'${NC}"
+    echo "$FIXING: Adding permissions to the group '$GROUP' over the storage directory '$STORAGE'${NC}" 
+
+    $SUDO $CHMOD g+rwx $STORAGE # chmod g+rwx /var/lib/billman
+    echo "$FIXED: Added permissions to the group '$GROUP' over the storage directory '$STORAGE'${NC}"
 fi
