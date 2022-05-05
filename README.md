@@ -4,19 +4,35 @@
 
 ## **Version**
 
-> ### v1.1.0
+> ### v1.2.0
 
 ## **How to install**
 
-> Download the install.sh script from the following link and execute it with root permissions ```$ sudo sh install.sh```
+> Download the install.sh script from the following link and execute it ```$ sh install.sh```
 
 ```bash
-wget https://github.com/Fraccs/bill-manager/releases/download/v1.1.0/install.sh
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/install.sh
+```
+
+## **How to repair a broken installation**
+
+> Download the repair.sh script from the following link and execute ```$ sh repair.sh```
+
+```bash
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/repair.sh
+```
+
+## **How to uninstall**
+
+> Download the uninstall.sh script from the following link and execute it ```$ sh uninstall.sh```
+
+```bash
+wget https://github.com/Fraccs/bill-manager/releases/download/v1.2.0/uninstall.sh
 ```
 
 ## **How to compile**
 
-> Compile using ```$ make```, edit the included [Makefile](https://github.com/Fraccs/bill-manager/blob/main/Makefile) with the correct compiler (default=gcc).
+> Build the cmake project with and compile using ```$ make``` inside the build directory.
 
 ## **Commands**
 

@@ -1,12 +1,11 @@
 /*============================================================================
  * Name        : logs.h
- * Version     : v1.1.0
+ * Version     : v1.2.0
  * Since       : 2021
  * Author      : Aliprandi Francesco <aliprandifrancescopp@gmail.com>
  * Web         : https://github.com/Fraccs/bill-manager
- * Copyright   : N/D
- * License     : N/D
- * Last change : 04/03/2022
+ * Copyright   : 2022 Francesco Cristiano Aliprandi
+ * License     : MIT
  * Description : Header file containing logs related functions declarations
  *============================================================================*/
 
