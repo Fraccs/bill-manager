@@ -10,6 +10,9 @@ SUDO="/usr/bin/sudo"
 GROUPADD="/usr/sbin/groupadd"
 CHMOD="/usr/bin/chmod"
 GREP="/usr/bin/grep"
+GROUPS="/usr/bin/groups"
+USERMOD="/usr/sbin/usermod"
+ID="/usr/bin/id"
 
 # Colors
 GREEN='\033[1;32m'
@@ -42,7 +45,7 @@ else
     echo "$ERROR: '$BIN' is not executable by '$USER'${NC}"
     echo "$FIXING: Adding the executable bit to '$BIN'${NC}"
     
-    $SUDO $CHMOD "+x" $PATH$BIN # chmod +x
+    $SUDO $CHMOD "+x" $PATH$BIN # chmod +x $PATH$BIN
     echo "$FIXED: Added the executable bit to '$BIN'${NC}"
 fi
 
@@ -58,4 +61,12 @@ else
 fi
 
 # Checking if user is in the 'billman' group
+if $ID -nG "$USER" | $GREP -qw "$GROUP"; then
+    echo "$PASSED: '$USER' is in the group '$GROUP'${NC}"
+else
+    echo "$ERROR: '$USER' is not in the group '$GROUP'${NC}"
+    echo "$FIXING: Adding '$USER' to the group '$GROUP'${NC}" 
 
+    $SUDO $USERMOD -aG $GROUP $USER # usermod -aG billman $USER
+    echo "$FIXED: Created the group '$GROUP'${NC}"
+fi
